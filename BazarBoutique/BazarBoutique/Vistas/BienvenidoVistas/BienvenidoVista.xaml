@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BazarBoutique.Vistas.BienvenidoVistas.BienvenidoVista"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <ScrollView >
+            <Grid BackgroundColor="White" RowDefinitions="380,230,110" >
+                <!--<Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />-->
+
+                <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand">
+                    <Image Source="LogoVectorial.png"
+                           HeightRequest="210"/>
+                </StackLayout>
+
+
+                <StackLayout Grid.Row="1" 
+                             Margin="25"
+                             WidthRequest="400">
+                    <Button BackgroundColor="Green"
+                            CornerRadius="14"
+                            VerticalOptions="EndAndExpand"
+                            HorizontalOptions="Center"
+                            Text="Ingresar al Sistema"
+                            TextColor="White"
+                            x:Name="BtnIngresar"
+                            Clicked="BtnIngresar_Clicked"
+                            HeightRequest="65"
+                            WidthRequest="300"/>
+                </StackLayout>
+                <StackLayout Grid.Row="2">
+                    <ImageButton WidthRequest="100"
+                            Margin="0,0,15,0"
+                            VerticalOptions="EndAndExpand"
+                            CornerRadius="30"
+                            Source="IconoSenati.png"
+                            Aspect="AspectFit"
+                            Padding="14"
+                            HorizontalOptions="End"
+                            BackgroundColor="Blue"
+                            HeightRequest="50"/>
+                </StackLayout>
+
+
+            </Grid>
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>

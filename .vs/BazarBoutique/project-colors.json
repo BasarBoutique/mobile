@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "41fa8e5a-491a-46cf-b388-fd39a8643d5c": {
+      "ProjectGuid": "41fa8e5a-491a-46cf-b388-fd39a8643d5c",
+      "DisplayName": "BazarBoutique.Android",
+      "ColorIndex": 0
+    },
+    "42d56b9e-e7c0-4257-b47a-50750b5fcc9b": {
+      "ProjectGuid": "42d56b9e-e7c0-4257-b47a-50750b5fcc9b",
+      "DisplayName": "BazarBoutique",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Archivos varios",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 2
+}
