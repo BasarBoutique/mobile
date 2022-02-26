@@ -12,7 +12,10 @@ namespace BazarBoutique
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new BienvenidoVista());
+            MainPage = new NavigationPage(new BienvenidoVista())
+            {
+                BarBackgroundColor = Color.White,
+            };
         }
 
         protected override void OnStart()

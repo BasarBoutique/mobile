@@ -3,10 +3,198 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BazarBoutique.Vistas.InicioSesíonVistas.RegistrarseVista">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+
+            <Grid RowSpacing="{OnPlatform iOS=25,Android=20}">
+                <Grid.RowDefinitions>
+                    <!--1-->
+                    <RowDefinition Height="15"/>
+                    <!--2-->
+                    <RowDefinition Height="85"/>
+                    <!--3-->
+                    <RowDefinition Height="70"/>
+                    <!--4-->
+                    <RowDefinition Height="70"/>
+                    <!--5-->
+                    <RowDefinition Height="70"/>
+                    <!--6-->
+                    <RowDefinition Height="70"/>
+                    <!--7-->
+                    <RowDefinition Height="70"/>
+                    <!--8-->
+                    <RowDefinition Height="60"/>
+                    <!--9-->
+                    <RowDefinition Height="35"/>
+                    <!--10-->
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Grid.Row="1" HorizontalOptions="Center">
+                    <Label      Text="Registrarse"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                FontSize="{OnPlatform Android=35,iOS=38}"
+                                HorizontalTextAlignment="Center"
+                                WidthRequest="200"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="2" HorizontalOptions="Center" WidthRequest="{OnPlatform iOS=300,Android=300}" Orientation="Vertical"  >
+                    <Label
+                    Text="Email:"
+                    FontSize="{OnPlatform Android=13}"
+                    TextColor="Black"/>
+                    <Frame
+                    HasShadow="{OnPlatform Android=true,iOS=false}"
+                    Padding="{OnPlatform Android=6,iOS=0}"
+                    CornerRadius="{OnPlatform Android=7}">
+                        <Entry
+                    Placeholder="Ejemplo@gmail.com"
+                    Keyboard="Email"
+                    MaxLength="25"
+                    FontSize="{OnPlatform Android=15,iOS=16}"/>
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout Grid.Row="3" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
+                    <Label
+                     Text="Nombres:"
+                     FontSize="{OnPlatform Android=13}"
+                     TextColor="Black"/>
+
+                    <Frame
+                     HasShadow="{OnPlatform Android=true,iOS=false}"
+                     Padding="{OnPlatform Android=6,iOS=0}"
+                     CornerRadius="{OnPlatform Android=7}">
+
+                        <Entry
+                            Placeholder="Nombre Completos"
+                            MaxLength="25"
+                            Keyboard="Text"
+                            FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout Grid.Row="4" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
+                    <Label
+                     Text="Apellidos:"
+                     FontSize="{OnPlatform Android=13}"
+                     TextColor="Black"/>
+
+                    <Frame
+                     HasShadow="{OnPlatform Android=true,iOS=false}"
+                     Padding="{OnPlatform Android=6,iOS=0}"
+                     CornerRadius="{OnPlatform Android=7}">
+
+                        <Entry
+                            Placeholder="Apellidos Completos"
+                            MaxLength="25"
+                            Keyboard="Text"
+                            FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout Grid.Row="5" HorizontalOptions="Center" WidthRequest="300" Orientation="Horizontal" Spacing="20">
+                    <StackLayout WidthRequest="140">
+
+                        <Label
+                             Text="Dia de Nacimiento:"
+                             FontSize="{OnPlatform Android=13}"
+                             TextColor="Black"/>
+
+                        <Frame
+                             HasShadow="{OnPlatform Android=true,iOS=false}"
+                             Padding="{OnPlatform Android=6,iOS=0}"
+                             CornerRadius="{OnPlatform Android=7}">
+
+                            <DatePicker MaximumDate="01/01/2004" MinimumDate="01/01/1890"  FontSize="{OnPlatform Android=15,iOS=16}" />
+
+
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Grid.Row="6" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
+
+                    <Label
+                    Text="Contraseña:"
+                    FontSize="{OnPlatform Android=13}"
+                    TextColor="Black"/>
+
+                    <Frame
+                     HasShadow="{OnPlatform Android=true,iOS=false}"
+                     Padding="{OnPlatform Android=6,iOS=0}"
+                     CornerRadius="{OnPlatform Android=7}">
+
+                        <Entry
+                            Placeholder="*******"
+                            MaxLength="25"
+                            IsPassword="True"
+                            FontSize="{OnPlatform Android=15,iOS=16}"/>
+                    </Frame>
+
+                </StackLayout>
+
+                <StackLayout Grid.Row="7" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
+
+                    <Label
+                    Text="Confirmar contraseña:"
+                    FontSize="{OnPlatform Android=13}"
+                    TextColor="Black"/>
+
+                    <Frame
+                     HasShadow="{OnPlatform Android=true,iOS=false}"
+                     Padding="{OnPlatform Android=6,iOS=0}"
+                     CornerRadius="{OnPlatform Android=7}">
+
+                        <Entry
+                            Placeholder="*******"
+                            MaxLength="25"
+                            IsPassword="True"
+                            FontSize="{OnPlatform Android=15,iOS=16}"/>
+                    </Frame>
+
+                </StackLayout>
+
+
+                <!--<StackLayout Grid.Row="8" HorizontalOptions="Center">
+                    <ActivityIndicator
+                       IsRunning="{Binding IsRunningTxt, Mode=TwoWay}"
+                       IsVisible="{Binding IsVisibleTxt, Mode=TwoWay}"
+                       Color="Black"/>
+                </StackLayout>-->
+
+                <StackLayout Grid.Row="9" 
+                             HorizontalOptions="Center" 
+                             Orientation="Vertical">
+                    <Button
+                            Text="Registrate"
+                            TextColor="White"
+                            Font="Montserrat-Medium.otf"
+                            FontSize="{OnPlatform Android=15}"
+                            BackgroundColor="Green"
+                            BorderColor="#f2f2f2"
+                            BorderWidth="1.5" Margin="0,0,0,5"
+                            WidthRequest="300"
+                            HeightRequest="55"
+                            CornerRadius="7"/>
+                    <Button
+                            Text="Ya estás Registrado? Inicia Sesión"
+                            FontSize="{OnPlatform Android=14,iOS=15}"
+                            TextColor="White"
+                            CornerRadius="7"
+                            HeightRequest="55"
+                            BackgroundColor="Green"
+                            Margin="0,0,0,55"/>
+
+                </StackLayout>
+
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

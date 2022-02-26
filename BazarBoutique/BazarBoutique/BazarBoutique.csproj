@@ -18,12 +18,13 @@
   <ItemGroup>
     <Folder Include="Fuentes\" />
     <Folder Include="Services\" />
-    <Folder Include="ViewModels\LoginViewModels\" />
-    <Folder Include="Vistas\HomeVistas\" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Vistas\BienvenidoVistas\BienvenidoVista.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Vistas\CatalogoCursosVistas\CatalogoCursosVista.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Vistas\InicioSesíonVistas\LoginVista.xaml">

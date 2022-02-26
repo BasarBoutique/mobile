@@ -28,6 +28,7 @@ foreground;obj\Debug\110\res\mipmap-anydpi-v26\icon.xml
 foreground;obj\Debug\110\res\mipmap-anydpi-v26\icon_round.xml
 FrameLayout;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\54\jl\res\layout\bottomtablayout.xml
 item;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\54\jl\res\values\styles.xml
+item;obj\Debug\110\res\values\styles.xml
 LinearLayout;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\54\jl\res\layout\bottomtablayout.xml
 paths;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\53\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 resources;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\54\jl\res\values\attrs.xml

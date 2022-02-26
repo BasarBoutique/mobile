@@ -5,7 +5,7 @@
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <ScrollView >
-            <Grid BackgroundColor="White" RowDefinitions="380,230,110" >
+            <Grid BackgroundColor="White" RowDefinitions="320,360,70" >
                 <!--<Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />-->
@@ -17,7 +17,7 @@
 
 
                 <StackLayout Grid.Row="1" 
-                             Margin="25"
+                             Margin="25,25,25,0"
                              WidthRequest="400">
                     <Button BackgroundColor="Green"
                             CornerRadius="14"
@@ -31,7 +31,7 @@
                             WidthRequest="300"/>
                 </StackLayout>
                 <StackLayout Grid.Row="2">
-                    <ImageButton WidthRequest="100"
+                    <ImageButton WidthRequest="90"
                             Margin="0,0,15,0"
                             VerticalOptions="EndAndExpand"
                             CornerRadius="30"
@@ -40,7 +40,7 @@
                             Padding="14"
                             HorizontalOptions="End"
                             BackgroundColor="Blue"
-                            HeightRequest="50"/>
+                            HeightRequest="45"/>
                 </StackLayout>
 
 
