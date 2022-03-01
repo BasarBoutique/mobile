@@ -15,13 +15,14 @@
       <action android:name="android.media.browse.MediaBrowserService" />
     </intent>
   </queries>
-  <application android:name="android.app.Application" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:extractNativeLibs="true" android:icon="@mipmap/icon" android:label="BazarBoutique.Android" android:theme="@style/MainTheme">
-    <activity android:name="crc644f37ca095484fde7.MainActivity" android:configChanges="orientation|smallestScreenSize|screenLayout|screenSize|uiMode" android:exported="true" android:icon="@mipmap/icon" android:label="BazarBoutique" android:theme="@style/MainTheme">
+  <application android:name="android.app.Application" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:extractNativeLibs="true" android:label="BazarBoutique.Android" android:theme="@style/MainTheme">
+    <activity android:name="crc644f37ca095484fde7.BienvenidaActividad" android:configChanges="screenSize" android:exported="true" android:label="BienvenidaActividad" android:noHistory="true" android:theme="@style/BienvenidaTema">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:name="crc644f37ca095484fde7.MainActivity" android:configChanges="orientation|smallestScreenSize|screenLayout|screenSize|uiMode" android:icon="@mipmap/icon" android:label="BazarBoutique" android:theme="@style/MainTheme" />
     <service android:name="crc64396a3fe5f8138e3f.KeepAliveService" />
     <receiver android:name="crc64a0e0a82d0db9a07d.BatteryBroadcastReceiver" android:enabled="true" android:exported="false" android:label="Essentials Battery Broadcast Receiver" />
     <receiver android:name="crc64a0e0a82d0db9a07d.EnergySaverBroadcastReceiver" android:enabled="true" android:exported="false" android:label="Essentials Energy Saver Broadcast Receiver" />

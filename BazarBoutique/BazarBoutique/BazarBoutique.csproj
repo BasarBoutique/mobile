@@ -21,6 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Vistas\BarraNavegacion\MenuLateralVista.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Vistas\BarraNavegacion\MenuLateralVistaDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Vistas\BarraNavegacion\MenuLateralVistaFlyout.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Vistas\BienvenidoVistas\BienvenidoVista.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

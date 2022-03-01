@@ -1,4 +1,5 @@
-﻿using BazarBoutique.Vistas.InicioSesíonVistas;
+﻿using BazarBoutique.Vistas.BarraNavegacion;
+using BazarBoutique.Vistas.InicioSesíonVistas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,11 @@ namespace BazarBoutique.Vistas.BienvenidoVistas
             InitializeComponent();
         }
 
-        private void BtnIngresar_Clicked(object sender, EventArgs e)
+        private async void BtnIngresar_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new LoginVista());
+            BtnIngresar.IsEnabled = false;
+            Navigation.InsertPageBefore(new MenuLateralVista(), this);
+            await Navigation.PopAsync(true);
         }
     }
 }

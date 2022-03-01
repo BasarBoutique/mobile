@@ -1262,3 +1262,5 @@ D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\o
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\stamp\_GenerateJavaStubs.stamp
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\stamp\_GeneratePackageManagerJava.stamp
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\stamp\_ResolveLibraryProjectImports.stamp
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\pantallabienvenida.xml
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\src\crc644f37ca095484fde7\BienvenidaActividad.java

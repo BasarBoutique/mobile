@@ -1,3 +1,6 @@
+BazarBoutique.Droid.BienvenidaActividad, BazarBoutique.Android;crc644f37ca095484fde7.BienvenidaActividad
+BazarBoutique.Droid.BienvenidaActividad;crc644f37ca095484fde7.BienvenidaActividad
+bazarboutique.droid.BienvenidaActividad;crc644f37ca095484fde7.BienvenidaActividad
 BazarBoutique.Droid.MainActivity, BazarBoutique.Android;crc644f37ca095484fde7.MainActivity
 BazarBoutique.Droid.MainActivity;crc644f37ca095484fde7.MainActivity
 bazarboutique.droid.MainActivity;crc644f37ca095484fde7.MainActivity

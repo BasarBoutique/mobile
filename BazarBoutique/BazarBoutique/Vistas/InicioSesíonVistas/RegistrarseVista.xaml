@@ -13,19 +13,20 @@
                     <RowDefinition Height="85"/>
                     <!--3-->
                     <RowDefinition Height="70"/>
+                    
+                    <!--4--><!--Apellidos--><!--
+                    <RowDefinition Height="70"/>-->
+                    <!--5--><!--
+                    <RowDefinition Height="70"/>-->
+                    <!--6-->
+                    <RowDefinition Height="70"/>
                     <!--4-->
                     <RowDefinition Height="70"/>
                     <!--5-->
-                    <RowDefinition Height="70"/>
-                    <!--6-->
-                    <RowDefinition Height="70"/>
-                    <!--7-->
-                    <RowDefinition Height="70"/>
-                    <!--8-->
                     <RowDefinition Height="60"/>
-                    <!--9-->
+                    <!--6-->
                     <RowDefinition Height="35"/>
-                    <!--10-->
+                    <!--7-->
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -43,23 +44,6 @@
                 </StackLayout>
 
                 <StackLayout Grid.Row="2" HorizontalOptions="Center" WidthRequest="{OnPlatform iOS=300,Android=300}" Orientation="Vertical"  >
-                    <Label
-                    Text="Email:"
-                    FontSize="{OnPlatform Android=13}"
-                    TextColor="Black"/>
-                    <Frame
-                    HasShadow="{OnPlatform Android=true,iOS=false}"
-                    Padding="{OnPlatform Android=6,iOS=0}"
-                    CornerRadius="{OnPlatform Android=7}">
-                        <Entry
-                    Placeholder="Ejemplo@gmail.com"
-                    Keyboard="Email"
-                    MaxLength="25"
-                    FontSize="{OnPlatform Android=15,iOS=16}"/>
-                    </Frame>
-                </StackLayout>
-
-                <StackLayout Grid.Row="3" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
                     <Label
                      Text="Nombres:"
                      FontSize="{OnPlatform Android=13}"
@@ -79,7 +63,30 @@
                     </Frame>
                 </StackLayout>
 
-                <StackLayout Grid.Row="4" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
+                <StackLayout Grid.Row="3" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
+
+                    <Label
+                    Text="Email:"
+                    FontSize="{OnPlatform Android=13}"
+                    TextColor="Black"/>
+                    <Frame
+                    HasShadow="{OnPlatform Android=true,iOS=false}"
+                    Padding="{OnPlatform Android=6,iOS=0}"
+                    CornerRadius="{OnPlatform Android=7}">
+                        <Entry
+                    Placeholder="Ejemplo@gmail.com"
+                    Keyboard="Email"
+                    MaxLength="25"
+                    FontSize="{OnPlatform Android=15,iOS=16}"/>
+                    </Frame>
+
+
+
+
+                </StackLayout>
+
+                
+                <!--<StackLayout Grid.Row="4" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
                     <Label
                      Text="Apellidos:"
                      FontSize="{OnPlatform Android=13}"
@@ -97,9 +104,9 @@
                             FontSize="{OnPlatform Android=15,iOS=16}"/>
 
                     </Frame>
-                </StackLayout>
+                </StackLayout>-->
 
-                <StackLayout Grid.Row="5" HorizontalOptions="Center" WidthRequest="300" Orientation="Horizontal" Spacing="20">
+                <!--<StackLayout Grid.Row="5" HorizontalOptions="Center" WidthRequest="300" Orientation="Horizontal" Spacing="20">
                     <StackLayout WidthRequest="140">
 
                         <Label
@@ -117,9 +124,9 @@
 
                         </Frame>
                     </StackLayout>
-                </StackLayout>
+                </StackLayout>-->
 
-                <StackLayout Grid.Row="6" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
+                <StackLayout Grid.Row="4" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
 
                     <Label
                     Text="Contraseña:"
@@ -140,7 +147,7 @@
 
                 </StackLayout>
 
-                <StackLayout Grid.Row="7" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
+                <StackLayout Grid.Row="5" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
 
                     <Label
                     Text="Confirmar contraseña:"
@@ -162,14 +169,14 @@
                 </StackLayout>
 
 
-                <!--<StackLayout Grid.Row="8" HorizontalOptions="Center">
+                <!--<StackLayout Grid.Row="7" HorizontalOptions="Center">
                     <ActivityIndicator
                        IsRunning="{Binding IsRunningTxt, Mode=TwoWay}"
                        IsVisible="{Binding IsVisibleTxt, Mode=TwoWay}"
                        Color="Black"/>
                 </StackLayout>-->
 
-                <StackLayout Grid.Row="9" 
+                <StackLayout Grid.Row="7" 
                              HorizontalOptions="Center" 
                              Orientation="Vertical">
                     <Button
