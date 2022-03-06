@@ -124,3 +124,4 @@ D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\obj\i
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\obj\iPhone\Debug\BazarBoutique.iOS.csproj.CopyComplete
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\obj\iPhone\Debug\BazarBoutique.iOS.exe
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\obj\iPhone\Debug\BazarBoutique.iOS.pdb
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\Xamarin.Forms.PancakeView.dll

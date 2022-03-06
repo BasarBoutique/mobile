@@ -1,18 +1,116 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.CatalogoCursosViewModels" 
+             xmlns:md="clr-namespace:BazarBoutique.Modelos" 
+             xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista">
     <ContentPage.Content>
         <ScrollView>
-            <Grid>
-                <StackLayout>
-                    <Label Text="Welcome to Xamarin.Forms!"
-                            VerticalOptions="CenterAndExpand" 
-                            HorizontalOptions="CenterAndExpand" />
+            <Grid x:DataType="vm:CatalogoCursosViewModel">
+                <StackLayout >
+                    <StackLayout Padding="20,0" Margin="0,15,0,0">
+                        <Label x:DataType="vm:CatalogoCursosViewModel"
+                                Text="Categoria" FontSize="23"
+                               TextColor="#0F860F"
+                               FontAttributes="Bold"/>
+                        <Label Text="Disponemos de distintas categorias" 
+                               TextColor="Black" Margin="0,-3,0,0"/>
+                    </StackLayout>
+                    <!--Apartado de Categoria-->
+                    <CarouselView ItemsSource="{Binding Categorias}" 
+                                  HeightRequest="130"
+                                  Margin="0,15"
+                                  PeekAreaInsets="10"
+                                  IsBounceEnabled="True">
+                        <!--<CarouselView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"
+                                                ItemSpacing="20" />
+                        </CarouselView.ItemsLayout>-->
+                        <CarouselView.ItemTemplate>
+                            
+                            <DataTemplate x:DataType="md:CategoriaModelo">
+                                <Frame BackgroundColor="Transparent" Padding="10,0">
+                                    <PanCake:PancakeView CornerRadius="15"
+                                                         BackgroundColor="Green">
+                                        <Grid Padding="15" ColumnDefinitions="*,2*">
+                                            <StackLayout  Grid.Column="0" >
+                                    
+                                            </StackLayout>
+                                            <StackLayout  Grid.Column="1">
+                                                <Label Text="{Binding category_tile} "
+                                                       TextColor="White" FontSize="21" 
+                                                       VerticalOptions="CenterAndExpand"
+                                                       FontAttributes="Bold" 
+                                                       HorizontalOptions="End"/>
+                                                <Label TextColor="White" 
+                                                       VerticalOptions="EndAndExpand"
+                                                       HorizontalOptions="End">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Actualmente Existen "  />
+                                                            <Span Text="Cursos"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                        </Grid>
+                                    </PanCake:PancakeView>
+                                </Frame>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    
+                    <!--Apartado Cursos-->
+                    <StackLayout Padding="20,0" Margin="0,0,0,20">
+                        <Label x:DataType="vm:CatalogoCursosViewModel"
+                            Text="Nuestros Cursos" FontSize="23"
+                           TextColor="#0F860F"
+                           FontAttributes="Bold"/>
+                        <Label Text="Especializate con nuestros cursos" 
+                           TextColor="Black" Margin="0,-3,0,0"/>
+                    </StackLayout>
+                    
+                    
+                    <!--Apartado de Cursos-->
+                    <StackLayout Padding="8,0,0,0" >
+                        <CollectionView ItemsSource="{Binding Cursos}">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical"
+                                     Span="2"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate >
+                                <DataTemplate x:DataType="md:CursosModelo">
+                                    <PanCake:PancakeView  Padding="7,0,0,0" BackgroundColor="Transparent" HorizontalOptions="StartAndExpand" >
+
+                                        <PanCake:PancakeView CornerRadius="20" 
+                                                         VerticalOptions="CenterAndExpand" Margin="0,0,12,20" BackgroundColor="White">
+                                            <PanCake:PancakeView.Shadow>
+                                                <PanCake:DropShadow Color="Black" Offset="15,20" Opacity="10" />
+                                            </PanCake:PancakeView.Shadow>
+                                            <Grid RowDefinitions="140,90" >
+                                                <PanCake:PancakeView Grid.Row="0" CornerRadius="20">
+                                                    <Image  Source="logo.png" BackgroundColor="Green"/>
+                                                </PanCake:PancakeView>
+                                                <StackLayout Grid.Row="1" Padding="10,5,10,8" >
+                                                    <Label Text="{Binding course_title}" FontAttributes="Bold" FontSize="15" TextColor="Black" HeightRequest="20" HorizontalOptions="StartAndExpand" VerticalOptions="Start"/>
+                                                    <Label Text="{Binding created_at}" HorizontalOptions="End" HeightRequest="20" VerticalOptions="EndAndExpand"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </PanCake:PancakeView>
+                                    </PanCake:PancakeView>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+
+
 
                 </StackLayout>
 
-                <Grid>
+
+                <Grid IsVisible="False">
                     <ActivityIndicator />
                 </Grid>
             </Grid>

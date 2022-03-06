@@ -15,6 +15,7 @@ namespace BazarBoutique.Vistas.InicioSesíonVistas
         public RegistrarseVista()
         {
             InitializeComponent();
+            Title = "";
         }
     }
 }

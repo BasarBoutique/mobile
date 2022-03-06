@@ -25,7 +25,9 @@ namespace BazarBoutique.Vistas.BarraNavegacion
                 return;
 
             var page = (Page)Activator.CreateInstance(item.TargetType);
-            page.Title = item.Title;
+
+            //Este codigo mostrara los titulos de las pagina automaticamente
+            //page.Title = item.Title;
 
             Detail = new NavigationPage(page);
             IsPresented = false;

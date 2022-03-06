@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "rJorOgsdz+i0Gs2ur/NciS3mlY4SxJBXeWQX/l1zrPty/0y2NAW0Llfn4DlIkZ3oVFWnVPyNBgGEtgR0sSmrTA==",
+  "dgSpecHash": "aCNfYo6O7vhMH58vmxwAsZMhbKicSU6d9usIZ/HkBv+AcdFBxrIV1PvVKANC8LxW2XwBjdhFMoXU4iug/D0Ptw==",
   "success": true,
   "projectFilePath": "D:\\DesarrolloAppsSenati\\tesis\\1\\App\\mobile\\BazarBoutique\\BazarBoutique.iOS\\BazarBoutique.iOS.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\elfab\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
-    "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512"
+    "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512",
+    "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms.pancakeview\\2.3.0.759\\xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512"
   ],
   "logs": []
 }

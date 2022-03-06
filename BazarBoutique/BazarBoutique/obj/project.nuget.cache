@@ -1,14 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "Ben9h+nBpQl0Nj+AVnfYC04AqRfShUlzZ9LweG7Srtv+mVExehsUopiHDTps6cEfvpHmrVpXz7wDuCMe5cbQYg==",
+  "dgSpecHash": "ArZl8Jlkc489FCGGtbMNAmfYkM25B+wb4Qhz9pvf+hEbTaoyUf8b+1loho/ZEEk5JZ1RBVHA5sS4o4rEoorcDA==",
   "success": true,
   "projectFilePath": "D:\\DesarrolloAppsSenati\\tesis\\1\\App\\mobile\\BazarBoutique\\BazarBoutique\\BazarBoutique.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\elfab\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\elfab\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\elfab\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\elfab\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
-    "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512"
+    "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512",
+    "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms.pancakeview\\2.3.0.759\\xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512"
   ],
   "logs": []
 }

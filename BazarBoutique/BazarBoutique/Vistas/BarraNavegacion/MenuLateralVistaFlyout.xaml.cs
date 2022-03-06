@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BazarBoutique.Vistas.CatalogoCursosVistas;
+using BazarBoutique.Vistas.InicioSesíonVistas;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -33,11 +35,13 @@ namespace BazarBoutique.Vistas.BarraNavegacion
             {
                 MenuItems = new ObservableCollection<MenuLateralVistaFlyoutMenuItem>(new[]
                 {
-                    new MenuLateralVistaFlyoutMenuItem { Id = 0, Title = "Page 1" },
-                    new MenuLateralVistaFlyoutMenuItem { Id = 1, Title = "Page 2" },
-                    new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Page 3" },
-                    new MenuLateralVistaFlyoutMenuItem { Id = 3, Title = "Page 4" },
-                    new MenuLateralVistaFlyoutMenuItem { Id = 4, Title = "Page 5" },
+                    new MenuLateralVistaFlyoutMenuItem { Id = 0, Title = "Listado de Cursos",TargetType= typeof(CatalogoCursosVista)},
+                    new MenuLateralVistaFlyoutMenuItem { Id = 1, Title = "Inicio Sesión",TargetType= typeof(LoginVista)},
+                    new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Registrarse",TargetType= typeof(RegistrarseVista)},
+                    //new MenuLateralVistaFlyoutMenuItem { Id = 1, Title = "Page 2" },
+                    //new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Page 3" },
+                    //new MenuLateralVistaFlyoutMenuItem { Id = 3, Title = "Page 4" },
+                    //new MenuLateralVistaFlyoutMenuItem { Id = 4, Title = "Page 5" },
                 });
             }
 

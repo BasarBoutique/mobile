@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "UujS8SadyUtEp1p0YamXL3jqgcYKmukkdxTScBGz++cyzDQxfT1thNjER6RYp1Q91WAxfXQszahogFvrRkB9sg==",
+  "dgSpecHash": "auNK0UKzf25XRi3u/i+t253RG0uMlon7vWxjsJ65u6s63JK6n619LOYA9lXpjIN+8r9uyYmqcXzv5B6iSk8Syg==",
   "success": true,
   "projectFilePath": "D:\\DesarrolloAppsSenati\\tesis\\1\\App\\mobile\\BazarBoutique\\BazarBoutique.Android\\BazarBoutique.Android.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\elfab\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.androidx.activity\\1.2.4.1\\xamarin.androidx.activity.1.2.4.1.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.androidx.annotation\\1.2.0.1\\xamarin.androidx.annotation.1.2.0.1.nupkg.sha512",
@@ -60,6 +61,7 @@
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.androidx.viewpager2\\1.0.0.10\\xamarin.androidx.viewpager2.1.0.0.10.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512",
+    "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms.pancakeview\\2.3.0.759\\xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.google.android.material\\1.4.0.2\\xamarin.google.android.material.1.4.0.2.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.google.guava.listenablefuture\\1.0.0.2\\xamarin.google.guava.listenablefuture.1.0.0.2.nupkg.sha512"
   ],

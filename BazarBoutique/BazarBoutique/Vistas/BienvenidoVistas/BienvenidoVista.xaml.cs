@@ -17,6 +17,7 @@ namespace BazarBoutique.Vistas.BienvenidoVistas
         public BienvenidoVista()
         {
             InitializeComponent();
+            Title = "";
         }
 
         private async void BtnIngresar_Clicked(object sender, EventArgs e)

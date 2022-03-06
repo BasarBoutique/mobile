@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazarBoutique.VistaModelos.CatalogoCursosViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,13 @@ namespace BazarBoutique.Vistas.CatalogoCursosVistas
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CatalogoCursosVista : ContentPage
     {
+        public CatalogoCursosViewModel vistamodelo;
         public CatalogoCursosVista()
         {
             InitializeComponent();
+            BindingContext =  vistamodelo = new CatalogoCursosViewModel();
         }
+
+
     }
 }
