@@ -20,7 +20,8 @@
     <Folder Include="Fuentes\" />
     <Folder Include="Controles\" />
     <Folder Include="Recursos\Fuentes\" />
-    <Folder Include="Services\" />
+    <Folder Include="Services\CategoriaServices\" />
+    <Folder Include="Services\CursoServices\" />
   </ItemGroup>
 
   <ItemGroup>

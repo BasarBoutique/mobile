@@ -6,8 +6,20 @@ using System.Text;
 
 namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 {
-    public class CatalogoCursosViewModel
+    public class CatalogoCursosViewModel : BaseViewModel
     {
+        private int _rowHeigth;
+        public int rowHeigth
+        {
+            get { return _rowHeigth; }
+            set
+            {
+                _rowHeigth = value;
+                RaisePropertyChanged("rowHeigth");
+            }
+        }
+
+
         public ObservableCollection<CategoriaModelo> Categorias { get; }
         public ObservableCollection<CursosModelo> Cursos { get; }
 
@@ -17,8 +29,23 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             Cursos = new ObservableCollection<CursosModelo>();
             AgregandoDatosCatalogo();
             AgregandoDatosCursos();
+            DefiniendoAltura();
         }
+        private void DefiniendoAltura()
+        {
+            int Elementos = Cursos.Count;
+            if (Elementos <= 1)
+            {
+                rowHeigth = 255;
+            }
+            else if (Elementos % 2 == 0)
+            {
+                rowHeigth = (Elementos / 2) * 255;
+            }
 
+            else
+                rowHeigth = ((Elementos / 2) * 255) + 255 ;
+        }
         private void AgregandoDatosCatalogo()
         {
             Categorias.Add(new CategoriaModelo
@@ -81,8 +108,8 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 
             Cursos.Add(new CursosModelo
             {
-                course_id = 4,
-                course_title = "Curso de NodeJs",
+                course_id = 5,
+                course_title = "Curso de WordPress",
                 course_photo = "",
                 is_enabled = true,
                 created_at = DateTime.Now

@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.CatalogoCursosViewModels" 
              xmlns:md="clr-namespace:BazarBoutique.Modelos" 
              xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista">
+             x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
+             Title="Bazar Boutique">
     <ContentPage.Content>
         <ScrollView>
             <Grid x:DataType="vm:CatalogoCursosViewModel">
@@ -12,7 +13,7 @@
                     <StackLayout Padding="20,0" Margin="0,15,0,0">
                         <Label x:DataType="vm:CatalogoCursosViewModel"
                                 Text="Categoria" FontSize="23"
-                               TextColor="#0F860F"
+                               TextColor="#EFA4A4"
                                FontAttributes="Bold"/>
                         <Label Text="Disponemos de distintas categorias" 
                                TextColor="Black" Margin="0,-3,0,0"/>
@@ -65,19 +66,23 @@
                     <StackLayout Padding="20,0" Margin="0,0,0,20">
                         <Label x:DataType="vm:CatalogoCursosViewModel"
                             Text="Nuestros Cursos" FontSize="23"
-                           TextColor="#0F860F"
+                           TextColor="#EFA4A4"
                            FontAttributes="Bold"/>
-                        <Label Text="Especializate con nuestros cursos" 
+                        
+                        <Label Text="Escoge tu curso favorito" 
                            TextColor="Black" Margin="0,-3,0,0"/>
                     </StackLayout>
                     
                     
                     <!--Apartado de Cursos-->
                     <StackLayout Padding="8,0,0,0" >
-                        <CollectionView ItemsSource="{Binding Cursos}">
+                        <CollectionView ItemsSource="{Binding Cursos}"
+                                        HeightRequest="{Binding rowHeigth}"
+                                        EmptyView="Por el momento no existen cursos por mostrar"
+                                        ItemSizingStrategy="MeasureFirstItem">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Vertical"
-                                     Span="2"/>
+                                     Span="2" />
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate >
                                 <DataTemplate x:DataType="md:CursosModelo">
