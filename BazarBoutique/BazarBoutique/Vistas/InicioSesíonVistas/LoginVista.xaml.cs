@@ -1,4 +1,5 @@
-﻿using BazarBoutique.Vistas.CatalogoCursosVistas;
+﻿using BazarBoutique.VistaModelos.InicioSesionViewModels;
+using BazarBoutique.Vistas.CatalogoCursosVistas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,17 @@ namespace BazarBoutique.Vistas.InicioSesíonVistas
         public LoginVista()
         {
             InitializeComponent();
+            BindingContext = new LoginViewModel(Navigation, this);
         }
 
-        private void BtnRegistrarse_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new RegistrarseVista());
-        }
+        //private void BtnRegistrarse_Clicked(object sender, EventArgs e)
+        //{
+        //    Navigation.PushAsync(new RegistrarseVista());
+        //}
 
-        private void LoguinButton_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new CatalogoCursosVista());
-        }
+        //private void LoguinButton_Clicked(object sender, EventArgs e)
+        //{
+        //    Navigation.PushAsync(new CatalogoCursosVista());
+        //}
     }
 }

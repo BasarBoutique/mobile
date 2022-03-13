@@ -15,9 +15,9 @@ namespace BazarBoutique.VistaModelos
         #endregion
 
         #region Propiedades
-        public bool Isbusy
+        public bool IsBusy
         {
-            get { return isBusy = false; }
+            get => isBusy;
             set
             {
                 isBusy = value;

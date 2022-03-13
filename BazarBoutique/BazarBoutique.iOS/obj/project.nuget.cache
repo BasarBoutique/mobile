@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "aCNfYo6O7vhMH58vmxwAsZMhbKicSU6d9usIZ/HkBv+AcdFBxrIV1PvVKANC8LxW2XwBjdhFMoXU4iug/D0Ptw==",
+  "dgSpecHash": "MSYF9o7RaunLRyp9gttDQU2BMSjZx07+akNLnWYbavUwGsKTIxdA9ZmXZRrVmzSOGv04stIwVzBpXQsuk2j8dQ==",
   "success": true,
   "projectFilePath": "D:\\DesarrolloAppsSenati\\tesis\\1\\App\\mobile\\BazarBoutique\\BazarBoutique.iOS\\BazarBoutique.iOS.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\elfab\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",

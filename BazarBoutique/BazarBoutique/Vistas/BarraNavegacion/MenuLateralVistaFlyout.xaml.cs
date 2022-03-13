@@ -1,5 +1,6 @@
 ﻿using BazarBoutique.Vistas.CatalogoCursosVistas;
 using BazarBoutique.Vistas.InicioSesíonVistas;
+using BazarBoutique.Vistas.PerfilVistas;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,10 +39,8 @@ namespace BazarBoutique.Vistas.BarraNavegacion
                     new MenuLateralVistaFlyoutMenuItem { Id = 0, Title = "Listado de Cursos",TargetType= typeof(CatalogoCursosVista)},
                     new MenuLateralVistaFlyoutMenuItem { Id = 1, Title = "Inicio Sesión",TargetType= typeof(LoginVista)},
                     new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Registrarse",TargetType= typeof(RegistrarseVista)},
-                    //new MenuLateralVistaFlyoutMenuItem { Id = 1, Title = "Page 2" },
-                    //new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Page 3" },
-                    //new MenuLateralVistaFlyoutMenuItem { Id = 3, Title = "Page 4" },
-                    //new MenuLateralVistaFlyoutMenuItem { Id = 4, Title = "Page 5" },
+                    new MenuLateralVistaFlyoutMenuItem { Id = 3, Title = "Perfil",TargetType= typeof(UsuarioVista)},
+
                 });
             }
 

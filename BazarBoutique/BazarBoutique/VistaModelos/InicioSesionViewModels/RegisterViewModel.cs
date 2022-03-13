@@ -6,5 +6,8 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
 {
     public class RegisterViewModel
     {
+        public RegisterViewModel()
+        {
+        }
     }
 }

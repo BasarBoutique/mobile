@@ -2,12 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BazarBoutique.Vistas.InicioSesíonVistas.LoginVista"
-             Title="">
+             xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.InicioSesionViewModels"
+             x:DataType="vm:LoginViewModel">
     <ContentPage.Content>
 
         <ScrollView>
 
-            <Grid RowSpacing="{OnPlatform iOS=25,Android=18}" >
+            <Grid>
+                <Grid RowSpacing="{OnPlatform iOS=25,Android=18}" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
                     <!---->
@@ -61,10 +63,9 @@
                             Padding="{OnPlatform Android=8,iOS=0}"
                             CornerRadius="{OnPlatform Android=5}">
                         <Entry
-                            
+                            Text="{Binding Email, Mode=TwoWay}"
                             Placeholder="Ejemplo@gmail.com"
                             Keyboard="Email"
-                            MaxLength="25"
                             FontSize="{OnPlatform Android=15,iOS=16}"/>
                     </Frame>
                 </StackLayout>
@@ -86,8 +87,8 @@
                         CornerRadius="{OnPlatform Android=7}">
 
                         <Entry 
+                            Text="{Binding Password, Mode=TwoWay}"
                             Placeholder="**********"
-                            MaxLength="25"
                             IsPassword="True"
                             FontSize="{OnPlatform Android=15,iOS=16}"/>
 
@@ -127,7 +128,7 @@
                             WidthRequest="300"
                             HeightRequest="50"
                             x:Name="LoguinButton"
-                            Clicked="LoguinButton_Clicked"
+                            Command="{Binding IniciarSesionCommand}"
                             CornerRadius="8"/>
                     <Button
                             Margin="0,10,0,0"
@@ -136,12 +137,21 @@
                             FontSize="{OnPlatform Android=15,iOS=12}"
                             BackgroundColor="Green"
                             x:Name="BtnRegistrarse"
-                            Clicked="BtnRegistrarse_Clicked"
+                            Command="{Binding RegistrarsePageCommand}"
                             CornerRadius="8"/>
 
                 </StackLayout>
 
+                </Grid>
+                <Grid Opacity=".8" BackgroundColor="Black" IsVisible="{Binding IsBusy}">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"  
+                                            HorizontalOptions="Center"
+                                            HeightRequest="25" 
+                                            Color="#7366FF"/>
+                </Grid>
             </Grid>
+
+
         </ScrollView>
 
     </ContentPage.Content>
