@@ -18,10 +18,13 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
         #region Propiedades
         private readonly INavigation navigation;
         private readonly ContentPage page;
+        private readonly IGoogleManager AdministradorGoogle;
+        GoogleUser Usuario = new GoogleUser();
         public string Email { get; set; }
         public string Password { get; set; }
         public Command IniciarSesionCommand { get; }
         public Command RegistrarsePageCommand { get; }
+        public Command btnAutenticacionGoogle { get; }
 
         #endregion
 
@@ -29,9 +32,26 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
         {
             IniciarSesionCommand = new Command(SePresionoLogin);
             RegistrarsePageCommand = new Command(SePresionoRegister);
-            
+            btnAutenticacionGoogle = new Command(AutenticacionGoogle);
             this.navigation = navigation;
             this.page = page;
+            AdministradorGoogle = DependencyService.Get<IGoogleManager>();
+        }
+
+        private void AutenticacionGoogle()
+        {
+            AdministradorGoogle.Login(OnLoginComplete);
+        }
+
+        private void OnLoginComplete(GoogleUser googleUser, string message)
+        {
+            //Aqui va la comprobacion 
+            if (googleUser != null)
+            {
+                Usuario = googleUser;
+                SesionServicios.UsuarioGoogle = Usuario;
+                Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
+            }
         }
 
         private async void SePresionoRegister(object obj)
@@ -74,12 +94,12 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("ENNETO", "Usuario y/o clave incorrectos", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "El Usuario no existe", "OK");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("ENNETO", "No se puede autenticar al usuario", "OK");
+                await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Error al autenticar usuario", "OK");
             }
             finally
             {

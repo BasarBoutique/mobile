@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BazarBoutique.Vistas.InicioSesíonVistas.RegistrarseVista"
-             Title="">
+             xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.InicioSesionViewModels" 
+             x:DataType="vm:RegisterViewModel">
     <ContentPage.Content>
         <ScrollView>
 
@@ -46,14 +47,14 @@
 
                 <StackLayout Grid.Row="2" HorizontalOptions="Center" WidthRequest="{OnPlatform iOS=300,Android=300}" Orientation="Vertical"  >
                     <Label
-                     Text="Nombres:"
-                     FontSize="{OnPlatform Android=13}"
-                     TextColor="Black"/>
+                         Text="Nombres:"
+                         FontSize="{OnPlatform Android=13}"
+                         TextColor="Black"/>
 
                     <Frame
-                     HasShadow="{OnPlatform Android=true,iOS=false}"
-                     Padding="{OnPlatform Android=6,iOS=0}"
-                     CornerRadius="{OnPlatform Android=7}">
+                         HasShadow="{OnPlatform Android=true,iOS=false}"
+                         Padding="{OnPlatform Android=6,iOS=0}"
+                         CornerRadius="{OnPlatform Android=7}">
 
                         <Entry
                             Placeholder="Nombre Completos"
@@ -184,11 +185,13 @@
                             Text="Registrate"
                             TextColor="White"
                             Font="Montserrat-Medium.otf"
+                            Command="{Binding btnRegistrarseCommand}"
                             FontSize="{OnPlatform Android=15}"
                             BackgroundColor="Green"
                             BorderColor="#f2f2f2"
                             BorderWidth="1.5" Margin="0,0,0,5"
                             WidthRequest="300"
+                            IsEnabled="{Binding IsRegistrable}"
                             HeightRequest="55"
                             CornerRadius="7"/>
                     <Button

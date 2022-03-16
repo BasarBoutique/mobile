@@ -35,6 +35,7 @@ item;obj\Debug\110\res\values\styles.xml
 layer-list;obj\Debug\110\res\drawable\pantallabienvenida.xml
 LinearLayout;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\layout\bottomtablayout.xml
 paths;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\53\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+resources;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\googsvcsjson\values\goog_svcs_json.xml
 resources;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\values\attrs.xml
 resources;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\values\strings.xml
 resources;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\values\styles.xml
@@ -44,6 +45,7 @@ set;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Andro
 set;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\anim\enterfromright.xml
 set;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\anim\exittoleft.xml
 set;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\anim\exittoright.xml
+string;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\googsvcsjson\values\goog_svcs_json.xml
 string;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\values\strings.xml
 style;D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\lp\55\jl\res\values\styles.xml
 style;obj\Debug\110\res\values\styles.xml

@@ -38,4 +38,3 @@ D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\BazarBoutique.dll
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\ref\BazarBoutique.dll
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\BazarBoutique.pdb
-D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\BazarBoutique.csproj.AssemblyReference.cache

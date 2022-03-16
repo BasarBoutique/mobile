@@ -11,7 +11,7 @@
             <Grid>
                 <Grid RowSpacing="{OnPlatform iOS=25,Android=18}" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="20"/>
                     <!---->
                     <RowDefinition Height="Auto"/>
                     <!--1-->
@@ -26,7 +26,8 @@
                     <RowDefinition Height="Auto"/>
                     <!--6-->
                     <RowDefinition Height="Auto"/>
-                    <!--8-->
+                    <!--7-->
+                    <RowDefinition Height="Auto"/>
 
                 </Grid.RowDefinitions>
 
@@ -35,7 +36,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Inicio de Sesion-->
-                <StackLayout Grid.Row="2" HorizontalOptions="Center" Orientation="Vertical" Margin="0,0,0,40" >
+                <StackLayout Grid.Row="2" HorizontalOptions="Center" Orientation="Vertical" Margin="0,0,0,20" >
                     <Label
                          FontAttributes="Bold"
                          HorizontalOptions="Center"
@@ -116,7 +117,7 @@
                 </StackLayout>-->
 
 
-                <StackLayout Grid.Row="6" HorizontalOptions="Center" Orientation="Vertical" >
+                <StackLayout Grid.Row="6" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical" >
                     <Button
                             Text="Iniciar Sesion"
                             TextColor="White"
@@ -141,9 +142,24 @@
                             CornerRadius="8"/>
 
                 </StackLayout>
+                    <Grid RowDefinitions="Auto,Auto,Auto" Margin="0,20,0,0" ColumnSpacing="5" ColumnDefinitions="120,120,120" HorizontalOptions="Center" Grid.Row="7">
+                        <ImageButton    WidthRequest="75"
+                                        BackgroundColor="White"
+                                        Padding="0"
+                                        Command="{Binding btnAutenticacionGoogle}"
+                                        Source="AGoogle.jpg"
+                                        HorizontalOptions="Center"
+                                        HeightRequest="55"
+                                        Margin="3"
+                                        BorderColor="Black"
+                                        BorderWidth="0.6"
+                                        CornerRadius="13"
+                                        Grid.Row="0"
+                                        Grid.Column="1"/>
+                    </Grid>
 
                 </Grid>
-                <Grid Opacity=".8" BackgroundColor="Black" IsVisible="{Binding IsBusy}">
+                <Grid Opacity=".8"  BackgroundColor="Black" IsVisible="{Binding IsBusy}">
                     <ActivityIndicator IsRunning="{Binding IsBusy}"  
                                             HorizontalOptions="Center"
                                             HeightRequest="25" 

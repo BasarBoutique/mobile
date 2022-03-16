@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazarBoutique.VistaModelos.InicioSesionViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace BazarBoutique.Vistas.InicioSesíonVistas
         public RegistrarseVista()
         {
             InitializeComponent();
-            Title = "";
+            BindingContext = new RegisterViewModel(Navigation, this);
         }
     }
 }

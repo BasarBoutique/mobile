@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BazarBoutique.Modelos;
+using BazarBoutique.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,27 +14,52 @@ namespace BazarBoutique.Vistas.BarraNavegacion
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuLateralVista : FlyoutPage
     {
+        private readonly IGoogleManager AdministradorGoogle;
+
         public MenuLateralVista()
         {
             InitializeComponent();
             FlyoutPage.ListView.ItemSelected += ListView_ItemSelected;
+            AdministradorGoogle = DependencyService.Get<IGoogleManager>();
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as MenuLateralVistaFlyoutMenuItem;
             if (item == null)
                 return;
+            if (item.Title == "Cerrar Sesion")
+            {
 
-            var page = (Page)Activator.CreateInstance(item.TargetType);
+                if (!string.IsNullOrEmpty(SesionServicios.UsuarioGoogle.IdToken))
+                {
+                    GoogleUser Usuario = new GoogleUser();
+                    SesionServicios.UsuarioGoogle = Usuario;
+                }
+                if (SesionServicios.apiResponse.success == true)
+                {
+                    ApiResponseModelo Usuario = new ApiResponseModelo();
+                    SesionServicios.apiResponse = Usuario;
+                }
 
-            //Este codigo mostrara los titulos de las pagina automaticamente
-            //page.Title = item.Title;
+                AdministradorGoogle.Logout();
 
-            Detail = new NavigationPage(page);
-            IsPresented = false;
 
-            FlyoutPage.ListView.SelectedItem = null;
+                Navigation.InsertPageBefore(new MenuLateralVista(), this);
+                FlyoutPage.ListView.SelectedItem = null;
+                await Navigation.PopAsync().ConfigureAwait(false);
+            }
+            else
+            {
+                var page = (Page)Activator.CreateInstance(item.TargetType);
+                //Este codigo mostrara los titulos de las pagina automaticamente
+                //page.Title = item.Title;
+                Detail = new NavigationPage(page);
+                IsPresented = false;
+
+                FlyoutPage.ListView.SelectedItem = null;
+            }
+
         }
     }
 }

@@ -16,6 +16,7 @@
     </intent>
   </queries>
   <application android:name="android.app.Application" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:extractNativeLibs="true" android:label="BazarBoutique.Android" android:theme="@style/MainTheme">
+    <uses-library android:name="org.apache.http.legacy" android:required="false" />
     <activity android:name="crc644f37ca095484fde7.BienvenidaActividad" android:configChanges="screenSize" android:exported="true" android:label="BienvenidaActividad" android:noHistory="true" android:theme="@style/BienvenidaTema">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -34,5 +35,13 @@
     <activity android:name="crc64a0e0a82d0db9a07d.WebAuthenticatorIntermediateActivity" android:configChanges="orientation|screenSize" />
     <receiver android:name="crc643f46942d9dd1fff9.PowerSaveModeBroadcastReceiver" android:enabled="true" android:exported="false" />
     <provider android:name="mono.MonoRuntimeProvider" android:authorities="com.companyname.bazarboutique.mono.MonoRuntimeProvider.__mono_init__" android:exported="false" android:initOrder="1999999999" />
+    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+    <activity android:name="com.google.android.gms.common.api.GoogleApiActivity" android:exported="false" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    <activity android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity" android:excludeFromRecents="true" android:exported="false" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    <!--
+            Service handling Google Sign-In user revocation. For apps that do not integrate with
+            Google Sign-In, this service will never be started.
+        -->
+    <service android:name="com.google.android.gms.auth.api.signin.RevocationBoundService" android:exported="true" android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" android:visibleToInstantApps="true" />
   </application>
 </manifest>

@@ -1,4 +1,5 @@
-﻿using BazarBoutique.Vistas.CatalogoCursosVistas;
+﻿using BazarBoutique.Services;
+using BazarBoutique.Vistas.CatalogoCursosVistas;
 using BazarBoutique.Vistas.InicioSesíonVistas;
 using BazarBoutique.Vistas.PerfilVistas;
 using System;
@@ -34,14 +35,26 @@ namespace BazarBoutique.Vistas.BarraNavegacion
 
             public MenuLateralVistaFlyoutViewModel()
             {
-                MenuItems = new ObservableCollection<MenuLateralVistaFlyoutMenuItem>(new[]
+                if (!string.IsNullOrEmpty(SesionServicios.UsuarioGoogle.IdToken) || SesionServicios.apiResponse.success == true) 
                 {
-                    new MenuLateralVistaFlyoutMenuItem { Id = 0, Title = "Listado de Cursos",TargetType= typeof(CatalogoCursosVista)},
-                    new MenuLateralVistaFlyoutMenuItem { Id = 1, Title = "Inicio Sesión",TargetType= typeof(LoginVista)},
-                    new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Registrarse",TargetType= typeof(RegistrarseVista)},
-                    new MenuLateralVistaFlyoutMenuItem { Id = 3, Title = "Perfil",TargetType= typeof(UsuarioVista)},
+                    MenuItems = new ObservableCollection<MenuLateralVistaFlyoutMenuItem>(new[]
+                    {
+                        new MenuLateralVistaFlyoutMenuItem { Id = 0, Title = "Listado de Cursos",TargetType= typeof(CatalogoCursosVista)},
+                        new MenuLateralVistaFlyoutMenuItem { Id = 3, Title = "Perfil",TargetType= typeof(UsuarioVista)},
+                        new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Cerrar Sesion",TargetType= typeof(FlyoutPage)},
+                    });
+                }
+                else
+                {
+                    MenuItems = new ObservableCollection<MenuLateralVistaFlyoutMenuItem>(new[]
+{
+                        new MenuLateralVistaFlyoutMenuItem { Id = 0, Title = "Listado de Cursos",TargetType= typeof(CatalogoCursosVista)},
+                        new MenuLateralVistaFlyoutMenuItem { Id = 1, Title = "Inicio Sesión",TargetType= typeof(LoginVista)},
+                        new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Registrarse",TargetType= typeof(RegistrarseVista)},
+                    });
+                }
 
-                });
+
             }
 
             #region INotifyPropertyChanged Implementation

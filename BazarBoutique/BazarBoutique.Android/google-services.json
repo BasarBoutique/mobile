@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "522009779782",
+    "project_id": "bazarboutique-fa288",
+    "storage_bucket": "bazarboutique-fa288.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522009779782:android:280a5717185ad289253447",
+        "android_client_info": {
+          "package_name": "com.companyname.bazarboutique"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522009779782-k0r418g54fihkre848t6fvrv3a9v9cjs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.companyname.bazarboutique",
+            "certificate_hash": "36ea6b6f1ca674dc37ee3ea4e6d678da29a3b056"
+          }
+        },
+        {
+          "client_id": "522009779782-p4s2njvebb5epriq5eq8ubum32is0niv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDgZ5xtJinP7oIZ2IJPJvPSg-6xyMJyOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522009779782-p4s2njvebb5epriq5eq8ubum32is0niv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
