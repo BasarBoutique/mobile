@@ -27,6 +27,15 @@ namespace BazarBoutique.Vistas.BarraNavegacion
 
             BindingContext = new MenuLateralVistaFlyoutViewModel();
             ListView = MenuItemsListView;
+            if (!string.IsNullOrEmpty(SesionServicios.UsuarioGoogle.IdToken))
+            {
+                NombreUsuario.Text = Services.SesionServicios.UsuarioGoogle.Name;
+            }
+            if (SesionServicios.apiResponse.success == true)
+            {
+                NombreUsuario.Text = "Fabricio";
+            }
+
         }
 
         private class MenuLateralVistaFlyoutViewModel : INotifyPropertyChanged

@@ -35,6 +35,7 @@ namespace BazarBoutique.Vistas.BarraNavegacion
                 {
                     GoogleUser Usuario = new GoogleUser();
                     SesionServicios.UsuarioGoogle = Usuario;
+                    AdministradorGoogle.Logout();
                 }
                 if (SesionServicios.apiResponse.success == true)
                 {
@@ -42,7 +43,7 @@ namespace BazarBoutique.Vistas.BarraNavegacion
                     SesionServicios.apiResponse = Usuario;
                 }
 
-                AdministradorGoogle.Logout();
+
 
 
                 Navigation.InsertPageBefore(new MenuLateralVista(), this);

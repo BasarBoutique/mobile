@@ -19,9 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Fuentes\" />
-    <Folder Include="Controles\" />
     <Folder Include="Recursos\Fuentes\" />
-    <Folder Include="Services\CategoriaServices\" />
     <Folder Include="Services\CursoServices\" />
     <Folder Include="Services\UsuarioServices\" />
   </ItemGroup>

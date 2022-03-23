@@ -139,4 +139,19 @@
   <ItemGroup>
     <BundleResource Include="Resources\LogoVectorial.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\not_image.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\LogoVectorialWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bienvenida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\explorar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cursoonline.png" />
+  </ItemGroup>
 </Project>

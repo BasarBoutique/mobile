@@ -1312,3 +1312,8 @@ D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\o
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\googsvcsjson\values\goog_svcs_json.xml
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\8C6C56A547AACF33-files.cache
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\src\crc644f37ca095484fde7\GoogleManager.java
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\not_image.jpg
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\logovectorialwhite.png
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\bienvenida.png
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\explorar.png
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\cursoonline.png

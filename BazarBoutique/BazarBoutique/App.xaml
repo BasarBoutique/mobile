@@ -6,7 +6,7 @@
      <!--Colores personalizados en Xamarin-->
         <Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor" Value="White"/>
-            <Setter Property="BarTextColor" Value="Green"/>
+            <Setter Property="BarTextColor" Value="#008D36"/>
         </Style>
 
 

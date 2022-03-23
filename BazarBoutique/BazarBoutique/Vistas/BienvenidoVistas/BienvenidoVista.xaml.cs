@@ -1,4 +1,5 @@
-﻿using BazarBoutique.Vistas.BarraNavegacion;
+﻿using BazarBoutique.VistaModelos.BienvenidoViewModels;
+using BazarBoutique.Vistas.BarraNavegacion;
 using BazarBoutique.Vistas.InicioSesíonVistas;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,11 @@ namespace BazarBoutique.Vistas.BienvenidoVistas
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BienvenidoVista : ContentPage
     {
+        BienvenidoViewModel vistamodelo;
         public BienvenidoVista()
         {
             InitializeComponent();
+            BindingContext = vistamodelo = new BienvenidoViewModel();
             Title = "";
         }
 
