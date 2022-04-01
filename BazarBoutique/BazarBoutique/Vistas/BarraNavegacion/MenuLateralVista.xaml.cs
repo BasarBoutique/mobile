@@ -40,11 +40,11 @@ namespace BazarBoutique.Vistas.BarraNavegacion
                 if (SesionServicios.apiResponse.success == true)
                 {
                     ApiResponseModelo Usuario = new ApiResponseModelo();
+                    UsuarioModelo DatosPersonales = new UsuarioModelo();
+
                     SesionServicios.apiResponse = Usuario;
+                    SesionServicios.apiUser = DatosPersonales;
                 }
-
-
-
 
                 Navigation.InsertPageBefore(new MenuLateralVista(), this);
                 FlyoutPage.ListView.SelectedItem = null;

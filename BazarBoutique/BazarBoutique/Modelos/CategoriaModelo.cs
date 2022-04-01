@@ -17,6 +17,8 @@ namespace BazarBoutique.Modelos
         public int id { get; set; }
         public string category{ get; set; }
         public string photo { get; set; }
+
+        //Campos creados para especificamente para el sistema
         public string PhotoCategory
         {
             get
@@ -32,15 +34,6 @@ namespace BazarBoutique.Modelos
             }
         }
 
-
-        //public int category_id { get; set; }
-        //public string category_tile{ get; set; }
-        //public string category_ico { get; set; }
-        //public bool is_enabled { get; set; }
-        //public DateTime created_at { get; set; }
-        //public DateTime updated_at { get; set; }
-
-
         public string ColorRandom1
         {
             get {
@@ -48,5 +41,6 @@ namespace BazarBoutique.Modelos
                 var color = String.Format("#{0:X6}", random.Next(0x1000000));
                 return color; }
         }
+        public bool IsMoreElement { get; set; }
     }
 }

@@ -4,39 +4,45 @@
              x:Class="BazarBoutique.Vistas.PerfilVistas.UsuarioVista">
     <ContentPage.Content>
         <ScrollView Padding="0, 40, 0, 0">
-            <Grid RowSpacing="20">
+            <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Image  Source="user.png" HeightRequest="250" HorizontalOptions="CenterAndExpand"/>
-                <StackLayout Grid.Row="1" Margin="0,15,0,0">
+                <StackLayout Grid.Row="1" Margin="0,15,0,0"  >
                     <!--<Label Text="UserName"
                            TextColor="Black"
                            FontAttributes="Bold"
                            FontSize="15"
                            HorizontalOptions="CenterAndExpand" />-->
 
-                    <Label Text="Nombres"
-                           TextColor="Black"
+                    <Label Text="Nombre Usuario:"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"/>
+                    <Label TextColor="Black"
+                           x:Name="PrimerNombrelbl"
                            FontAttributes="Bold"
                            FontSize="15"
-                           x:Name="Username"
-                           HorizontalOptions="CenterAndExpand">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <FormattedString.Spans>
-                                    <Span x:Name="PrimerNombre"/>
-                                    <Span Text=" "/>
-                                    <Span x:Name="SegundoNombre" />
-                                </FormattedString.Spans>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                           HorizontalOptions="Center" />
                 </StackLayout>
 
-                <StackLayout Grid.Row="2" x:Name="MainGrid" Padding="50, 0, 50, 0" VerticalOptions="EndAndExpand">
+                <StackLayout Grid.Row="2" Margin="0,15,0,20">
+
+                    <Label Text="Correo Electronico:"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"/>
+                    <Label TextColor="Black"
+                           x:Name="Correolbl"
+                           FontAttributes="Bold"
+                           FontSize="15"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout Grid.Row="3" x:Name="MainGrid" Padding="50, 0, 50, 0" >
 
                     <Button Grid.Row="1" 
                             Text="Editar"

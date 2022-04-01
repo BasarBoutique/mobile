@@ -19,7 +19,7 @@
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label
                             Grid.Column="1"
@@ -27,6 +27,14 @@
                             Text="Invitado"
                             TextColor="White"
                             x:Name="NombreUsuario"
+                            Style="{DynamicResource SubtitleStyle}"/>
+                    <Label
+                            Grid.Column="1"
+                            Grid.Row="3"
+                            Text="Invitado@bazarboutique.pe"
+                            Margin="0,0,0,10"
+                            TextColor="White"
+                            x:Name="Correolbl"
                             Style="{DynamicResource SubtitleStyle}"/>
                 </Grid>
             </ListView.Header>

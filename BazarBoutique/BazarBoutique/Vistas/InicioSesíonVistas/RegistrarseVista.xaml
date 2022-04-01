@@ -3,7 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BazarBoutique.Vistas.InicioSesíonVistas.RegistrarseVista"
              xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.InicioSesionViewModels" 
+             xmlns:xtk="http://xamarin.com/schemas/2020/toolkit"
              x:DataType="vm:RegisterViewModel">
+    
+    <!--Declarando diseños-->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+            <!--diseño para campos invalidos-->
+            <Style x:Key="CampoInvalido" 
+                   TargetType="Entry">
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    
     <ContentPage.Content>
         <ScrollView>
 
@@ -35,7 +51,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <StackLayout Grid.Row="1" HorizontalOptions="Center">
+                <StackLayout    Grid.Row="1" HorizontalOptions="Center">
                     <Label      Text="Registrarse"
                                 TextColor="Black"
                                 FontAttributes="Bold"
@@ -58,9 +74,10 @@
 
                         <Entry
                             Placeholder="Nombre Completos"
+                            Text="{Binding Nombre, Mode=TwoWay}"
                             MaxLength="25"
                             Keyboard="Text"
-                            FontSize="{OnPlatform Android=15,iOS=16}"/>
+                            FontSize="{OnPlatform Android=15,iOS=16}" />
 
                     </Frame>
                 </StackLayout>
@@ -68,18 +85,23 @@
                 <StackLayout Grid.Row="3" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
 
                     <Label
-                    Text="Email:"
-                    FontSize="{OnPlatform Android=13}"
-                    TextColor="Black"/>
+                        Text="Email:"
+                        FontSize="{OnPlatform Android=13}"
+                        TextColor="Black"/>
                     <Frame
-                    HasShadow="{OnPlatform Android=true,iOS=false}"
-                    Padding="{OnPlatform Android=6,iOS=0}"
-                    CornerRadius="{OnPlatform Android=7}">
+                        HasShadow="{OnPlatform Android=true,iOS=false}"
+                        Padding="{OnPlatform Android=6,iOS=0}"
+                        CornerRadius="{OnPlatform Android=7}">
                         <Entry
-                    Placeholder="Ejemplo@gmail.com"
-                    Keyboard="Email"
-                    MaxLength="25"
-                    FontSize="{OnPlatform Android=15,iOS=16}"/>
+                            Placeholder="Ejemplo@gmail.com"
+                            Text="{Binding Email,Mode=TwoWay}"
+                            Keyboard="Email"
+                            MaxLength="25"
+                            FontSize="{OnPlatform Android=15,iOS=16}">
+                            <Entry.Behaviors>
+                                <xtk:EmailValidationBehavior InvalidStyle="{StaticResource CampoInvalido}" />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Frame>
 
 
@@ -131,51 +153,57 @@
                 <StackLayout Grid.Row="4" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
 
                     <Label
-                    Text="Contraseña:"
-                    FontSize="{OnPlatform Android=13}"
-                    TextColor="Black"/>
+                        Text="Contraseña:"
+                        FontSize="{OnPlatform Android=13}"
+                        TextColor="Black"/>
 
                     <Frame
-                     HasShadow="{OnPlatform Android=true,iOS=false}"
-                     Padding="{OnPlatform Android=6,iOS=0}"
-                     CornerRadius="{OnPlatform Android=7}">
+                         HasShadow="{OnPlatform Android=true,iOS=false}"
+                         Padding="{OnPlatform Android=6,iOS=0}"
+                         CornerRadius="{OnPlatform Android=7}">
 
                         <Entry
+                            Text="{Binding Paswword,Mode=TwoWay}"
                             Placeholder="*******"
                             MaxLength="25"
                             IsPassword="True"
-                            FontSize="{OnPlatform Android=15,iOS=16}"/>
-                    </Frame>
+                            FontSize="{OnPlatform Android=15,iOS=16}">
+                        </Entry>
 
+                    </Frame>
+  
                 </StackLayout>
 
                 <StackLayout Grid.Row="5" HorizontalOptions="Center" WidthRequest="300" Orientation="Vertical" >
 
                     <Label
-                    Text="Confirmar contraseña:"
-                    FontSize="{OnPlatform Android=13}"
-                    TextColor="Black"/>
+                        Text="Confirmar contraseña:"
+                        FontSize="{OnPlatform Android=13}"
+                        TextColor="Black"/>
 
                     <Frame
-                     HasShadow="{OnPlatform Android=true,iOS=false}"
-                     Padding="{OnPlatform Android=6,iOS=0}"
-                     CornerRadius="{OnPlatform Android=7}">
+                         HasShadow="{OnPlatform Android=true,iOS=false}"
+                         Padding="{OnPlatform Android=6,iOS=0}"
+                         CornerRadius="{OnPlatform Android=7}">
 
                         <Entry
                             Placeholder="*******"
+                            Text="{Binding PasswordAuth, Mode=TwoWay}"
                             MaxLength="25"
                             IsPassword="True"
-                            FontSize="{OnPlatform Android=15,iOS=16}"/>
+                            FontSize="{OnPlatform Android=15,iOS=16}">
+                            <Entry.Behaviors>
+                                <xtk:RequiredStringValidationBehavior RequiredString="{Binding Paswword}" 
+                                                                      InvalidStyle="{StaticResource CampoInvalido}"/>
+                            </Entry.Behaviors>
+                        </Entry>
                     </Frame>
 
                 </StackLayout>
 
 
-                <!--<StackLayout Grid.Row="7" HorizontalOptions="Center">
-                    <ActivityIndicator
-                       IsRunning="{Binding IsRunningTxt, Mode=TwoWay}"
-                       IsVisible="{Binding IsVisibleTxt, Mode=TwoWay}"
-                       Color="Black"/>
+                <!--<StackLayout Grid.Row="6" HorizontalOptions="End" Margin="40,0">
+                    <Label Text="Sus contraseñas son diferentes " IsVisible="true"/>
                 </StackLayout>-->
 
                 <StackLayout Grid.Row="7" 
@@ -191,7 +219,6 @@
                             BorderColor="#f2f2f2"
                             BorderWidth="1.5" Margin="0,0,0,5"
                             WidthRequest="300"
-                            IsEnabled="{Binding IsRegistrable}"
                             HeightRequest="55"
                             CornerRadius="7"/>
                     <Button

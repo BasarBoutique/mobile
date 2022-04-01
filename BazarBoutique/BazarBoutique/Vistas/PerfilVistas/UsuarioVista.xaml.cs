@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazarBoutique.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,17 @@ namespace BazarBoutique.Vistas.PerfilVistas
         public UsuarioVista()
         {
             InitializeComponent();
+
+            if(SesionServicios.apiResponse.success == true)
+            {
+                PrimerNombrelbl.Text = SesionServicios.apiUser.name;
+                Correolbl.Text = SesionServicios.apiUser.email;
+            }
+            if (!string.IsNullOrEmpty(SesionServicios.UsuarioGoogle.Name))
+            {
+                PrimerNombrelbl.Text = SesionServicios.UsuarioGoogle.Name;
+                Correolbl.Text = SesionServicios.UsuarioGoogle.Email;
+            }
         }
     }
 }

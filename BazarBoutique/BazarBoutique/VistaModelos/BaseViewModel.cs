@@ -8,6 +8,21 @@ namespace BazarBoutique.VistaModelos
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+
+        //Metodo DesordenaListas
+        public static void Shuffle<T>(IList<T> values)
+        {
+            var n = values.Count;
+            var rnd = new Random();
+            for (int i = n - 1; i > 0; i--)
+            {
+                var j = rnd.Next(0, i);
+                var temp = values[i];
+                values[i] = values[j];
+                values[j] = temp;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         #region Atributos

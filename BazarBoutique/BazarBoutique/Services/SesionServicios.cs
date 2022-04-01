@@ -12,6 +12,8 @@ namespace BazarBoutique.Services
 
         public static GoogleUser UsuarioGoogle = new GoogleUser();
 
+        public static UsuarioModelo apiUser = new UsuarioModelo();
+
         //public IGoogleManager AutenticacionGoogle = DependencyService.Get<IGoogleManager>();
     }
 

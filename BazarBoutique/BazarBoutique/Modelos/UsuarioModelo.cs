@@ -4,6 +4,12 @@ using System.Text;
 
 namespace BazarBoutique.Modelos
 {
+    public class UsuarioResponseModelo
+    {
+        public UsuarioModelo data { get; set; }
+        public string message { get; set; }
+        public bool success { get; set; }
+    }
     public class UsuarioModelo
     {
         public int id { get; set; }

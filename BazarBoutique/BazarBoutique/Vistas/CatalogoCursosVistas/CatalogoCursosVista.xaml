@@ -3,70 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.CatalogoCursosViewModels" 
              xmlns:md="clr-namespace:BazarBoutique.Modelos" 
+             xmlns:datatemp="clr-namespace:BazarBoutique.Controles.DataTemplateSelectors"
              xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
+             x:Name="ApartadoHome"
              Title="Bazar Boutique">
-    <ContentPage.Content>
-        <ScrollView>
-            <Grid x:DataType="vm:CatalogoCursosViewModel">
-                <StackLayout >
-                    <StackLayout Padding="20,0" Margin="0,15,0,0">
-                        <Label x:DataType="vm:CatalogoCursosViewModel"
-                                Text="Categoria" FontSize="23"
-                               TextColor="#008D35"
-                               FontAttributes="Bold"/>
-                        <Label Text="Disponemos de distintas categorias" 
-                               TextColor="Black" Margin="0,-3,0,0"/>
-                    </StackLayout>
-                    <!--Apartado de Categoria-->
-                    <CarouselView ItemsSource="{Binding Categorias}" 
-                                  HeightRequest="130"
-                                  Margin="0,15"
-                                  Loop="False"
-                                  PeekAreaInsets="10"
-                                  IsBounceEnabled="True">
-                        <!--<CarouselView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"
-                                                ItemSpacing="20" />
-                        </CarouselView.ItemsLayout>-->
-                        <CarouselView.ItemTemplate>
-                            
-                            <DataTemplate x:DataType="md:CategoriaModelo">
-                                <Frame BackgroundColor="Transparent" Padding="10,0">
-                                    <PanCake:PancakeView CornerRadius="15"
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="CategoriaNormal" x:DataType="md:CategoriaModelo">
+                <Frame BackgroundColor="Transparent" Padding="10,0" >
+                        <PanCake:PancakeView CornerRadius="15" 
                                                          BackgroundColor="#008D35"
                                                          BackgroundGradientEndPoint="1.3,0.3"
                                                          BackgroundGradientStartPoint="0.1,0.5">
-                                        <PanCake:PancakeView.BackgroundGradientStops>
-                                            <PanCake:GradientStopCollection>
-                                                <PanCake:GradientStop  Color="{Binding ColorRandom1}" Offset="0.2"/>
-                                                <PanCake:GradientStop  Color="#008D35" Offset="0.6"/>
-                                            </PanCake:GradientStopCollection>
-                                        </PanCake:PancakeView.BackgroundGradientStops>
-                                        <PanCake:PancakeView.Shadow>
-                                            <PanCake:DropShadow Color="#DECD95" Offset="1,6"   />
-                                        </PanCake:PancakeView.Shadow>
-                                        <StackLayout Padding="2">
-                                            <Grid   VerticalOptions="Start"
+                            <PanCake:PancakeView.BackgroundGradientStops>
+                                <PanCake:GradientStopCollection>
+                                    <PanCake:GradientStop  Color="{Binding ColorRandom1}" Offset="0.2"/>
+                                    <PanCake:GradientStop  Color="DarkCyan" Offset="0.6"/>
+                                </PanCake:GradientStopCollection>
+                            </PanCake:PancakeView.BackgroundGradientStops>
+                            <PanCake:PancakeView.Shadow>
+                                <PanCake:DropShadow Color="#DECD95" Offset="1,6"   />
+                            </PanCake:PancakeView.Shadow>
+                            <StackLayout Padding="2"  >
+                                <Grid   VerticalOptions="Start"
                                                     ColumnDefinitions="*,2*,*">
-                                                <PanCake:PancakeView Grid.Column="0"
+
+                                <PanCake:PancakeView Grid.Column="0"
                                                                      VerticalOptions="Start"
                                                                      HorizontalOptions="Start"
                                                                      HeightRequest="60" 
                                                                      WidthRequest="70"
                                                                      CornerRadius="15"
                                                                      Margin="5">
-                                                    <PanCake:PancakeView.Shadow>
-                                                        <PanCake:DropShadow Color="Black" Offset="40,33" Opacity="55"  />
-                                                    </PanCake:PancakeView.Shadow>
-                                                    <Image Source="{Binding PhotoCategory}"
-                                                           Aspect="AspectFill"/>
-                                                    
-                                                </PanCake:PancakeView>
+                                    <PanCake:PancakeView.Shadow>
+                                        <PanCake:DropShadow Color="Black" Offset="40,33" Opacity="55"  />
+                                    </PanCake:PancakeView.Shadow>
 
-                                                <!--<StackLayout>
+                                    <Image Source="not_image.jpg"
+                                               
+                                                           Aspect="AspectFill"/>
+
+                                </PanCake:PancakeView>
+                                <PanCake:PancakeView Grid.Column="0"
+                                                                     VerticalOptions="Start"
+                                                                     HorizontalOptions="Start"
+                                                                     HeightRequest="60" 
+                                                                     WidthRequest="70"
+                                                                     CornerRadius="15"
+                                                                     Margin="5">
+                                        <PanCake:PancakeView.Shadow>
+                                            <PanCake:DropShadow Color="Black" Offset="40,33" Opacity="55"  />
+                                        </PanCake:PancakeView.Shadow>
+                                        
+                                        <Image Source="{Binding PhotoCategory}"
+                                               
+                                                           Aspect="AspectFill"/>
+
+                                    </PanCake:PancakeView>
+
+                                    <!--<StackLayout>
                                                 </StackLayout>-->
-                                                <Label  Grid.Column="1"
+                                    <Label  Grid.Column="1"
                                                         Text="{Binding category}"
                                                         MaxLines="3"
                                                         Margin="0,5,0,0"
@@ -74,60 +72,161 @@
                                                         VerticalOptions="Start"
                                                         FontAttributes="Bold" 
                                                         HorizontalOptions="Start"/>
-                                                <Label TextColor="White"
+                                    <Label TextColor="White"
                                                        FontSize="12"
                                                        Padding="8"
                                                        HorizontalTextAlignment="Center"
                                                        Grid.Column="2"
                                                        VerticalOptions="EndAndExpand"
                                                        HorizontalOptions="End">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span Text="Tiene "  />
-                                                            <Span Text="25 Cursos"/>
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                            </Grid>
-                                            <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10,0" HeightRequest="2" WidthRequest="1" Color="White"/>
-                                            <StackLayout VerticalOptions="End"
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Tiene "  />
+                                                <Span Text="25 Cursos"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                                <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10,0" HeightRequest="2" WidthRequest="1" Color="White"/>
+                                <StackLayout VerticalOptions="End"  
                                                          Orientation="Horizontal"
                                                          Padding="5">
-                                                <PanCake:PancakeView 
+                                    <PanCake:PancakeView 
                                                        CornerRadius="5"
                                                        BackgroundColor="Gold"
                                                        Margin="5,0"
                                                        IsVisible="False"
                                                        HorizontalOptions="StartAndExpand">
-                                                    <Label Text="Mas visto"
+                                        <Label Text="Mas visto"
                                                            Padding="3"
                                                            FontAttributes="Bold"
                                                            TextColor="DarkGoldenrod"/>
-                                                </PanCake:PancakeView>
-                                                <!--<Label Text="{Binding updated_at,StringFormat='{0:MM - dd - yyyy}'}" 
+                                    </PanCake:PancakeView>
+                                    <!--<Label Text="{Binding updated_at,StringFormat='{0:MM - dd - yyyy}'}" 
                                                        HorizontalOptions="EndAndExpand"
                                                        Margin="5,0"
                                                        FontAttributes="Bold"
                                                        TextColor="White"/>-->
 
-                                            </StackLayout>
-                                        </StackLayout>
-                                    </PanCake:PancakeView>
-                                </Frame>
+                                </StackLayout>
+
+                            </StackLayout>
+                            <PanCake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={x:Reference ApartadoHome}, Path=BindingContext.RedireccionApartadoCursos}"/>
+                            </PanCake:PancakeView.GestureRecognizers>
+                        </PanCake:PancakeView>
+                    </Frame>
+
+            </DataTemplate>
+
+            <DataTemplate x:Key="ElementoVerMas" x:DataType="md:CategoriaModelo">
+                <Frame BackgroundColor="Transparent" Padding="10,0">
+                    <PanCake:PancakeView    CornerRadius="15"  
+                                            BackgroundColor="#008D35"
+                                            BackgroundGradientEndPoint="1.3,0.3"
+                                            BackgroundGradientStartPoint="0.1,0.5">
+                        <PanCake:PancakeView.BackgroundGradientStops >
+                            <PanCake:GradientStopCollection >
+                                <PanCake:GradientStop  Color="{Binding ColorRandom1}" Offset="0.2"/>
+                                <PanCake:GradientStop  Color="DarkCyan" Offset="0.6"/>
+                            </PanCake:GradientStopCollection>
+                        </PanCake:PancakeView.BackgroundGradientStops>
+
+                        <PanCake:PancakeView BackgroundColor="Transparent" CornerRadius="10" VerticalOptions="Center" Margin="50,0"                                             BackgroundGradientEndPoint="1.3,0.3"
+                                            BackgroundGradientStartPoint="0.1,0.5">
+                            <PanCake:PancakeView.Shadow>
+                                <PanCake:DropShadow Offset="2,0"
+                                                Opacity="0.3"
+                                                BlurRadius="35"
+                                                Color="Black"/>
+                            </PanCake:PancakeView.Shadow>
+                            <Button VerticalOptions="Center" 
+                                CornerRadius="10"
+                                Command="{Binding Source={x:Reference ApartadoHome}, Path=BindingContext.RedireccionApartadoCategorias}"
+                                BackgroundColor="White"
+                                Text="Ver mas"/>
+                        </PanCake:PancakeView>
+
+                    </PanCake:PancakeView>
+                </Frame>
+            </DataTemplate>
+            <datatemp:CateogirasDataTemplate  x:Key="TiposCategoria"
+                                              ElementoNormal="{StaticResource CategoriaNormal}"
+                                              ElementoVerMas="{StaticResource ElementoVerMas}"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid x:DataType="vm:CatalogoCursosViewModel" >
+                <StackLayout Margin="0,15,0,0">
+                    <Grid ColumnDefinitions="3*,*" >
+                        <StackLayout Padding="20,0" >
+                            <Label  x:DataType="vm:CatalogoCursosViewModel"
+                                    Text="Categoria" 
+                                    Style="{StaticResource TituloSecciones}"/>
+                            <Label Text="Disponemos de distintas categorias" 
+                               TextColor="Black" Margin="0,-3,0,0"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" 
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="End">
+                            <Label Text="Ver mas"
+                                   Padding="20,0"
+                                   FontSize="15">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding RedireccionApartadoCategorias}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </Grid>
+
+
+                    <!--Apartado de Categoria-->
+                    <CarouselView ItemsSource="{Binding Categorias}" 
+                                  HeightRequest="130"
+                                  Margin="0,15,0,5"
+                                  Loop="False"
+                                  ItemTemplate="{StaticResource TiposCategoria}"
+                                  IndicatorView="IndicadorCategorias"
+                                  PeekAreaInsets="10"
+                                  IsBounceEnabled="True">
+                        <!--<CarouselView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"
+                                                ItemSpacing="20" />
+                        </CarouselView.ItemsLayout>-->
+                        <!--<CarouselView.ItemTemplate>
+                            
+                            <DataTemplate >
+
                             </DataTemplate>
-                        </CarouselView.ItemTemplate>
+                        </CarouselView.ItemTemplate>-->
                     </CarouselView>
-                    
+                    <IndicatorView x:Name="IndicadorCategorias"
+                                   IndicatorColor="Gray"
+                                   SelectedIndicatorColor="#008D35"
+                                   Margin="25,5"
+                                   HorizontalOptions="End"/>
                     <!--Apartado Cursos-->
-                    <StackLayout Padding="20,0" Margin="0,0,0,20">
-                        <Label x:DataType="vm:CatalogoCursosViewModel"
-                            Text="Nuestros Cursos" FontSize="23"
-                           TextColor="#008D35"
-                           FontAttributes="Bold"/>
-                        
-                        <Label Text="Escoge tu curso favorito" 
+                    <Grid ColumnDefinitions="3*,*" Margin="20,0,20,15">
+                        <StackLayout >
+                            <Label  x:DataType="vm:CatalogoCursosViewModel"
+                                    Text="Cursos" 
+                                    Style="{StaticResource TituloSecciones}"/>
+
+                            <Label Text="Escoge tu curso favorito" 
                            TextColor="Black" Margin="0,-3,0,0"/>
-                    </StackLayout>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
+                            <Label Text="Ver mas"
+                                   FontSize="15">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding RedireccionApartadoCursos}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </Grid>
+
                     
                     
                     <!--Apartado de Cursos-->
@@ -166,8 +265,6 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </StackLayout>
-
-
 
                 </StackLayout>
 

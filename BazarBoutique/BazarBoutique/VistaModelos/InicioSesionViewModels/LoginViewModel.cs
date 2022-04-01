@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using Xamarin.Forms;
 
@@ -50,6 +51,7 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
             {
                 Usuario = googleUser;
                 SesionServicios.UsuarioGoogle = Usuario;
+                //Usuario.IdToken 
                 Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
             }
         }
@@ -62,7 +64,6 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
         private async void SePresionoLogin(object obj)
         {
             
-
             IsBusy = true;
 
             var login = new Modelos.LoginModelo
@@ -87,10 +88,31 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
                 var response = await client.PostAsync(RequestUri, contentJson);
                 if (response.StatusCode == HttpStatusCode.Accepted)
                 {
-                    var ResponsePerfil = JsonConvert.DeserializeObject<ApiResponseModelo>(await response.Content.ReadAsStringAsync());
+                    var ResponsePerfilAuth = JsonConvert.DeserializeObject<ApiResponseModelo>(await response.Content.ReadAsStringAsync());
 
-                    SesionServicios.apiResponse = ResponsePerfil;
-                    Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
+                    SesionServicios.apiResponse = ResponsePerfilAuth;
+
+                    DataModelo InformacionToken = ResponsePerfilAuth.data;
+                    //////
+                    var client2 = new HttpClient(httpClientHandler);
+                    client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(InformacionToken.token_type, InformacionToken.access_token);
+
+                    Uri ConfirmarUsuario = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/user");
+
+                    var responsePerfil = await client2.GetAsync(ConfirmarUsuario);
+
+                    if(responsePerfil.StatusCode == HttpStatusCode.OK)
+                    {
+                        var responsePerfilInformation = JsonConvert.DeserializeObject<UsuarioResponseModelo>(await responsePerfil.Content.ReadAsStringAsync());
+
+                        SesionServicios.apiUser = responsePerfilInformation.data;
+
+                        Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
+                    }
+                    else {
+                        await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Error Al Autenticar Usuario", "OK");
+                    }
+
                 }
                 else
                 {

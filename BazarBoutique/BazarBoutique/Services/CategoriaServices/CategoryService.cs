@@ -1,4 +1,5 @@
 ﻿using BazarBoutique.Modelos;
+using BazarBoutique.Services.CategoriaServices;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,46 +10,53 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+[assembly: Dependency(typeof(CategoryService))]
 namespace BazarBoutique.Services.CategoriaServices
 {
-    public class CategoryService
+    public class CategoryService : ICategoryService
     {
-        public static async Task<IList<CategoriaModelo>> GetCategorias()
+        HttpClient clie;
+        public CategoryService()
         {
-            var cliente = new HttpClient();
+            
+        }
+
+        public async Task<List<CategoriaModelo>> GetCategorias()
+        {
+            clie = new HttpClient();
             //var request = new HttpRequestMessage();
 
             //cliente.BaseAddress = new Uri("");
-            //cliente.DefaultRequestHeaders.Add("Accept", "application/json");
-            cliente.Timeout = TimeSpan.FromMinutes(2);
+            clie.DefaultRequestHeaders.Add("Accept", "application/json");
+            clie.Timeout = TimeSpan.FromMinutes(2);
             //string body = @"{""withDisabled"":""true""}";
+
+            var ElementosCategorias = new List<CategoriaModelo>();
 
             try
             {
-                var response = await cliente.GetAsync("https://monolith-stage.herokuapp.com/api/v1/categories/category");
+                var response = await clie.GetAsync("https://monolith-stage.herokuapp.com/api/v1/categories/category");
 
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     string contenido = await response.Content.ReadAsStringAsync();
                     var resultado = JsonConvert.DeserializeObject<CategoriaResponseModelo>(contenido);
+                    ElementosCategorias.AddRange(resultado.data);
 
-                    return resultado.data;
+                    return ElementosCategorias;
                 }
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible autenticar", "OK");
-                    return null;
+                    return ElementosCategorias;
                 }
 
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("BazarBoutique","Error al traer datos","OK");
-                //await Application.Current.MainPage.DisplayAlert("Error:",ex,"ok");
-                return null;
+                await Application.Current.MainPage.DisplayAlert("BazarBoutique", "Error al traer datos", "OK");
+                return ElementosCategorias;
             }
-
-            
         }
 
     }

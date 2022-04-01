@@ -8,6 +8,17 @@
             <Setter Property="BarBackgroundColor" Value="White"/>
             <Setter Property="BarTextColor" Value="#008D36"/>
         </Style>
+        
+        <!--Estilo para los titulo de secciones-->
+        <Style TargetType="Label" 
+               x:Key="TituloSecciones">
+            <Setter Property="TextColor"
+                    Value="#008D35"/>
+            <Setter Property="FontAttributes"
+                    Value="Bold"/>
+            <Setter Property="FontSize"
+                    Value="23"/>
+        </Style>
 
 
         <!--<ResourceDictionary>

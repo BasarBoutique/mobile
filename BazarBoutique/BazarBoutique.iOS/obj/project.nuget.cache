@@ -1,15 +1,43 @@
 {
   "version": 2,
-  "dgSpecHash": "MSYF9o7RaunLRyp9gttDQU2BMSjZx07+akNLnWYbavUwGsKTIxdA9ZmXZRrVmzSOGv04stIwVzBpXQsuk2j8dQ==",
+  "dgSpecHash": "lc60/jWWuy5UcjOzTgdPmhNEJ99DIcupd0GmPhJXn1qgabatuSFcdp6Ojb2HHQuw7DUXeLtB2sVLsXvi4w3Y1g==",
   "success": true,
   "projectFilePath": "D:\\DesarrolloAppsSenati\\tesis\\1\\App\\mobile\\BazarBoutique\\BazarBoutique.iOS\\BazarBoutique.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\elfab\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\elfab\\.nuget\\packages\\xamarin.communitytoolkit\\2.0.1\\xamarin.communitytoolkit.2.0.1.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512",
     "C:\\Users\\elfab\\.nuget\\packages\\xamarin.forms.pancakeview\\2.3.0.759\\xamarin.forms.pancakeview.2.3.0.759.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Degradación del paquete detectada: Xamarin.Essentials de 1.7.1 a 1.7.0. Haga referencia al paquete directamente desde el proyecto para seleccionar una versión diferente. \r\n BazarBoutique.iOS -> BazarBoutique -> Xamarin.Essentials (>= 1.7.1) \r\n BazarBoutique.iOS -> Xamarin.Essentials (>= 1.7.0)",
+      "libraryId": "Xamarin.Essentials",
+      "targetGraphs": [
+        "Xamarin.iOS,Version=v1.0",
+        "Xamarin.iOS,Version=v1.0/win",
+        "Xamarin.iOS,Version=v1.0/win-x64",
+        "Xamarin.iOS,Version=v1.0/win-x86"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Degradación del paquete detectada: Xamarin.Forms de 5.0.0.2401 a 5.0.0.2196. Haga referencia al paquete directamente desde el proyecto para seleccionar una versión diferente. \r\n BazarBoutique.iOS -> BazarBoutique -> Xamarin.Forms (>= 5.0.0.2401) \r\n BazarBoutique.iOS -> Xamarin.Forms (>= 5.0.0.2196)",
+      "libraryId": "Xamarin.Forms",
+      "targetGraphs": [
+        "Xamarin.iOS,Version=v1.0",
+        "Xamarin.iOS,Version=v1.0/win",
+        "Xamarin.iOS,Version=v1.0/win-x64",
+        "Xamarin.iOS,Version=v1.0/win-x86"
+      ]
+    }
+  ]
 }

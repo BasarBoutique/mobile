@@ -17,9 +17,7 @@ namespace BazarBoutique.Vistas.CatalogoCursosVistas
         public CatalogoCursosVista()
         {
             InitializeComponent();
-            BindingContext =  vistamodelo = new CatalogoCursosViewModel();
-
-            
+            BindingContext =  vistamodelo = new CatalogoCursosViewModel(Navigation, this);
         }
         protected override void OnAppearing()
         {

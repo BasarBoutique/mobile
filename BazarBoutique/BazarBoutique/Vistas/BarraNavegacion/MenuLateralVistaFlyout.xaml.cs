@@ -33,7 +33,7 @@ namespace BazarBoutique.Vistas.BarraNavegacion
             }
             if (SesionServicios.apiResponse.success == true)
             {
-                NombreUsuario.Text = "Fabricio";
+                NombreUsuario.Text = SesionServicios.apiUser.name;
             }
 
         }

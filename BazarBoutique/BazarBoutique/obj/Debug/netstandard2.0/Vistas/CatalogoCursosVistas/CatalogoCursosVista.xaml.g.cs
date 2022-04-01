@@ -17,8 +17,16 @@ namespace BazarBoutique.Vistas.CatalogoCursosVistas {
     public partial class CatalogoCursosVista : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.ContentPage ApartadoHome;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.IndicatorView IndicadorCategorias;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(CatalogoCursosVista));
+            ApartadoHome = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ContentPage>(this, "ApartadoHome");
+            IndicadorCategorias = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.IndicatorView>(this, "IndicadorCategorias");
         }
     }
 }
