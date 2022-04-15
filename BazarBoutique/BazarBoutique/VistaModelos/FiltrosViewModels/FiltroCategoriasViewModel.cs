@@ -21,6 +21,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
         #endregion
 
+        #region Propiedades
         public string ElementoBusqueda
         {
             get
@@ -33,7 +34,9 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                 BuscandoElementoAsync(value);
             }
         }
-        
+        public Command PaginaAnteriorCommand { get; set; }
+        public Command PaginaSiguienteCommand { get; set; }
+
         public ObservableCollection<CategoriaModelo> CatalogosCategorias
         {
             get => categoriasLista;
@@ -43,6 +46,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion
         public FiltroCategoriasViewModel(INavigation navigation, ContentPage page)
         {
             //Instanciando propiedades de navegacion
@@ -54,7 +58,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         private async void BuscandoElementoAsync(string obj)
         {
             //IsBusy = true;
-            var ElementosEnCatagorias = await ServicioCategoria.GetCategorias();
+            var ElementosEnCatagorias = await ServicioCategoria.GetCategoriaSlide();
             if (string.IsNullOrEmpty(obj))
             {
                 CatalogosCategorias = new ObservableCollection<CategoriaModelo>(ElementosEnCatagorias);
@@ -70,7 +74,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         public async void OnAppearing()
         {
             IsBusy = true;
-            CatalogosCategorias = new ObservableCollection<CategoriaModelo>(await ServicioCategoria.GetCategorias());
+            CatalogosCategorias = new ObservableCollection<CategoriaModelo>(await ServicioCategoria.GetCategoriaSlide());
             IsBusy = false;
         }
     }

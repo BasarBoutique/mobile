@@ -17,7 +17,39 @@ namespace BazarBoutique.Modelos
         public int id { get; set; }
         public string category{ get; set; }
         public string photo { get; set; }
+        public int user { get; set; }
+        public DateTime date { get; set; }
+        public bool enabled { get; set; }
+        //public bool IsPopular 
+        //{
+        //    get
+        //    {
+        //        if (user <= 20)
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //}
 
+
+        public bool IsNew
+        {
+            get 
+            {
+                var dww = (DateTime.Now - date).Days;
+                if (dww < 32)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsMoreElement { get; set; }
         //Campos creados para especificamente para el sistema
         public string PhotoCategory
         {
@@ -41,6 +73,6 @@ namespace BazarBoutique.Modelos
                 var color = String.Format("#{0:X6}", random.Next(0x1000000));
                 return color; }
         }
-        public bool IsMoreElement { get; set; }
+
     }
 }

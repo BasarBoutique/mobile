@@ -12,10 +12,10 @@
         <ResourceDictionary>
             <DataTemplate x:Key="CategoriaNormal" x:DataType="md:CategoriaModelo">
                 <Frame BackgroundColor="Transparent" Padding="10,0" >
-                        <PanCake:PancakeView CornerRadius="15" 
-                                                         BackgroundColor="#008D35"
-                                                         BackgroundGradientEndPoint="1.3,0.3"
-                                                         BackgroundGradientStartPoint="0.1,0.5">
+                        <PanCake:PancakeView    CornerRadius="15" 
+                                                BackgroundColor="#008D35"
+                                                BackgroundGradientEndPoint="1.3,0.3"
+                                                BackgroundGradientStartPoint="0.1,0.5">
                             <PanCake:PancakeView.BackgroundGradientStops>
                                 <PanCake:GradientStopCollection>
                                     <PanCake:GradientStop  Color="{Binding ColorRandom1}" Offset="0.2"/>
@@ -27,7 +27,7 @@
                             </PanCake:PancakeView.Shadow>
                             <StackLayout Padding="2"  >
                                 <Grid   VerticalOptions="Start"
-                                                    ColumnDefinitions="*,2*,*">
+                                        ColumnDefinitions="*,2*,*">
 
                                 <PanCake:PancakeView Grid.Column="0"
                                                                      VerticalOptions="Start"
@@ -46,12 +46,12 @@
 
                                 </PanCake:PancakeView>
                                 <PanCake:PancakeView Grid.Column="0"
-                                                                     VerticalOptions="Start"
-                                                                     HorizontalOptions="Start"
-                                                                     HeightRequest="60" 
-                                                                     WidthRequest="70"
-                                                                     CornerRadius="15"
-                                                                     Margin="5">
+                                                    VerticalOptions="Start"
+                                                    HorizontalOptions="Start"
+                                                    HeightRequest="60" 
+                                                    WidthRequest="70"
+                                                    CornerRadius="15"
+                                                    Margin="5">
                                         <PanCake:PancakeView.Shadow>
                                             <PanCake:DropShadow Color="Black" Offset="40,33" Opacity="55"  />
                                         </PanCake:PancakeView.Shadow>
@@ -65,13 +65,13 @@
                                     <!--<StackLayout>
                                                 </StackLayout>-->
                                     <Label  Grid.Column="1"
-                                                        Text="{Binding category}"
-                                                        MaxLines="3"
-                                                        Margin="0,5,0,0"
-                                                        TextColor="White" FontSize="17" 
-                                                        VerticalOptions="Start"
-                                                        FontAttributes="Bold" 
-                                                        HorizontalOptions="Start"/>
+                                            Text="{Binding category}"
+                                            MaxLines="3"
+                                            Margin="0,5,0,0"
+                                            TextColor="White" FontSize="17" 
+                                            VerticalOptions="Start"
+                                            FontAttributes="Bold" 
+                                            HorizontalOptions="Start"/>
                                     <Label TextColor="White"
                                                        FontSize="12"
                                                        Padding="8"
@@ -88,25 +88,26 @@
                                     </Label>
                                 </Grid>
                                 <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10,0" HeightRequest="2" WidthRequest="1" Color="White"/>
-                                <StackLayout VerticalOptions="End"  
-                                                         Orientation="Horizontal"
-                                                         Padding="5">
-                                    <PanCake:PancakeView 
-                                                       CornerRadius="5"
-                                                       BackgroundColor="Gold"
-                                                       Margin="5,0"
-                                                       IsVisible="False"
-                                                       HorizontalOptions="StartAndExpand">
-                                        <Label Text="Mas visto"
-                                                           Padding="3"
-                                                           FontAttributes="Bold"
-                                                           TextColor="DarkGoldenrod"/>
+                                <StackLayout    VerticalOptions="End"  
+                                                Orientation="Horizontal"
+                                                IsVisible="{Binding IsNew}"
+                                                Padding="5">
+                                    <PanCake:PancakeView HorizontalOptions="StartAndExpand"
+                                                         CornerRadius="5"
+                                                         IsVisible="True"
+                                                         BackgroundColor="Gold"
+                                                         Margin="5,0">
+                                        <Label Text="Nuevo"
+                                                Padding="3"
+                                                FontAttributes="Bold"
+                                                TextColor="Black"/>
                                     </PanCake:PancakeView>
-                                    <!--<Label Text="{Binding updated_at,StringFormat='{0:MM - dd - yyyy}'}" 
-                                                       HorizontalOptions="EndAndExpand"
-                                                       Margin="5,0"
-                                                       FontAttributes="Bold"
-                                                       TextColor="White"/>-->
+                                    
+                                    <!--<Label  Text="{Binding date,StringFormat='{0:MM - dd - yyyy}'}" 
+                                            HorizontalOptions="EndAndExpand"
+                                            Margin="5,0"
+                                            FontAttributes="Bold"
+                                            TextColor="White"/>-->
 
                                 </StackLayout>
 
@@ -163,9 +164,9 @@
                     <Grid ColumnDefinitions="3*,*" >
                         <StackLayout Padding="20,0" >
                             <Label  x:DataType="vm:CatalogoCursosViewModel"
-                                    Text="Categoria" 
+                                    Text="Categorias populares" 
                                     Style="{StaticResource TituloSecciones}"/>
-                            <Label Text="Disponemos de distintas categorias" 
+                            <Label Text="Categorias mas vista entre los usuarios" 
                                TextColor="Black" Margin="0,-3,0,0"/>
                         </StackLayout>
                         <StackLayout Grid.Column="1" 
@@ -250,12 +251,16 @@
                                             </PanCake:PancakeView.Shadow>
                                             <Grid RowDefinitions="140,90" >
                                                 <PanCake:PancakeView Grid.Row="0" CornerRadius="20">
-                                                    <Image  Source="{Binding course_photo}" 
+                                                    <Image  Source="not_image.png" 
+                                                            Aspect="AspectFill"/>
+                                                </PanCake:PancakeView>
+                                                <PanCake:PancakeView Grid.Row="0" CornerRadius="20">
+                                                    <Image  Source="{Binding photo}" 
                                                             Aspect="AspectFill"/>
                                                 </PanCake:PancakeView>
                                                 <StackLayout Grid.Row="1" Padding="10,5,10,8" >
-                                                    <Label Text="{Binding course_title}" FontAttributes="Bold" FontSize="15" TextColor="Black" HeightRequest="20" HorizontalOptions="StartAndExpand" VerticalOptions="Start"/>
-                                                    <Label Text="{Binding created_at,StringFormat='{0:MM - dd - yyyy}'}" HorizontalOptions="End" HeightRequest="20" VerticalOptions="EndAndExpand"/>
+                                                    <Label Text="{Binding title}" FontAttributes="Bold" FontSize="15" TextColor="Black" HeightRequest="20" HorizontalOptions="StartAndExpand" VerticalOptions="Start"/>
+                                                    <!--<Label Text="{Binding created_at,StringFormat='{0:MM - dd - yyyy}'}" HorizontalOptions="End" HeightRequest="20" VerticalOptions="EndAndExpand"/>-->
                                                 </StackLayout>
                                             </Grid>
                                         </PanCake:PancakeView>

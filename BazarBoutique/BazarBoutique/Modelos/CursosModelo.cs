@@ -4,12 +4,33 @@ using System.Text;
 
 namespace BazarBoutique.Modelos
 {
+    public class CursoResponseModelo : ApiResponse
+    {
+        public DataCursos data { get; set; }
+    }
+
+    public class DataCursos : PaginateData, IData<CursosModelo>
+    {
+        public List<CursosModelo> courses;
+        public List<CursosModelo> coleccion
+        {
+            get => courses;
+            set => courses = value;
+        }
+    }
+
     public class CursosModelo
     {
-        public int course_id { get; set; }
-        public string course_title { get; set; }
-        public string course_photo { get; set; }
-        public bool is_enabled { get; set; }
-        public DateTime created_at { get; set; }
+        public int id { get; set; }
+        public string title { get; set; }
+        public string photo { get; set; }
+        public DetailCursoModelo detail { get; set; }
+        public bool enabled { get; set; }
+    }
+
+
+    public class DetailCursoModelo
+    {
+        public string about { get; set; }
     }
 }

@@ -225,6 +225,7 @@
                             Text="Ya estás Registrado? Inicia Sesión"
                             FontSize="{OnPlatform Android=14,iOS=15}"
                             TextColor="White"
+                            Command="{Binding LoginPageCommand}"
                             CornerRadius="7"
                             HeightRequest="55"
                             BackgroundColor="Green"

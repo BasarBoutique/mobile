@@ -6,6 +6,6 @@ namespace BazarBoutique.Services.CategoriaServices
 {
     public interface ICategoryService
     {
-        Task<List<CategoriaModelo>> GetCategorias();
+        Task<List<CategoriaModelo>> GetCategoriaSlide();
     }
 }

@@ -45,7 +45,7 @@ namespace BazarBoutique.Droid
 
             _onLoginComplete = onLoginComplete;
             Intent signInIntent = Auth.GoogleSignInApi.GetSignInIntent(_googleApiClient);
-            ((MainActivity)Forms.Context).StartActivityForResult(signInIntent, 1);
+            (Forms.Context as MainActivity).StartActivityForResult(signInIntent, 1);
             _googleApiClient.Connect();
         }
 

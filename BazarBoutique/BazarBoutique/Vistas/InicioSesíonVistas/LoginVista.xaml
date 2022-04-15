@@ -94,7 +94,7 @@
                             FontSize="{OnPlatform Android=15,iOS=16}"/>
 
                     </Frame>
-                    <Button
+                    <!--<Button
                              Margin="0,-5,0,0"
                              Text="¿Olvidaste tu contraseña?"
                              TextColor="Green"
@@ -104,7 +104,7 @@
                              HorizontalOptions="End"
                              VerticalOptions="Start"
                              HeightRequest="35"
-                             Padding="0" />
+                             Padding="0" />-->
                 </StackLayout>
 
 
@@ -142,7 +142,7 @@
                             CornerRadius="8"/>
 
                 </StackLayout>
-                    <Grid RowDefinitions="Auto,Auto,Auto" Margin="0,20,0,0" ColumnSpacing="5" ColumnDefinitions="120,120,120" HorizontalOptions="Center" Grid.Row="7">
+                    <Grid RowDefinitions="Auto,Auto,Auto" Margin="0,20,0,0" ColumnSpacing="5" ColumnDefinitions="*,120,*" HorizontalOptions="Center" Grid.Row="7">
                         <ImageButton    WidthRequest="75"
                                         BackgroundColor="White"
                                         Padding="0"

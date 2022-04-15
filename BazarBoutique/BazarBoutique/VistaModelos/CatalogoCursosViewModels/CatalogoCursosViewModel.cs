@@ -1,9 +1,11 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services.CategoriaServices;
+using BazarBoutique.Services.CursoServices;
 using BazarBoutique.Vistas.FiltrosVistas;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +19,11 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
         private readonly ContentPage page;
         private bool IsInitialized;
         private ObservableCollection<CategoriaModelo> categoriasLista;
+        private ObservableCollection<CursosModelo> cursosLista;
         private int _rowHeigth;
 
         ICategoryService ServicioCategoria = DependencyService.Get<ICategoryService>();
+        ICursoService ServicioCursos = DependencyService.Get<ICursoService>();
 
         public int rowHeigth
         {
@@ -39,7 +43,16 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<CursosModelo> Cursos { get; }
+        public ObservableCollection<CursosModelo> Cursos
+        {
+            get => cursosLista;
+            set
+            {
+                cursosLista = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Command RedireccionApartadoCategorias { get; set; }
         public Command<CategoriaModelo> RedireccionApartadoCursos { get; set; }
 
@@ -51,35 +64,39 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             RedireccionApartadoCategorias = new Command(RedireccionACategoriasPagina); 
             RedireccionApartadoCursos = new Command<CategoriaModelo>(RedireccionACursosPagina);
 
-            //Categorias = new ObservableCollection<CategoriaModelo> ( async() => DefiniendoCateogriasRandom(5));
-            //Categorias = new ObservableCollection<CategoriaModelo>();
-            Cursos = new ObservableCollection<CursosModelo>();
-            //Func<Task<List<CategoriaModelo>>> func =
-
             IsInitialized = true;
         }
 
         private async Task<List<CategoriaModelo>> DefiniendoCateogriasRandom(int CantidadCategorias)
         {
-            var CategoriasRandom = await ServicioCategoria.GetCategorias();
+            var CategoriasRandom = await ServicioCategoria.GetCategoriaSlide();
+            
+
             var SoloAlgunasCategorias = new List<CategoriaModelo>();
-            Shuffle(CategoriasRandom);
-            int cantidadprimaria = 0;
-            foreach (var arg in CategoriasRandom)
-            {
-                if (cantidadprimaria <= CantidadCategorias)
-                {
-                    SoloAlgunasCategorias.Add(arg);
-                    cantidadprimaria++;
-                }
-            }
-            SoloAlgunasCategorias.Add(new CategoriaModelo
-            {
-                IsMoreElement = true
-            });
+            SoloAlgunasCategorias.AddRange(CategoriasRandom.OrderByDescending(e => e.user).Take(CantidadCategorias));
+
+
+            //Shuffle(CategoriasRandom);
+            //int cantidadprimaria = 0;
+            //SoloAlgunasCategorias.Add(new CategoriaModelo
+            //{
+            //    IsMoreElement = true
+            //});
 
             return SoloAlgunasCategorias;
         }
+
+        private async Task<List<CursosModelo>> DefiniendoCursosRandom()
+        {
+            var SoloEstosCursos = new List<CursosModelo>();
+
+            var TodosLosCursos = await ServicioCursos.GetCurso(false);
+
+            Shuffle(TodosLosCursos);
+            SoloEstosCursos.AddRange(TodosLosCursos.Take(6));
+            return SoloEstosCursos;
+        }
+
 
         private void RedireccionACursosPagina(CategoriaModelo args)
         {
@@ -96,8 +113,9 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             IsBusy = true;
             if (IsInitialized == true)
             {
-                Categorias = new ObservableCollection<CategoriaModelo>(await DefiniendoCateogriasRandom(5));
-                AgregandoDatosCursos();
+                Categorias = new ObservableCollection<CategoriaModelo>(await DefiniendoCateogriasRandom(6));
+                Cursos = new ObservableCollection<CursosModelo>(await DefiniendoCursosRandom());
+
                 DefiniendoAltura();
                 IsInitialized = false;
             }
@@ -139,44 +157,6 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 
             else
                 rowHeigth = ((Elementos / 2) * 275) + 275 ;
-        }
-        private void AgregandoDatosCursos()
-        {
-            Cursos.Add(new CursosModelo
-            {
-                course_id = 1,
-                course_title = "Curso de C#",
-                course_photo = "https://niixer.com/wp-content/uploads/2020/11/csharp.jpg",
-                is_enabled = true,
-                created_at = DateTime.Now
-            });
-
-            Cursos.Add(new CursosModelo
-            {
-                course_id = 2,
-                course_title = "Curso de C++",
-                course_photo = "https://i.ytimg.com/vi/dJzLmjSJc2c/maxresdefault.jpg",
-                is_enabled = true,
-                created_at = DateTime.Now
-            });
-
-            Cursos.Add(new CursosModelo
-            {
-                course_id = 2,
-                course_title = "Curso de Javascript",
-                course_photo = "https://soyhorizonte.com/wp-content/uploads/2020/10/Javascript-by-SoyHorizonte.jpg",
-                is_enabled = true,
-                created_at = DateTime.Now
-            });
-
-            Cursos.Add(new CursosModelo
-            {
-                course_id = 5,
-                course_title = "Curso de WordPress",
-                course_photo = "https://ayudawp.com/wp-content/uploads/2017/09/instalar-wordpress.jpg",
-                is_enabled = true,
-                created_at = DateTime.Now
-            });
         }
 
     }

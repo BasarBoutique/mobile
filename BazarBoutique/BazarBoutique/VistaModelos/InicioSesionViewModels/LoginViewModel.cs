@@ -1,5 +1,6 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services;
+using BazarBoutique.Services.UsuarioServices;
 using BazarBoutique.Vistas.BarraNavegacion;
 using BazarBoutique.Vistas.CatalogoCursosVistas;
 using BazarBoutique.Vistas.InicioSesíonVistas;
@@ -27,12 +28,13 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
         public Command RegistrarsePageCommand { get; }
         public Command btnAutenticacionGoogle { get; }
 
+        ILoginService ServiciosLogin = DependencyService.Get<ILoginService>();
         #endregion
 
         public LoginViewModel(INavigation navigation, ContentPage page)
         {
             IniciarSesionCommand = new Command(SePresionoLogin);
-            RegistrarsePageCommand = new Command(SePresionoRegister);
+            RegistrarsePageCommand = new Command(RedireccionApartadoRegister);
             btnAutenticacionGoogle = new Command(AutenticacionGoogle);
             this.navigation = navigation;
             this.page = page;
@@ -56,9 +58,10 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
             }
         }
 
-        private async void SePresionoRegister(object obj)
+        private async void RedireccionApartadoRegister(object obj)
         {
-            await navigation.PushAsync(new RegistrarseVista());
+            navigation.InsertPageBefore(new RegistrarseVista(), navigation.NavigationStack[0]);
+            await navigation.PopAsync();
         }
 
         private async void SePresionoLogin(object obj)
@@ -66,67 +69,76 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
             
             IsBusy = true;
 
+            
             var login = new Modelos.LoginModelo
             {
                 email = Email,
                 password = Password
             };
 
-            var httpClientHandler = new HttpClientHandler();
+            bool IsLogued = await ServiciosLogin.IniciarSesion(login);
 
-            httpClientHandler.ServerCertificateCustomValidationCallback =
-            (message, cert, chain, errors) => { return true; };
-
-
-            Uri RequestUri = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/login");
-            var client = new HttpClient(httpClientHandler);
-            var json = JsonConvert.SerializeObject(login);
-            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-
-            try
+            if (IsLogued)
             {
-                var response = await client.PostAsync(RequestUri, contentJson);
-                if (response.StatusCode == HttpStatusCode.Accepted)
-                {
-                    var ResponsePerfilAuth = JsonConvert.DeserializeObject<ApiResponseModelo>(await response.Content.ReadAsStringAsync());
-
-                    SesionServicios.apiResponse = ResponsePerfilAuth;
-
-                    DataModelo InformacionToken = ResponsePerfilAuth.data;
-                    //////
-                    var client2 = new HttpClient(httpClientHandler);
-                    client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(InformacionToken.token_type, InformacionToken.access_token);
-
-                    Uri ConfirmarUsuario = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/user");
-
-                    var responsePerfil = await client2.GetAsync(ConfirmarUsuario);
-
-                    if(responsePerfil.StatusCode == HttpStatusCode.OK)
-                    {
-                        var responsePerfilInformation = JsonConvert.DeserializeObject<UsuarioResponseModelo>(await responsePerfil.Content.ReadAsStringAsync());
-
-                        SesionServicios.apiUser = responsePerfilInformation.data;
-
-                        Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
-                    }
-                    else {
-                        await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Error Al Autenticar Usuario", "OK");
-                    }
-
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "El Usuario no existe", "OK");
-                }
+                Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
             }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Error al autenticar usuario", "OK");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+
+            IsBusy = false;
+            //var httpClientHandler = new HttpClientHandler();
+
+            //httpClientHandler.ServerCertificateCustomValidationCallback =
+            //(message, cert, chain, errors) => { return true; };
+
+
+            //Uri RequestUri = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/login");
+            //var client = new HttpClient(httpClientHandler);
+            //var json = JsonConvert.SerializeObject(login);
+            //var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //try
+            //{
+            //    var response = await client.PostAsync(RequestUri, contentJson);
+            //    if (response.StatusCode == HttpStatusCode.Accepted)
+            //    {
+            //        var ResponsePerfilAuth = JsonConvert.DeserializeObject<ApiResponseModelo>(await response.Content.ReadAsStringAsync());
+
+            //        SesionServicios.apiResponse = ResponsePerfilAuth;
+
+            //        DataModelo InformacionToken = ResponsePerfilAuth.data;
+            //        //////
+            //        var client2 = new HttpClient(httpClientHandler);
+            //        client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(InformacionToken.token_type, InformacionToken.access_token);
+
+            //        Uri ConfirmarUsuario = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/user");
+
+            //        var responsePerfil = await client2.GetAsync(ConfirmarUsuario);
+
+            //        if(responsePerfil.StatusCode == HttpStatusCode.OK)
+            //        {
+            //            var responsePerfilInformation = JsonConvert.DeserializeObject<UsuarioResponseModelo>(await responsePerfil.Content.ReadAsStringAsync());
+
+            //            SesionServicios.apiUser = responsePerfilInformation.data;
+
+            //            Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
+            //        }
+            //        else {
+            //            await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Error Al Autenticar Usuario", "OK");
+            //        }
+
+            //    }
+            //    else
+            //    {
+            //        await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "El Usuario no existe", "OK");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Error al autenticar usuario", "OK");
+            //}
+            //finally
+            //{
+            //    IsBusy = false;
+            //}
         }
     }
 }

@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:PCK="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.FiltrosViewModels"
+             x:Class="BazarBoutique.Vistas.FiltrosVistas.FiltroAutorVista"
+             x:DataType="vm:FiltroAutoresViewModel">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <!--Contenedor Principal-->
+                <Grid RowDefinitions="100,*,130">
+
+                    <!--Barra de busqueda-->
+                    <StackLayout Grid.Row="0"
+                                 HeightRequest="60"
+                                 Margin="15,10,15,0"
+                                 VerticalOptions="Center" >
+                        <PCK:PancakeView CornerRadius="15"
+                                         Border="{PCK:BorderMarkup Color=Green, Thickness='2'}"
+                                         VerticalOptions="CenterAndExpand">
+                            <SearchBar x:Name="BarraNavegacion"
+                                       TextColor="Gray" 
+                                       Placeholder="Nombre del curso"
+                                       Text="{Binding ElementoBusquedaAutores,Mode=TwoWay}"/>
+                        </PCK:PancakeView>
+                    </StackLayout>
+
+                    <StackLayout Margin="15,10" Grid.Row="1">
+                        <Label Text="Profesores"
+                               Style="{StaticResource TituloSecciones}"/>
+
+                        <StackLayout >
+                            <!--<CollectionView ItemsSource="{Binding CatalogosCategorias}" 
+                                        EmptyView="No existen catalogos">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" 
+                                                 Span="1"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="md:CategoriaModelo">
+                                    <StackLayout HeightRequest="130">
+                                        <PCK:PancakeView    CornerRadius="15" 
+                                                            HeightRequest="100"
+                                                            Margin="15,0"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            Shadow="{PCK:ShadowMarkup Color=Black,BlurRadius='12',Opacity='0.3'}"
+                                                            BackgroundColor="White">
+                                            <Grid Padding="8" ColumnDefinitions="*,2*,*">
+
+                                                <PCK:PancakeView    VerticalOptions="Center"
+                                                                    HorizontalOptions="Start"
+                                                                    Grid.Column="0" 
+                                                                    HeightRequest="60" 
+                                                                    WidthRequest="70"
+                                                                    BackgroundColor="Transparent"
+                                                                    CornerRadius="15"
+                                                                    Margin="4,0">
+                                                    <Image 
+                                                       BackgroundColor="Transparent"
+                                                       Source="not_image.jpg"/>
+                                                </PCK:PancakeView>
+
+                                                <PCK:PancakeView    VerticalOptions="Center"
+                                                                    HorizontalOptions="Start"
+                                                                    Grid.Column="0" 
+                                                                    HeightRequest="60" 
+                                                                    WidthRequest="70"
+                                                                    BackgroundColor="Transparent"
+                                                                    CornerRadius="15"
+                                                                    Margin="4,0">
+                                                    <Image 
+                                                       BackgroundColor="Transparent"
+                                                       Source="{Binding PhotoCategory}"/>
+                                                </PCK:PancakeView>
+
+                                                <Label Grid.Column="1" 
+                                                   FontSize="15"
+                                                   VerticalOptions="Center"
+                                                   Text="{Binding category}"
+                                                   FontAttributes="Bold"/>
+                                                <StackLayout Grid.Column="2"
+                                                         VerticalOptions="Center">
+                                                    <Label FontSize="12"
+                                                       Text="Cantidad de Cursos"
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Center"/>
+
+                                                    <Label FontSize="12" 
+                                                       Text="100"
+                                                       HorizontalTextAlignment="Center"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </PCK:PancakeView>
+                                    </StackLayout>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>-->
+                        </StackLayout>
+                    </StackLayout>
+
+
+                    <Grid       Grid.Row="2"
+                                ColumnDefinitions="*,2*,*"
+                                Margin="20,30"
+                                VerticalOptions="EndAndExpand"
+                                HeightRequest="90">
+                        <Button Text="Anterior"
+                                Command="{Binding PaginaAnteriorCommand}"
+                                Grid.Column="0"
+                                FontSize="12"    
+                                BackgroundColor="Green"
+                                TextColor="White"
+                                VerticalOptions="Center"
+                                WidthRequest="100"
+                                BorderWidth="2"
+                                HeightRequest="50"
+                                CornerRadius="15"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="1"
+                                       FontSize="20"
+                                       Margin="10,0"
+                                       TextColor="Black"
+                                       FontAttributes="Bold"/>
+                            <Label Text="2"
+                                       FontSize="20"
+                                       Margin="10,0"
+                                       TextColor="Gray"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"/>
+                            <Label Text="3"
+                                       FontSize="20"
+                                       Margin="10,0"
+                                       TextColor="Gray"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"/>
+                        </StackLayout>
+
+
+                        <Button Grid.Column="2"
+                                Text="Siguiente"
+                                Command="{Binding PaginaSiguienteCommand}"
+                                FontSize="12"                            
+                                BackgroundColor="Green"
+                                TextColor="White"
+                                VerticalOptions="Center"
+                                WidthRequest="100"
+                                BorderWidth="2"
+                                HeightRequest="50"
+                                CornerRadius="15"/>
+                    </Grid>
+
+                </Grid>
+
+                <!--<Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />-->
+                <Grid  IsVisible="{Binding IsBusy}" 
+                       Opacity=".8" 
+                       BackgroundColor="Black">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                       HorizontalOptions="Center"/>
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

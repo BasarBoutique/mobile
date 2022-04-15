@@ -17,8 +17,16 @@ namespace BazarBoutique.Vistas.FiltrosVistas {
     public partial class FiltroCursoVista : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.SearchBar BarraNavegacion;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.FlexLayout ListaProductos;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(FiltroCursoVista));
+            BarraNavegacion = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.SearchBar>(this, "BarraNavegacion");
+            ListaProductos = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.FlexLayout>(this, "ListaProductos");
         }
     }
 }

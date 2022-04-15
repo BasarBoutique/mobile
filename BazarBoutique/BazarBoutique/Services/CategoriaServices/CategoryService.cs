@@ -21,7 +21,7 @@ namespace BazarBoutique.Services.CategoriaServices
             
         }
 
-        public async Task<List<CategoriaModelo>> GetCategorias()
+        public async Task<List<CategoriaModelo>> GetCategoriaSlide()
         {
             clie = new HttpClient();
             //var request = new HttpRequestMessage();
@@ -58,6 +58,7 @@ namespace BazarBoutique.Services.CategoriaServices
                 return ElementosCategorias;
             }
         }
+
 
     }
 }

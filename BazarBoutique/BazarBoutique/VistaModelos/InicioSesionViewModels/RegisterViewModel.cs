@@ -1,5 +1,7 @@
 ﻿using BazarBoutique.Modelos;
+using BazarBoutique.Services.UsuarioServices;
 using BazarBoutique.Vistas.BarraNavegacion;
+using BazarBoutique.Vistas.InicioSesíonVistas;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,10 +26,13 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
         private string _nombre;
         private string _email;
         
+        IRegisterService SerciviosRegistro = DependencyService.Get<IRegisterService>();
+        ILoginService ServiciosLogin = DependencyService.Get<ILoginService>();
+
         #endregion
 
         #region Propiedades
-        
+
         //Campos para vista
         public bool IsRegistrable
         {
@@ -72,6 +77,7 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
 
         //Commands Funciones
         public Command btnRegistrarseCommand { get; set; }
+        public Command LoginPageCommand { get; set; }
 
         #endregion
 
@@ -85,6 +91,15 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
             btnRegistrarseCommand = new Command(RegistrarUsuario, ValidandoCampos);
             this.PropertyChanged +=
                         (_, __) => btnRegistrarseCommand.ChangeCanExecute();
+
+
+            LoginPageCommand = new Command(RedireccionApartadoLogin);
+        }
+
+        private async void RedireccionApartadoLogin()
+        {
+            navigation.InsertPageBefore(new LoginVista(), navigation.NavigationStack[0]);
+            await navigation.PopAsync();
         }
 
         private bool ValidandoCampos()
@@ -120,29 +135,57 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
             };
 
 
-            Uri RequestUri = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/signup");
-            var cliente = new HttpClient();
 
-            var UsuarioSerealizado = JsonConvert.SerializeObject(usuario);
-            HttpContent httpcontent = new StringContent(UsuarioSerealizado, Encoding.UTF8, "application/json");
+            bool IsRegister = await SerciviosRegistro.RegistrarseUsuario(usuario);
 
-            try
+            if (IsRegister)
             {
-                var response = await cliente.PostAsync(RequestUri, httpcontent);
-                if (response.StatusCode == HttpStatusCode.OK)
+                var login = new Modelos.LoginModelo
                 {
-                    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Fue Registrado Exitosamente, vaya a iniciar sesión", "OK");
+                    email = Email,
+                    password = Paswword
+                };
+
+                bool IsLogued = await ServiciosLogin.IniciarSesion(login);
+
+                if (IsLogued)
+                {
                     Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Tiene campos incorrectos, vuelva a intentarlo", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Su cuenta fue creada correctamente, sin embargo no logramos iniciar sesion automaticamente en ella, porfavor inicie sesión desde la siguieten pestaña", "OK");
+                    Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
+
+
+                    navigation.InsertPageBefore(new LoginVista(), navigation.NavigationStack[0]);
+                    await navigation.PopAsync();
                 }
             }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Ocuerrieron problemas al registrar su usuario", "OK");
-            }
+
+            //Uri RequestUri = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/signup");
+            //var cliente = new HttpClient();
+
+            //var UsuarioSerealizado = JsonConvert.SerializeObject(usuario);
+            //HttpContent httpcontent = new StringContent(UsuarioSerealizado, Encoding.UTF8, "application/json");
+
+            //try
+            //{
+            //    var response = await cliente.PostAsync(RequestUri, httpcontent);
+            //    if (response.StatusCode == HttpStatusCode.OK)
+            //    {
+            //        await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Fue Registrado Exitosamente, vaya a iniciar sesión", "OK");
+            //        Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
+            //    }
+            //    else
+            //    {
+            //        await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Tiene campos incorrectos, vuelva a intentarlo", "OK");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Ocuerrieron problemas al registrar su usuario", "OK");
+            //}
 
 
             IsBusy = false;
