@@ -46,7 +46,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             this.page = page;
         }
 
-        public async void OnAppearing()
+        public void OnAppearing()
         {
             IsBusy = true;
             //CatalogosCategorias = new ObservableCollection<CategoriaModelo>(await ServicioCategoria.GetCategorias());

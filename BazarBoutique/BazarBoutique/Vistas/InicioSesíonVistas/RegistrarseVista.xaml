@@ -57,8 +57,7 @@
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
                                 FontSize="{OnPlatform Android=35,iOS=38}"
-                                HorizontalTextAlignment="Center"
-                                WidthRequest="200"/>
+                                HorizontalTextAlignment="Center"/>
                 </StackLayout>
 
                 <StackLayout Grid.Row="2" HorizontalOptions="Center" WidthRequest="{OnPlatform iOS=300,Android=300}" Orientation="Vertical"  >

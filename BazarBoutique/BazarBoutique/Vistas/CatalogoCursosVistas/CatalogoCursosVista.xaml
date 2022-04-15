@@ -4,8 +4,11 @@
              xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.CatalogoCursosViewModels" 
              xmlns:md="clr-namespace:BazarBoutique.Modelos" 
              xmlns:datatemp="clr-namespace:BazarBoutique.Controles.DataTemplateSelectors"
+             xmlns:tlkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit" 
              xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:BoxControl="clr-namespace:BazarBoutique.Controles.ContenedoresRecursos"
              x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
+             x:DataType="vm:CatalogoCursosViewModel"
              x:Name="ApartadoHome"
              Title="Bazar Boutique">
     <ContentPage.Resources>
@@ -159,11 +162,11 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <Grid x:DataType="vm:CatalogoCursosViewModel" >
+            <Grid  >
                 <StackLayout Margin="0,15,0,0">
                     <Grid ColumnDefinitions="3*,*" >
                         <StackLayout Padding="20,0" >
-                            <Label  x:DataType="vm:CatalogoCursosViewModel"
+                            <Label  
                                     Text="Categorias populares" 
                                     Style="{StaticResource TituloSecciones}"/>
                             <Label Text="Categorias mas vista entre los usuarios" 
@@ -185,23 +188,31 @@
 
                     <!--Apartado de Categoria-->
                     <CarouselView ItemsSource="{Binding Categorias}" 
-                                  HeightRequest="130"
+                                  HeightRequest="140"
                                   Margin="0,15,0,5"
                                   Loop="False"
                                   ItemTemplate="{StaticResource TiposCategoria}"
                                   IndicatorView="IndicadorCategorias"
                                   PeekAreaInsets="10"
                                   IsBounceEnabled="True">
-                        <!--<CarouselView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"
-                                                ItemSpacing="20" />
-                        </CarouselView.ItemsLayout>-->
-                        <!--<CarouselView.ItemTemplate>
-                            
-                            <DataTemplate >
 
-                            </DataTemplate>
-                        </CarouselView.ItemTemplate>-->
+                        <CarouselView.EmptyView>
+                            <StackLayout tlkit:StateLayout.CurrentState="{Binding EstadoActual}"   >
+                                <tlkit:StateLayout.StateViews>
+                                    
+                                    <tlkit:StateView StateKey="Loading">
+                                        <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="125" WidthRequest="105" Margin="10,0,30,0"  BackgroundColor="Gray"  />
+                                    </tlkit:StateView>
+
+                                    <tlkit:StateView StateKey="Success">
+                                       
+                                    </tlkit:StateView>
+                                    
+                                </tlkit:StateLayout.StateViews>
+                                
+                            </StackLayout>
+                        </CarouselView.EmptyView>
+
                     </CarouselView>
                     <IndicatorView x:Name="IndicadorCategorias"
                                    IndicatorColor="Gray"
@@ -228,21 +239,19 @@
                         </StackLayout>
                     </Grid>
 
-                    
-                    
                     <!--Apartado de Cursos-->
                     <StackLayout Padding="8,0,0,0" >
-                        <CollectionView ItemsSource="{Binding Cursos}"
-                                        HeightRequest="{Binding rowHeigth}"
-                                        EmptyView="Por el momento no existen cursos por mostrar"
-                                        ItemSizingStrategy="MeasureFirstItem">
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout Orientation="Vertical"
-                                     Span="2" />
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate >
+                        <FlexLayout BindableLayout.ItemsSource="{Binding Cursos}"
+                                    Margin="0,0,0,0" 
+                                    Wrap="Wrap"
+                                    Direction="Row"
+                                    JustifyContent="Center"
+                                    AlignItems="Center"
+                                    AlignContent="Start"
+                                    >
+                            <BindableLayout.ItemTemplate >
                                 <DataTemplate x:DataType="md:CursosModelo">
-                                    <PanCake:PancakeView  Padding="7,0,0,0" BackgroundColor="Transparent" HorizontalOptions="StartAndExpand" >
+                                    <PanCake:PancakeView WidthRequest="180"  Padding="7,0,0,0" BackgroundColor="Transparent" HorizontalOptions="StartAndExpand" >
 
                                         <PanCake:PancakeView CornerRadius="20" 
                                                          VerticalOptions="CenterAndExpand" Margin="0,0,12,20" BackgroundColor="White">
@@ -267,8 +276,35 @@
                                     </PanCake:PancakeView>
 
                                 </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                            </BindableLayout.ItemTemplate>
+
+                            <BindableLayout.EmptyView>
+                                <Grid tlkit:StateLayout.CurrentState="{Binding EstadoActual}"  tlkit:StateLayout.AnimateStateChanges="False">
+                                    <tlkit:StateLayout.StateViews>
+
+                                        <tlkit:StateView StateKey="Loading">
+                                            <FlexLayout     Margin="0,0,0,0" 
+                                                                Wrap="Wrap"
+                                                                Direction="Row"
+                                                                JustifyContent="Center"
+                                                                AlignItems="Center"
+                                                                AlignContent="Start">
+                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170"  BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                            </FlexLayout>
+                                        </tlkit:StateView>
+
+                                        <tlkit:StateView StateKey="Success">
+                                            <Label Text="No se cargaron correctamente los cursos" VerticalOptions="Center"/>
+                                        </tlkit:StateView>
+
+                                    </tlkit:StateLayout.StateViews>
+                                </Grid>
+                            </BindableLayout.EmptyView>
+                        </FlexLayout>
                     </StackLayout>
 
                 </StackLayout>
@@ -276,7 +312,7 @@
 
                 <Grid  x:DataType="vm:CatalogoCursosViewModel" 
                        IsVisible="{Binding IsBusy}" 
-                       Opacity=".8" 
+                       Opacity="0.3" 
                        BackgroundColor="Black">
                     <ActivityIndicator IsRunning="{Binding IsBusy}"
                                        HorizontalOptions="Center"/>

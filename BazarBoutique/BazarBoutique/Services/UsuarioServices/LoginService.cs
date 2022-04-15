@@ -15,7 +15,7 @@ namespace BazarBoutique.Services.UsuarioServices
 {
     public class LoginService : ILoginService
     {
-        HttpClient clie;
+        HttpClient client;
         public LoginService()
         {
         }
@@ -28,7 +28,7 @@ namespace BazarBoutique.Services.UsuarioServices
             (message, cert, chain, errors) => { return true; };
 
             Uri RequestUri = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/login");
-            var client = new HttpClient(httpClientHandler);
+            client = new HttpClient(httpClientHandler);
             var json = JsonConvert.SerializeObject(user);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
 

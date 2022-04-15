@@ -14,7 +14,7 @@ namespace BazarBoutique.Services.UsuarioServices
 {
     public class RegisterService : IRegisterService
     {
-        HttpClient clie;
+        HttpClient cliente;
         public RegisterService()
         {
         }
@@ -23,7 +23,7 @@ namespace BazarBoutique.Services.UsuarioServices
         {
 
             Uri RequestUri = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/signup");
-            var cliente = new HttpClient();
+            cliente = new HttpClient();
 
             var UsuarioSerealizado = JsonConvert.SerializeObject(user);
             HttpContent httpcontent = new StringContent(UsuarioSerealizado, Encoding.UTF8, "application/json");

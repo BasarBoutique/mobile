@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
@@ -20,20 +21,11 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
         private bool IsInitialized;
         private ObservableCollection<CategoriaModelo> categoriasLista;
         private ObservableCollection<CursosModelo> cursosLista;
-        private int _rowHeigth;
 
         ICategoryService ServicioCategoria = DependencyService.Get<ICategoryService>();
         ICursoService ServicioCursos = DependencyService.Get<ICursoService>();
 
-        public int rowHeigth
-        {
-            get { return _rowHeigth; }
-            set
-            {
-                _rowHeigth = value;
-                RaisePropertyChanged("rowHeigth");
-            }
-        }
+
         public ObservableCollection<CategoriaModelo> Categorias 
         {
             get => categoriasLista;
@@ -53,6 +45,15 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             }
         }
 
+        private LayoutState _estadoactual;
+
+        public LayoutState EstadoActual
+        {
+            get => _estadoactual;
+            set => SetProperty(ref _estadoactual, value);
+        }
+
+
         public Command RedireccionApartadoCategorias { get; set; }
         public Command<CategoriaModelo> RedireccionApartadoCursos { get; set; }
 
@@ -65,6 +66,7 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             RedireccionApartadoCursos = new Command<CategoriaModelo>(RedireccionACursosPagina);
 
             IsInitialized = true;
+            EstadoActual = LayoutState.Loading;
         }
 
         private async Task<List<CategoriaModelo>> DefiniendoCateogriasRandom(int CantidadCategorias)
@@ -78,11 +80,11 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 
             //Shuffle(CategoriasRandom);
             //int cantidadprimaria = 0;
-            //SoloAlgunasCategorias.Add(new CategoriaModelo
-            //{
-            //    IsMoreElement = true
-            //});
-
+            SoloAlgunasCategorias.Add(new CategoriaModelo
+            {
+                IsMoreElement = true
+            });
+            EstadoActual = LayoutState.Success;
             return SoloAlgunasCategorias;
         }
 
@@ -115,8 +117,10 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             {
                 Categorias = new ObservableCollection<CategoriaModelo>(await DefiniendoCateogriasRandom(6));
                 Cursos = new ObservableCollection<CursosModelo>(await DefiniendoCursosRandom());
+                EstadoActual = LayoutState.Success;
 
-                DefiniendoAltura();
+
+
                 IsInitialized = false;
             }
             
@@ -143,21 +147,7 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
         //    return SoloAlgunosCursos;
         //}
 
-        private void DefiniendoAltura()
-        {
-            int Elementos = Cursos.Count;
-            if (Elementos <= 1)
-            {
-                rowHeigth = 275;
-            }
-            else if (Elementos % 2 == 0)
-            {
-                rowHeigth = (Elementos / 2) * 275;
-            }
 
-            else
-                rowHeigth = ((Elementos / 2) * 275) + 275 ;
-        }
 
     }
 }
