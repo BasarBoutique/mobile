@@ -41,13 +41,13 @@ namespace BazarBoutique.Services.CategoriaServices
                 {
                     string contenido = await response.Content.ReadAsStringAsync();
                     var resultado = JsonConvert.DeserializeObject<CategoriaResponseModelo>(contenido);
-                    ElementosCategorias.AddRange(resultado.data);
+                    //ElementosCategorias.AddRange(resultado.data);
 
                     return ElementosCategorias;
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible autenticar", "OK");
+                    await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible traer los datos de categorias", "OK");
                     return ElementosCategorias;
                 }
 
@@ -55,6 +55,7 @@ namespace BazarBoutique.Services.CategoriaServices
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("BazarBoutique", "Error al traer datos", "OK");
+                Console.WriteLine(ex.ToString());
                 return ElementosCategorias;
             }
         }

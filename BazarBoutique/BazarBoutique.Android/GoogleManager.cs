@@ -19,6 +19,7 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(GoogleManager))]
 namespace BazarBoutique.Droid
 {
+    [Obsolete]
     public class GoogleManager : Java.Lang.Object, IGoogleManager, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener
     {
         public Action<GoogleUser, string> _onLoginComplete;
@@ -31,6 +32,7 @@ namespace BazarBoutique.Droid
             _context = global::Android.App.Application.Context;
             Instance = this;
         }
+
 
         public void Login(Action<GoogleUser, string> onLoginComplete)
         {

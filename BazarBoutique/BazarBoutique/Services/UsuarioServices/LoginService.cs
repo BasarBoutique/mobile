@@ -35,7 +35,7 @@ namespace BazarBoutique.Services.UsuarioServices
             try
             {
                 var response = await client.PostAsync(RequestUri, contentJson);
-                if (response.StatusCode == HttpStatusCode.Accepted)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var ResponsePerfilAuth = JsonConvert.DeserializeObject<ApiResponseModelo>(await response.Content.ReadAsStringAsync());
 
@@ -75,6 +75,7 @@ namespace BazarBoutique.Services.UsuarioServices
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Error al autenticar usuario", "OK");
+                Console.WriteLine(ex.ToString());
                 return false;
             }
 

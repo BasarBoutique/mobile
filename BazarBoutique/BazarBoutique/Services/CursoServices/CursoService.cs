@@ -47,7 +47,7 @@ namespace BazarBoutique.Services.CursoServices
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible autenticar", "OK");
+                    await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible traer los datos de cursos", "OK");
                     return ElementosCursos;
                 }
 
@@ -55,6 +55,7 @@ namespace BazarBoutique.Services.CursoServices
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("BazarBoutique", "Error al traer datos", "OK");
+                Console.WriteLine(ex.ToString());
                 return ElementosCursos;
             }
         }

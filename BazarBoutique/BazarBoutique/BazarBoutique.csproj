@@ -39,6 +39,9 @@
     <EmbeddedResource Update="Vistas\CatalogoCursosVistas\CatalogoCursosVista.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Vistas\DetallesVistas\DetallesCursoVista.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Vistas\FiltrosVistas\FiltroAutorVista.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

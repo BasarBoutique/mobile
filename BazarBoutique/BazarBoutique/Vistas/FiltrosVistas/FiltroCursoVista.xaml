@@ -5,7 +5,9 @@
              x:Class="BazarBoutique.Vistas.FiltrosVistas.FiltroCursoVista"
              xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.FiltrosViewModels"
              x:DataType="vm:FiltroCursosViewModel"
-             xmlns:md="clr-namespace:BazarBoutique.Modelos">
+             xmlns:BoxControl="clr-namespace:BazarBoutique.Controles.ContenedoresRecursos"
+             xmlns:md="clr-namespace:BazarBoutique.Modelos"
+             xmlns:tlkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <ContentPage.Content>
         <ScrollView>
             <Grid>
@@ -82,9 +84,8 @@
                                                                 Padding="10,5"
                                                                 WidthRequest="170"   
                                                                 Margin="0,10">
-                                                <PCK:PancakeView >
+                                                <StackLayout >
                                                     <Label 
-                                                       Margin="0,0,0,0"
                                                        TextColor="Black"
                                                        FontSize="14"
                                                        VerticalOptions="StartAndExpand"
@@ -92,7 +93,20 @@
                                                        HorizontalOptions="StartAndExpand"
                                                        Text="{Binding title}" HorizontalTextAlignment="Start" FontAttributes="Bold"/>
 
-                                                </PCK:PancakeView>
+                                                    <Label 
+                                                       TextColor="Black"
+                                                       FontSize="14"
+                                                       MaxLines="2"
+                                                       HorizontalOptions="EndAndExpand"
+                                                       Text="{Binding title}" HorizontalTextAlignment="Start" FontAttributes="Bold">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="S/" />
+                                                                <Span Text="12" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </StackLayout>
                                             </PCK:PancakeView>
 
                                             <StackLayout Grid.RowSpan="2"
@@ -141,6 +155,32 @@
 
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
+                            <BindableLayout.EmptyView>
+                                <StackLayout tlkit:StateLayout.CurrentState="{Binding EstadoCursos}"
+                                             tlkit:StateLayout.AnimateStateChanges="False">
+                                    <tlkit:StateView StateKey="Loading">
+                                        <FlexLayout Margin="0,0,0,0" 
+                                                    Wrap="Wrap"
+                                                    Direction="Row"
+                                                    JustifyContent="Center"
+                                                    AlignItems="Center"
+                                                    AlignContent="Start">
+                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170"  BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                        </FlexLayout>
+                                    </tlkit:StateView>
+
+                                    <tlkit:StateView StateKey="Success">
+                                        <Label Text="No existen catalogos" 
+                                           HorizontalOptions="Center" 
+                                           VerticalOptions="CenterAndExpand"
+                                           VerticalTextAlignment="Center"/>
+                                    </tlkit:StateView>
+                                </StackLayout>
+                            </BindableLayout.EmptyView>
                         </FlexLayout>
                             
                 </StackLayout>

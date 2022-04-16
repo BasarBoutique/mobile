@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace BazarBoutique.VistaModelos.FiltrosViewModels
@@ -33,11 +34,20 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                 //BuscandoElementoAsync(value);
             }
         }
+
+        private LayoutState _estadocursos;
+
+        public LayoutState EstadoCursos
+        {
+            get => _estadocursos;
+            set => SetProperty(ref _estadocursos, value);
+        }
+
+
         public Command VistaFiltroAutorCommand { get; set; }
         public Command VistaFiltroCategoriaCommand { get; set; }
         public Command PaginaAnteriorCommand { get; set; }
         public Command PaginaSiguienteCommand { get; set; }
-
 
         ObservableCollection<CursosModelo> _cursos;
 
@@ -49,7 +59,6 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             }
         }
 
-
         #endregion
 
         public FiltroCursosViewModel(INavigation navigation, ContentPage page)
@@ -60,6 +69,8 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
             VistaFiltroAutorCommand = new Command(RedireccionFiltroAutores);
             VistaFiltroCategoriaCommand = new Command(RedireccionFiltroCategorias);
+
+            EstadoCursos = LayoutState.Loading;
         }
 
         private void RedireccionFiltroCategorias()
@@ -77,6 +88,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         {
             IsBusy = true;
             Cursos = new ObservableCollection<CursosModelo>(await ServiciosCursos.GetCurso(true));
+            EstadoCursos = LayoutState.Success;
             IsBusy = false;
         }
 

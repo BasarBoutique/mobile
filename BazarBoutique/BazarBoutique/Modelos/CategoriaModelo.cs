@@ -55,14 +55,14 @@ namespace BazarBoutique.Modelos
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(photo) || photo == "TITLE.ico")
-                {
-                    return "not_image.jpg";
-                }
-                else
-                {
-                    return photo;
-                }
+                //if (string.IsNullOrWhiteSpace(photo) || photo == "TITLE.ico")
+                //{
+                //    return "not_image.jpg";
+                //}
+                //else
+                //{
+                return photo;
+                //}
             }
         }
 

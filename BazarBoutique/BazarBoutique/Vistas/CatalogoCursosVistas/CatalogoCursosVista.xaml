@@ -44,7 +44,6 @@
                                     </PanCake:PancakeView.Shadow>
 
                                     <Image Source="not_image.jpg"
-                                               
                                                            Aspect="AspectFill"/>
 
                                 </PanCake:PancakeView>
@@ -220,7 +219,7 @@
                                    Margin="25,5"
                                    HorizontalOptions="End"/>
                     <!--Apartado Cursos-->
-                    <Grid ColumnDefinitions="3*,*" Margin="20,0,20,15">
+                    <Grid ColumnDefinitions="3*,*" Margin="20,0,20,10">
                         <StackLayout >
                             <Label  x:DataType="vm:CatalogoCursosViewModel"
                                     Text="Cursos" 
@@ -279,7 +278,7 @@
                             </BindableLayout.ItemTemplate>
 
                             <BindableLayout.EmptyView>
-                                <Grid tlkit:StateLayout.CurrentState="{Binding EstadoActual}"  tlkit:StateLayout.AnimateStateChanges="False">
+                                <StackLayout tlkit:StateLayout.CurrentState="{Binding EstadoCursos}" tlkit:StateLayout.AnimateStateChanges="False">
                                     <tlkit:StateLayout.StateViews>
 
                                         <tlkit:StateView StateKey="Loading">
@@ -289,20 +288,20 @@
                                                                 JustifyContent="Center"
                                                                 AlignItems="Center"
                                                                 AlignContent="Start">
-                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170"  BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                                <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="170"  BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
                                             </FlexLayout>
                                         </tlkit:StateView>
 
                                         <tlkit:StateView StateKey="Success">
-                                            <Label Text="No se cargaron correctamente los cursos" VerticalOptions="Center"/>
+                                            <Label Text="No se cargaron correctamente los cursos" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" HeightRequest="200" />
                                         </tlkit:StateView>
 
                                     </tlkit:StateLayout.StateViews>
-                                </Grid>
+                                </StackLayout>
                             </BindableLayout.EmptyView>
                         </FlexLayout>
                     </StackLayout>

@@ -45,12 +45,18 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             }
         }
 
-        private LayoutState _estadoactual;
+        private LayoutState _estadoactual, _estadocursos;
 
         public LayoutState EstadoActual
         {
             get => _estadoactual;
             set => SetProperty(ref _estadoactual, value);
+        }
+
+        public LayoutState EstadoCursos
+        {
+            get => _estadocursos;
+            set => SetProperty(ref _estadocursos, value);
         }
 
 
@@ -66,9 +72,11 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             RedireccionApartadoCursos = new Command<CategoriaModelo>(RedireccionACursosPagina);
 
             IsInitialized = true;
-            EstadoActual = LayoutState.Loading;
-        }
 
+            EstadoActual = LayoutState.Loading;
+            EstadoCursos = LayoutState.Loading;
+        }
+        
         private async Task<List<CategoriaModelo>> DefiniendoCateogriasRandom(int CantidadCategorias)
         {
             var CategoriasRandom = await ServicioCategoria.GetCategoriaSlide();
@@ -96,6 +104,8 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 
             Shuffle(TodosLosCursos);
             SoloEstosCursos.AddRange(TodosLosCursos.Take(6));
+
+            EstadoCursos = LayoutState.Success;
             return SoloEstosCursos;
         }
 
@@ -116,11 +126,9 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             if (IsInitialized == true)
             {
                 Categorias = new ObservableCollection<CategoriaModelo>(await DefiniendoCateogriasRandom(6));
+
                 Cursos = new ObservableCollection<CursosModelo>(await DefiniendoCursosRandom());
-                EstadoActual = LayoutState.Success;
-
-
-
+                
                 IsInitialized = false;
             }
             

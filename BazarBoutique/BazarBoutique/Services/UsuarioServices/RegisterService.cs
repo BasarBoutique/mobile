@@ -31,9 +31,9 @@ namespace BazarBoutique.Services.UsuarioServices
             try
             {
                 var response = await cliente.PostAsync(RequestUri, httpcontent);
-                if (response.StatusCode == HttpStatusCode.Accepted)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Fue Registrado Exitosamente, vaya a iniciar sesión", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Fue Registrado Exitosamente", "OK");
                     return true;
                 }
                 else
@@ -45,6 +45,7 @@ namespace BazarBoutique.Services.UsuarioServices
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Bazar Boutique", "Ocuerrieron problemas al registrar su usuario", "OK");
+                Console.WriteLine(ex.ToString());
                 return false;
             }
 

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace BazarBoutique.VistaModelos.FiltrosViewModels
@@ -46,6 +47,15 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                 OnPropertyChanged();
             }
         }
+
+        private LayoutState _estadoCategoria;
+
+        public LayoutState EstadoCategoria
+        {
+            get => _estadoCategoria;
+            set => SetProperty(ref _estadoCategoria, value);
+        }
+
         #endregion
         public FiltroCategoriasViewModel(INavigation navigation, ContentPage page)
         {
@@ -53,6 +63,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             this.navigation = navigation;
             this.page = page;
 
+            EstadoCategoria = LayoutState.Loading; 
         }
 
         private async void BuscandoElementoAsync(string obj)
@@ -75,6 +86,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         {
             IsBusy = true;
             CatalogosCategorias = new ObservableCollection<CategoriaModelo>(await ServicioCategoria.GetCategoriaSlide());
+            EstadoCategoria = LayoutState.Success;
             IsBusy = false;
         }
     }
