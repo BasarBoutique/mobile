@@ -21,7 +21,7 @@ namespace BazarBoutique.Services.CategoriaServices
             
         }
 
-        public async Task<List<CategoriaModelo>> GetCategoriaSlide()
+        public async Task<List<CategoriaSlideModelo>> GetCategoriaSlide()
         {
             clie = new HttpClient();
             //var request = new HttpRequestMessage();
@@ -31,7 +31,7 @@ namespace BazarBoutique.Services.CategoriaServices
             clie.Timeout = TimeSpan.FromMinutes(2);
             //string body = @"{""withDisabled"":""true""}";
 
-            var ElementosCategorias = new List<CategoriaModelo>();
+            var ElementosCategorias = new List<CategoriaSlideModelo>();
 
             try
             {
@@ -40,8 +40,8 @@ namespace BazarBoutique.Services.CategoriaServices
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     string contenido = await response.Content.ReadAsStringAsync();
-                    var resultado = JsonConvert.DeserializeObject<CategoriaResponseModelo>(contenido);
-                    //ElementosCategorias.AddRange(resultado.data);
+                    var resultado = JsonConvert.DeserializeObject<CategoriaSlideResponseModelo>(contenido);
+                    ElementosCategorias.AddRange(resultado.data);
 
                     return ElementosCategorias;
                 }
@@ -58,6 +58,58 @@ namespace BazarBoutique.Services.CategoriaServices
                 Console.WriteLine(ex.ToString());
                 return ElementosCategorias;
             }
+        }
+
+        public async Task<DataCategorias> GetPaginacionCategoria(Uri direccion)
+        {
+            bool MostrarOcultos = false;
+            var httpClientHandler = new HttpClientHandler();
+
+            httpClientHandler.ServerCertificateCustomValidationCallback =
+            (message, cert, chain, errors) => { return true; };
+
+            clie = new HttpClient(httpClientHandler);
+
+            //https://monolith-stage.herokuapp.com/api/v1/courses/all?page=1&withDisabled=false
+
+
+            clie.DefaultRequestHeaders.Add("Accept", "application/json");
+            clie.Timeout = TimeSpan.FromMinutes(2);
+
+            //var filtrojson = JsonConvert.SerializeObject(filtro);
+            //var contentJson = new StringContent(filtrojson, Encoding.UTF8, "application/json");
+            var PaginacionCategorias = new DataCategorias();
+
+            
+            try
+            {
+                //HttpResponseMessage response = await clie.GetAsync("?" + direccion +"withDisabled" + "=" + Convert.ToString(MostrarOcultos).ToLower());
+                HttpResponseMessage response = await clie.GetAsync(direccion);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    //string contenido = await response.Content.ReadAsStringAsync();
+                    var resultado = JsonConvert.DeserializeObject<CategoriaResponseModelo>(await response.Content.ReadAsStringAsync());
+                    //var resultado = JsonConvert.DeserializeObject<PaginationResponse>(contenido);
+
+                    //ElementosCursos.AddRange(resultado.data.coleccion);
+                    PaginacionCategorias = resultado.data;
+
+                    return PaginacionCategorias;
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible traer los datos de cursos", "OK");
+                    return PaginacionCategorias;
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("BazarBoutique", "Error al traer datos", "OK");
+                Console.WriteLine(ex.ToString());
+                return PaginacionCategorias;
+            }
+
         }
 
 

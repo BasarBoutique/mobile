@@ -11,6 +11,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Recursos\Fuentes\FontAwesome6Brands-Regular-400.otf" />
+    <None Remove="Recursos\Fuentes\FontAwesome6Free-Regular-400.otf" />
+    <None Remove="Recursos\Fuentes\FontAwesome6Free-Solid-900.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Recursos\Fuentes\FontAwesome6Brands-Regular-400.otf" />
+    <EmbeddedResource Include="Recursos\Fuentes\FontAwesome6Free-Regular-400.otf" />
+    <EmbeddedResource Include="Recursos\Fuentes\FontAwesome6Free-Solid-900.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
@@ -20,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Fuentes\" />
-    <Folder Include="Recursos\Fuentes\" />
   </ItemGroup>
 
   <ItemGroup>

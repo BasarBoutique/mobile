@@ -43,7 +43,7 @@ namespace BazarBoutique.Services.UsuarioServices
 
                     DataModelo InformacionToken = ResponsePerfilAuth.data;
                     //////
-                    var client2 = new HttpClient(httpClientHandler);
+                    HttpClient client2 = new HttpClient(httpClientHandler);
                     client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(InformacionToken.token_type, InformacionToken.access_token);
 
                     Uri ConfirmarUsuario = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/user");
@@ -52,6 +52,7 @@ namespace BazarBoutique.Services.UsuarioServices
 
                     if (responsePerfil.StatusCode == HttpStatusCode.OK)
                     {
+                        //eliminar esto cuando corrijan la api
                         var responsePerfilInformation = JsonConvert.DeserializeObject<UsuarioResponseModelo>(await responsePerfil.Content.ReadAsStringAsync());
 
                         SesionServicios.apiUser = responsePerfilInformation.data;

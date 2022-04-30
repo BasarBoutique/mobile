@@ -17,15 +17,21 @@ namespace BazarBoutique.Vistas.PerfilVistas
         {
             InitializeComponent();
 
-            if(SesionServicios.apiResponse.success == true)
+            ImagenPerfil.Source = "user.png";
+
+            if (SesionServicios.apiResponse.success == true)
             {
                 PrimerNombrelbl.Text = SesionServicios.apiUser.name;
                 Correolbl.Text = SesionServicios.apiUser.email;
+                ImagenPerfil.Source = SesionServicios.apiUser.detail.photo;
+                
+
             }
             if (!string.IsNullOrEmpty(SesionServicios.UsuarioGoogle.Name))
             {
                 PrimerNombrelbl.Text = SesionServicios.UsuarioGoogle.Name;
                 Correolbl.Text = SesionServicios.UsuarioGoogle.Email;
+                ImagenPerfil.Source = SesionServicios.UsuarioGoogle.Picture;
             }
         }
     }

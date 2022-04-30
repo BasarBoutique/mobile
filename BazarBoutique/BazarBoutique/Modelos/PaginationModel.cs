@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace BazarBoutique.Modelos
 {
@@ -27,9 +28,23 @@ namespace BazarBoutique.Modelos
     {
         List<T> coleccion { get; set;}
     }
+
+    public class PaginaRedireccion 
+    {
+        public int NumeroPagina { get; set; }
+        public Uri LinkPagina { get; set; }
+        public bool PaginaSeleccionada { get; set; }
+    }
+
     public class PaginateData
     {
-        public PaginationModel paginate { get; set; }
+        public PaginationModel pagination { get; set; }
+        public FiltrosModelo filters { get; set; }
+    }
+
+    public class SearchCourseFilters
+    {
+        public FiltrosModelo filters { get; set; }
     }
 
     public class PaginationModel
@@ -40,10 +55,11 @@ namespace BazarBoutique.Modelos
         public int total { get; set; }
     }
 
-    public class FiltersModelo
+    public class FiltrosModelo
     {
         public string title { get; set; }
         public List<int> categories { get; set; }
         public List<int> authors { get; set; }
     }
+
 }

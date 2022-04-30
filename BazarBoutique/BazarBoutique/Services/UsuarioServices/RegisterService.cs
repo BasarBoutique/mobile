@@ -1,6 +1,7 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services.UsuarioServices;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -24,6 +25,8 @@ namespace BazarBoutique.Services.UsuarioServices
 
             Uri RequestUri = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/signup");
             cliente = new HttpClient();
+
+            var elemento = new JObject();
 
             var UsuarioSerealizado = JsonConvert.SerializeObject(user);
             HttpContent httpcontent = new StringContent(UsuarioSerealizado, Encoding.UTF8, "application/json");
