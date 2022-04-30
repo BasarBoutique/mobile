@@ -14,7 +14,7 @@ namespace BazarBoutique.Controles.DataTemplateSelectors
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            if (((CategoriaModelo)item).IsMoreElement)
+            if (((CategoriaSlideModelo)item).IsMoreElement)
             {
                 return ElementoVerMas;
             }

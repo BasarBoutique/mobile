@@ -18,7 +18,6 @@ D:\DesarrolloAppsSenati\tesis\1\App\BazarBoutique\BazarBoutique\BazarBoutique\ob
 D:\DesarrolloAppsSenati\tesis\1\App\BazarBoutique\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\Vistas\InicioSesíonVistas\RegistrarseVista.xaml.g.cs
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\bin\Debug\netstandard2.0\BazarBoutique.deps.json
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\bin\Debug\netstandard2.0\BazarBoutique.dll
-D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\bin\Debug\netstandard2.0\ref\BazarBoutique.dll
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\bin\Debug\netstandard2.0\BazarBoutique.pdb
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\BazarBoutique.GeneratedMSBuildEditorConfig.editorconfig
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\App.xaml.g.cs
@@ -43,3 +42,4 @@ D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\Vistas\FiltrosVistas\FiltroAutorVista.xaml.g.cs
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\BazarBoutique.csproj.AssemblyReference.cache
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\Vistas\DetallesVistas\DetallesCursoVista.xaml.g.cs
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\refint\BazarBoutique.dll

@@ -7,6 +7,7 @@
              x:DataType="vm:FiltroCursosViewModel"
              xmlns:BoxControl="clr-namespace:BazarBoutique.Controles.ContenedoresRecursos"
              xmlns:md="clr-namespace:BazarBoutique.Modelos"
+             x:Name="ApartadoFiltroCurso"
              xmlns:tlkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <ContentPage.Content>
         <ScrollView>
@@ -200,7 +201,35 @@
                                 BorderWidth="2"
                                 HeightRequest="50"
                                 CornerRadius="15"/>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Column="1" VerticalOptions="Center">
+
+                        <CollectionView ItemsSource="{Binding PaginasListadas}" Grid.Column="1">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal"
+                                                   SnapPointsAlignment="Center"
+                                                   SnapPointsType="MandatorySingle"
+                                                   />
+                            </CollectionView.ItemsLayout>
+                            
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="md:PaginaRedireccion">
+                                    <StackLayout >
+                                        <Button Text="{Binding NumeroPagina}"
+                                            CommandParameter="{Binding LinkPagina}"
+                                            Command="{Binding Source={x:Reference ApartadoFiltroCurso}, Path=BindingContext.RedireccionPaginaCommand}"
+                                            WidthRequest="40"
+                                            Padding="-5"
+                                            VerticalOptions="CenterAndExpand"
+                                            HeightRequest="45"
+                                            BackgroundColor="White"
+                                            BorderColor="Green"
+                                            BorderWidth="3"/>
+                                    </StackLayout>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    
+                        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Column="1" VerticalOptions="Center">
                             <Label Text="1"
                                        FontSize="20"
                                        Margin="10,0"
@@ -218,7 +247,7 @@
                                        TextColor="Gray"
                                        FontAttributes="Bold"
                                        VerticalOptions="Center"/>
-                        </StackLayout>
+                        </StackLayout>-->
 
 
                         <Button Grid.Column="2"

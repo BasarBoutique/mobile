@@ -16,6 +16,7 @@ namespace BazarBoutique.Vistas.FiltrosVistas
         FiltroCursosViewModel vistamodel;
         public FiltroCursoVista()
         {
+
             InitializeComponent();
             BindingContext = vistamodel = new FiltroCursosViewModel(Navigation, this);
         }
