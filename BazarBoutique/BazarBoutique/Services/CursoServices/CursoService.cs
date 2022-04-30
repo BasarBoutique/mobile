@@ -20,6 +20,54 @@ namespace BazarBoutique.Services.CursoServices
 
         }
 
+        public async Task<DataCursos> GetPaginationCurso(SearchCourseFilters filtro, Uri direccion)
+        {
+            var httpClientHandler = new HttpClientHandler();
+
+            httpClientHandler.ServerCertificateCustomValidationCallback =
+            (message, cert, chain, errors) => { return true; };
+
+            clie = new HttpClient(httpClientHandler);
+
+            //clie.BaseAddress = new Uri("https://monolith-stage.herokuapp.com/api/v1/courses/search");
+
+            clie.DefaultRequestHeaders.Add("Accept", "application/json");
+            clie.Timeout = TimeSpan.FromMinutes(2);
+
+            var filtrojson = JsonConvert.SerializeObject(filtro);
+            var contentJson = new StringContent(filtrojson, Encoding.UTF8, "application/json");
+            var PaginacionCurso = new DataCursos();
+
+            try
+            {
+                //HttpResponseMessage response = await clie.GetAsync("?" + parametro + "=" + Convert.ToString(withDisabled).ToLower());
+                var response = await clie.PostAsync(direccion, contentJson);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    //string contenido = await response.Content.ReadAsStringAsync();
+                    var resultado = JsonConvert.DeserializeObject<CursoResponseModelo>(await response.Content.ReadAsStringAsync());
+                    //var resultado = JsonConvert.DeserializeObject<PaginationResponse>(contenido);
+
+                    //ElementosCursos.AddRange(resultado.data.coleccion);
+                    PaginacionCurso = resultado.data;
+
+                    return PaginacionCurso;
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible traer los datos de cursos", "OK");
+                    return PaginacionCurso;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("BazarBoutique", "Error al traer datos", "OK");
+                Console.WriteLine(ex.ToString());
+                return PaginacionCurso;
+            }
+        }
+
         public async Task<List<CursosModelo>> GetCurso(bool withDisabled)
         {
             string parametro = "withDisabled";

@@ -13,7 +13,7 @@
              Title="Bazar Boutique">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="CategoriaNormal" x:DataType="md:CategoriaModelo">
+            <DataTemplate x:Key="CategoriaNormal" x:DataType="md:CategoriaSlideModelo">
                 <Frame BackgroundColor="Transparent" Padding="10,0" >
                         <PanCake:PancakeView    CornerRadius="15" 
                                                 BackgroundColor="#008D35"
@@ -30,15 +30,15 @@
                             </PanCake:PancakeView.Shadow>
                             <StackLayout Padding="2"  >
                                 <Grid   VerticalOptions="Start"
-                                        ColumnDefinitions="*,2*,*">
+                                        ColumnDefinitions="2*,*,2*"
+                                        Padding="10,8,10,4">
 
-                                <PanCake:PancakeView Grid.Column="0"
-                                                                     VerticalOptions="Start"
-                                                                     HorizontalOptions="Start"
-                                                                     HeightRequest="60" 
-                                                                     WidthRequest="70"
-                                                                     CornerRadius="15"
-                                                                     Margin="5">
+                                <PanCake:PancakeView    Grid.Column="0"
+                                                        VerticalOptions="Start"
+                                                        HorizontalOptions="Start"
+                                                        HeightRequest="60" 
+                                                        WidthRequest="110"
+                                                        CornerRadius="10">
                                     <PanCake:PancakeView.Shadow>
                                         <PanCake:DropShadow Color="Black" Offset="40,33" Opacity="55"  />
                                     </PanCake:PancakeView.Shadow>
@@ -51,30 +51,30 @@
                                                     VerticalOptions="Start"
                                                     HorizontalOptions="Start"
                                                     HeightRequest="60" 
-                                                    WidthRequest="70"
-                                                    CornerRadius="15"
-                                                    Margin="5">
+                                                    WidthRequest="110"
+                                                    CornerRadius="10">
                                         <PanCake:PancakeView.Shadow>
                                             <PanCake:DropShadow Color="Black" Offset="40,33" Opacity="55"  />
                                         </PanCake:PancakeView.Shadow>
                                         
                                         <Image Source="{Binding PhotoCategory}"
-                                               
                                                            Aspect="AspectFill"/>
 
                                     </PanCake:PancakeView>
 
                                     <!--<StackLayout>
                                                 </StackLayout>-->
-                                    <Label  Grid.Column="1"
+                                    <Label  Grid.Column="2"
                                             Text="{Binding category}"
                                             MaxLines="3"
-                                            Margin="0,5,0,0"
-                                            TextColor="White" FontSize="17" 
-                                            VerticalOptions="Start"
+                                            Margin="0,0,5,0"
+                                            TextColor="White" 
+                                            FontSize="17" 
+                                            VerticalOptions="Center"
                                             FontAttributes="Bold" 
-                                            HorizontalOptions="Start"/>
-                                    <Label TextColor="White"
+                                            HorizontalTextAlignment="End"
+                                            HorizontalOptions="End"/>
+                                    <!--<Label TextColor="White"
                                                        FontSize="12"
                                                        Padding="8"
                                                        HorizontalTextAlignment="Center"
@@ -87,25 +87,42 @@
                                                 <Span Text="25 Cursos"/>
                                             </FormattedString>
                                         </Label.FormattedText>
-                                    </Label>
-                                </Grid>
-                                <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10,0" HeightRequest="2" WidthRequest="1" Color="White"/>
+                                    </Label>-->
+
+                            </Grid>
+                                <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="12,0" HeightRequest="2" WidthRequest="1" Color="White"/>
                                 <StackLayout    VerticalOptions="End"  
                                                 Orientation="Horizontal"
                                                 IsVisible="{Binding IsNew}"
-                                                Padding="5">
+                                                Padding="5"
+                                                Margin="7,0">
                                     <PanCake:PancakeView HorizontalOptions="StartAndExpand"
                                                          CornerRadius="5"
                                                          IsVisible="True"
-                                                         BackgroundColor="Gold"
-                                                         Margin="5,0">
+                                                         BackgroundColor="Gold">
                                         <Label Text="Nuevo"
                                                 Padding="3"
                                                 FontAttributes="Bold"
                                                 TextColor="Black"/>
                                     </PanCake:PancakeView>
-                                    
-                                    <!--<Label  Text="{Binding date,StringFormat='{0:MM - dd - yyyy}'}" 
+
+                                <Label  TextColor="White"
+                                        FontSize="12"
+                                        Padding="2"
+                                        WidthRequest="180"
+                                        HorizontalTextAlignment="End"
+                                        VerticalOptions="EndAndExpand"
+                                        HorizontalOptions="End">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Existen "  />
+                                            <Span Text="{Binding user}"/>
+                                            <Span Text=" Suscriptores"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <!--<Label  Text="{Binding date,StringFormat='{0:MM - dd - yyyy}'}" 
                                             HorizontalOptions="EndAndExpand"
                                             Margin="5,0"
                                             FontAttributes="Bold"
@@ -123,7 +140,7 @@
 
             </DataTemplate>
 
-            <DataTemplate x:Key="ElementoVerMas" x:DataType="md:CategoriaModelo">
+            <DataTemplate x:Key="ElementoVerMas" x:DataType="md:CategoriaSlideModelo">
                 <Frame BackgroundColor="Transparent" Padding="10,0">
                     <PanCake:PancakeView    CornerRadius="15"  
                                             BackgroundColor="#008D35"
@@ -200,7 +217,7 @@
                                 <tlkit:StateLayout.StateViews>
                                     
                                     <tlkit:StateView StateKey="Loading">
-                                        <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="125" WidthRequest="105" Margin="10,0,30,0"  BackgroundColor="Gray"  />
+                                        <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="125" WidthRequest="105" Margin="10,0,25,0"  BackgroundColor="Gray"  />
                                     </tlkit:StateView>
 
                                     <tlkit:StateView StateKey="Success">

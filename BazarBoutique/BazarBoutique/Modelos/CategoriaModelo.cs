@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BazarBoutique.Modelos
 {
-
-    public class CategoriaResponseModelo
+    public class CategoriaSlideResponseModelo : ApiResponse
     {
-        public List<CategoriaModelo>  data { get; set; }
-        public string message { get; set;}
-        public bool success { get; set; }
+        public List<CategoriaSlideModelo>  data { get; set; }
+
     }
 
-    public class CategoriaModelo
+    public class CategoriaSlideModelo
     {
         public int id { get; set; }
         public string category{ get; set; }
@@ -20,18 +19,6 @@ namespace BazarBoutique.Modelos
         public int user { get; set; }
         public DateTime date { get; set; }
         public bool enabled { get; set; }
-        //public bool IsPopular 
-        //{
-        //    get
-        //    {
-        //        if (user <= 20)
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //}
-
 
         public bool IsNew
         {
@@ -73,6 +60,26 @@ namespace BazarBoutique.Modelos
                 var color = String.Format("#{0:X6}", random.Next(0x1000000));
                 return color; }
         }
-
     }
+        public class CategoriaResponseModelo : ApiResponse
+        {
+            public DataCategorias data { get; set; }
+        }
+
+        public class DataCategorias
+        {
+            public List<CategoriaModelo> categories { get; set; }
+            public PaginationModel pagination { get; set; }
+        }
+
+        public class CategoriaModelo
+        {
+            public int id { get; set; }
+            public string title { get; set; }
+
+            [JsonProperty(propertyName: "photo-url")]
+            public Uri photo { get; set; }
+            public bool enabled { get; set; }
+        }
+
 }

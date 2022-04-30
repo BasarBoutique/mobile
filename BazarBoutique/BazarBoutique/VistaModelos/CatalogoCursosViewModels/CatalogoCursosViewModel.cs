@@ -19,14 +19,12 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
         private readonly INavigation navigation;
         private readonly ContentPage page;
         private bool IsInitialized;
-        private ObservableCollection<CategoriaModelo> categoriasLista;
+        private ObservableCollection<CategoriaSlideModelo> categoriasLista;
         private ObservableCollection<CursosModelo> cursosLista;
 
         ICategoryService ServicioCategoria = DependencyService.Get<ICategoryService>();
         ICursoService ServicioCursos = DependencyService.Get<ICursoService>();
-
-
-        public ObservableCollection<CategoriaModelo> Categorias 
+        public ObservableCollection<CategoriaSlideModelo> Categorias 
         {
             get => categoriasLista;
             set
@@ -61,7 +59,7 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 
 
         public Command RedireccionApartadoCategorias { get; set; }
-        public Command<CategoriaModelo> RedireccionApartadoCursos { get; set; }
+        public Command<CategoriaSlideModelo> RedireccionApartadoCursos { get; set; }
 
         public CatalogoCursosViewModel(INavigation navigation, ContentPage page)
         {
@@ -69,26 +67,26 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             this.navigation = navigation;
             this.page = page;
             RedireccionApartadoCategorias = new Command(RedireccionACategoriasPagina); 
-            RedireccionApartadoCursos = new Command<CategoriaModelo>(RedireccionACursosPagina);
+            RedireccionApartadoCursos = new Command<CategoriaSlideModelo>(RedireccionACursosPagina);
 
             IsInitialized = true;
 
             EstadoActual = LayoutState.Loading;
             EstadoCursos = LayoutState.Loading;
         }
-        
-        private async Task<List<CategoriaModelo>> DefiniendoCateogriasRandom(int CantidadCategorias)
+
+        private async Task<List<CategoriaSlideModelo>> DefiniendoCateogriasRandom(int CantidadCategorias)
         {
             var CategoriasRandom = await ServicioCategoria.GetCategoriaSlide();
             
 
-            var SoloAlgunasCategorias = new List<CategoriaModelo>();
+            var SoloAlgunasCategorias = new List<CategoriaSlideModelo>();
             SoloAlgunasCategorias.AddRange(CategoriasRandom.OrderByDescending(e => e.user).Take(CantidadCategorias));
 
-
+            Shuffle(SoloAlgunasCategorias);
             //Shuffle(CategoriasRandom);
             //int cantidadprimaria = 0;
-            SoloAlgunasCategorias.Add(new CategoriaModelo
+            SoloAlgunasCategorias.Add(new CategoriaSlideModelo
             {
                 IsMoreElement = true
             });
@@ -96,21 +94,21 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             return SoloAlgunasCategorias;
         }
 
-        private async Task<List<CursosModelo>> DefiniendoCursosRandom()
+        private async Task<List<CursosModelo>> DefiniendoCursosRandom(int CantidadCategorias)
         {
             var SoloEstosCursos = new List<CursosModelo>();
 
             var TodosLosCursos = await ServicioCursos.GetCurso(false);
 
             Shuffle(TodosLosCursos);
-            SoloEstosCursos.AddRange(TodosLosCursos.Take(6));
+            SoloEstosCursos.AddRange(TodosLosCursos.Take(CantidadCategorias));
 
             EstadoCursos = LayoutState.Success;
             return SoloEstosCursos;
         }
 
 
-        private void RedireccionACursosPagina(CategoriaModelo args)
+        private void RedireccionACursosPagina(CategoriaSlideModelo args)
         {
             navigation.PushAsync(new FiltroCursoVista());
         }
@@ -125,9 +123,9 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             IsBusy = true;
             if (IsInitialized == true)
             {
-                Categorias = new ObservableCollection<CategoriaModelo>(await DefiniendoCateogriasRandom(6));
+                Categorias = new ObservableCollection<CategoriaSlideModelo>(await DefiniendoCateogriasRandom(6));
 
-                Cursos = new ObservableCollection<CursosModelo>(await DefiniendoCursosRandom());
+                Cursos = new ObservableCollection<CursosModelo>(await DefiniendoCursosRandom(4));
                 
                 IsInitialized = false;
             }

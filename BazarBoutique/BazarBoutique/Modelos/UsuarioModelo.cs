@@ -14,9 +14,23 @@ namespace BazarBoutique.Modelos
         public int id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
+        public DetallesUsuario detail { get; set; }
+        public List<RolesUsuarios> roles { get; set; }
 
     }
+    public class DetallesUsuario
+    {
+        public string fullname { get; set; }
+        public Uri photo { get; set; }
+        public string address { get; set; }
+        public string phone{ get; set; }
+        public string uuid { get; set; }
+    }
 
+    public class RolesUsuarios
+    {
+
+    }
 
 
     //public class LoginResponse
