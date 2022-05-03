@@ -9,14 +9,9 @@ namespace BazarBoutique.Modelos
         public DataCursos data { get; set; }
     }
 
-    public class DataCursos : PaginateData, IData<CursosModelo>
+    public class DataCursos : PaginateData
     {
-        public List<CursosModelo> courses;
-        public List<CursosModelo> coleccion
-        {
-            get => courses;
-            set => courses = value;
-        }
+        public List<CursosModelo> courses { get; set; }
     }
 
     public class CursosModelo

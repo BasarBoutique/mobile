@@ -62,6 +62,9 @@
     <EmbeddedResource Update="Vistas\FiltrosVistas\FiltrosCategoriasVista.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Vistas\FiltrosVistas\SoloFiltroCategoriaVista.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Vistas\InicioSesíonVistas\LoginVista.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

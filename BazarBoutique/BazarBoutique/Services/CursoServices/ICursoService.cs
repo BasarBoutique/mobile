@@ -10,6 +10,6 @@ namespace BazarBoutique.Services.CursoServices
     public interface ICursoService
     {
         Task<List<CursosModelo>> GetCurso(bool withDisabled);
-        Task<DataCursos> GetPaginationCurso(SearchCourseFilters filtro, Uri direccion);
+        Task<DataCursos> GetPaginationCurso(Uri direccion, SearchCourseFilters filtro);
     }
 }

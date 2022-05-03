@@ -1,4 +1,5 @@
-﻿using BazarBoutique.VistaModelos.FiltrosViewModels;
+﻿using BazarBoutique.Modelos;
+using BazarBoutique.VistaModelos.FiltrosViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

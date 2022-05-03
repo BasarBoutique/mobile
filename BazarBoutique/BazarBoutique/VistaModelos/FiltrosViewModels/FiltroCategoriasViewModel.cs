@@ -121,7 +121,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             this.navigation = navigation;
             this.page = page;
 
-            PaginaDatos = new DataCategorias();
+
             RedireccionPaginaCommand = new Command<PaginaRedireccion>(SeleccionandoPagina);
             PaginaAnteriorCommand = new Command<Uri>(PaginaAnteriorCommsand);
             PaginaSiguienteCommand = new Command<Uri>(PaginaAnteriorCommsand);

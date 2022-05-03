@@ -1,4 +1,5 @@
-﻿using BazarBoutique.VistaModelos.FiltrosViewModels;
+﻿using BazarBoutique.Modelos;
+using BazarBoutique.VistaModelos.FiltrosViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,11 @@ namespace BazarBoutique.Vistas.FiltrosVistas
     public partial class FiltroCursoVista : ContentPage
     {
         FiltroCursosViewModel vistamodel;
-        public FiltroCursoVista()
+        public FiltroCursoVista(SearchCourseFilters FiltrosRealizados)
         {
 
             InitializeComponent();
-            BindingContext = vistamodel = new FiltroCursosViewModel(Navigation, this);
+            BindingContext = vistamodel = new FiltroCursosViewModel(Navigation, this, FiltrosRealizados);
         }
         protected override void OnAppearing()
         {

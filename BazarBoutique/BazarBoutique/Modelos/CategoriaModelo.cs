@@ -80,6 +80,7 @@ namespace BazarBoutique.Modelos
             [JsonProperty(propertyName: "photo-url")]
             public Uri photo { get; set; }
             public bool enabled { get; set; }
-        }
+            public bool EstaSeleccionado { get; set; }
+    }
 
 }

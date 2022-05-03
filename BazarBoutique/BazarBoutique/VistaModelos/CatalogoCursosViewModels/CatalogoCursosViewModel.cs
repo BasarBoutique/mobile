@@ -1,6 +1,7 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services.CategoriaServices;
 using BazarBoutique.Services.CursoServices;
+using BazarBoutique.Services.UsuarioServices;
 using BazarBoutique.Vistas.FiltrosVistas;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 
         ICategoryService ServicioCategoria = DependencyService.Get<ICategoryService>();
         ICursoService ServicioCursos = DependencyService.Get<ICursoService>();
+        IUsuarioServices ServicioUsuarios = DependencyService.Get<IUsuarioServices>();
+
         public ObservableCollection<CategoriaSlideModelo> Categorias 
         {
             get => categoriasLista;
@@ -39,6 +42,18 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             set
             {
                 cursosLista = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<UsuarioModelo> _listaAutores;
+       
+        public ObservableCollection<UsuarioModelo> Autores
+        {
+            get => _listaAutores;
+            set
+            {
+                _listaAutores = value;
                 OnPropertyChanged();
             }
         }
@@ -59,6 +74,8 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 
 
         public Command RedireccionApartadoCategorias { get; set; }
+        public Command RedireccionApartadoAutores { get; set; }
+        
         public Command<CategoriaSlideModelo> RedireccionApartadoCursos { get; set; }
 
         public CatalogoCursosViewModel(INavigation navigation, ContentPage page)
@@ -66,7 +83,8 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             //Instanciando propiedades 
             this.navigation = navigation;
             this.page = page;
-            RedireccionApartadoCategorias = new Command(RedireccionACategoriasPagina); 
+            RedireccionApartadoCategorias = new Command(RedireccionACategoriasPagina);
+            RedireccionApartadoAutores = new Command(RedireccionAAutoresPagina);
             RedireccionApartadoCursos = new Command<CategoriaSlideModelo>(RedireccionACursosPagina);
 
             IsInitialized = true;
@@ -75,11 +93,15 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             EstadoCursos = LayoutState.Loading;
         }
 
+        private void RedireccionAAutoresPagina()
+        {
+            navigation.PushAsync(new FiltroAutorVista());
+        }
+
         private async Task<List<CategoriaSlideModelo>> DefiniendoCateogriasRandom(int CantidadCategorias)
         {
             var CategoriasRandom = await ServicioCategoria.GetCategoriaSlide();
             
-
             var SoloAlgunasCategorias = new List<CategoriaSlideModelo>();
             SoloAlgunasCategorias.AddRange(CategoriasRandom.OrderByDescending(e => e.user).Take(CantidadCategorias));
 
@@ -93,6 +115,17 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             EstadoActual = LayoutState.Success;
             return SoloAlgunasCategorias;
         }
+
+        private async Task<List<UsuarioModelo>> DefiniendoUsuariosRandos()
+        {
+            //La api con la que se necesita anidar ya desordena la lista y trae datos random
+            var UsuariosRandom = await ServicioUsuarios.GetUsuarioSlide();
+
+            EstadoActual = LayoutState.Success;
+            return UsuariosRandom;
+        }
+
+        
 
         private async Task<List<CursosModelo>> DefiniendoCursosRandom(int CantidadCategorias)
         {
@@ -110,7 +143,8 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
 
         private void RedireccionACursosPagina(CategoriaSlideModelo args)
         {
-            navigation.PushAsync(new FiltroCursoVista());
+            SearchCourseFilters FiltrosRealizados = new SearchCourseFilters();
+            navigation.PushAsync(new FiltroCursoVista(FiltrosRealizados));
         }
 
         private void RedireccionACategoriasPagina()
@@ -126,34 +160,14 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
                 Categorias = new ObservableCollection<CategoriaSlideModelo>(await DefiniendoCateogriasRandom(6));
 
                 Cursos = new ObservableCollection<CursosModelo>(await DefiniendoCursosRandom(4));
+
+                Autores = new ObservableCollection<UsuarioModelo>(await DefiniendoUsuariosRandos());
                 
                 IsInitialized = false;
             }
             
             IsBusy = false;
         }
-
-        //Habilitar esto cuando se tenga cursos
-
-        //private async Task<List<CursosModelo>> DefiniendoCursosRandom(int CantidadCursos)
-        //{
-        //    var CursosRandom = await CursosService.GetCursos();
-        //    var SoloAlgunosCursos = new List<CursosModelo>();
-        //    Shuffle(CursosRandom);
-        //    int cantidadprimaria = 0;
-        //    foreach (var arg in CursosRandom)
-        //    {
-        //        if (cantidadprimaria <= CantidadCursos)
-        //        {
-        //            SoloAlgunosCursos.Add(arg);
-        //            cantidadprimaria++;
-        //        }
-        //    }
-
-        //    return SoloAlgunosCursos;
-        //}
-
-
 
     }
 }

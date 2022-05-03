@@ -23,7 +23,7 @@ namespace BazarBoutique.Vistas.PerfilVistas
             {
                 PrimerNombrelbl.Text = SesionServicios.apiUser.name;
                 Correolbl.Text = SesionServicios.apiUser.email;
-                ImagenPerfil.Source = SesionServicios.apiUser.detail.photo;
+                ImagenPerfil.Source = SesionServicios.apiUser.detail.PhotoUser;
                 
 
             }

@@ -61,6 +61,7 @@
                     <!--Barra de busqueda-->
                     <StackLayout Grid.Row="0"
                                  HeightRequest="60"
+                                 
                                  Margin="15,0,15,0"
                                  VerticalOptions="Start" >
                         <PCK:PancakeView CornerRadius="15"
@@ -93,13 +94,13 @@
                                             <Grid Padding="8" ColumnDefinitions="*,2*,*" >
 
                                                 <PCK:PancakeView    VerticalOptions="Center"
-                                                                HorizontalOptions="Start"
-                                                                Grid.Column="0" 
-                                                                HeightRequest="60" 
-                                                                WidthRequest="60"
-                                                                BackgroundColor="Transparent"
-                                                                CornerRadius="15"
-                                                                Margin="8,0">
+                                                                    HorizontalOptions="Start"
+                                                                    Grid.Column="0" 
+                                                                    HeightRequest="60" 
+                                                                    WidthRequest="60"
+                                                                    BackgroundColor="Transparent"
+                                                                    CornerRadius="15"
+                                                                    Margin="8,0">
                                                     <Image Aspect="AspectFill"
                                                     BackgroundColor="Transparent"
                                                     Source="not_image.jpg"/>

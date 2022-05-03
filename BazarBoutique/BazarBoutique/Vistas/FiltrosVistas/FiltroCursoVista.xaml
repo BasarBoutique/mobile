@@ -4,63 +4,242 @@
              xmlns:PCK="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="BazarBoutique.Vistas.FiltrosVistas.FiltroCursoVista"
              xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.FiltrosViewModels"
+             xmlns:DataTemp="clr-namespace:BazarBoutique.Controles.DataTemplateSelectors"
              x:DataType="vm:FiltroCursosViewModel"
              xmlns:BoxControl="clr-namespace:BazarBoutique.Controles.ContenedoresRecursos"
              xmlns:md="clr-namespace:BazarBoutique.Modelos"
              x:Name="ApartadoFiltroCurso"
              xmlns:tlkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="PaginaSeleccionada" x:DataType="md:PaginaRedireccion">
+                <StackLayout>
+                    <ScrollView>
+                        <Button Text="{Binding NumeroPagina}"
+                                                            CommandParameter="{Binding .}"
+                                                            Command="{Binding Source={x:Reference ApartadoFiltroCurso}, Path=BindingContext.RedireccionPaginaCommand}"
+                                                            WidthRequest="45"
+                                                            Padding="5"
+                                                            Margin="2,0"
+                                                            CornerRadius="3"
+                                                            TextColor="White"
+                                                            BackgroundColor="Green"/>
+                    </ScrollView>
+                </StackLayout>
+            </DataTemplate>
+
+
+            <DataTemplate x:Key="PaginaNormal" x:DataType="md:PaginaRedireccion">
+                <StackLayout>
+                    <ScrollView>
+                        <Button Text="{Binding NumeroPagina}"
+                                                            CommandParameter="{Binding .}"
+                                                            Command="{Binding Source={x:Reference ApartadoFiltroCurso}, Path=BindingContext.RedireccionPaginaCommand}"
+                                                            WidthRequest="45"
+                                                            Padding="5"
+                                                            Margin="2,0"
+                                                            CornerRadius="3"
+                                                            BackgroundColor="White"/>
+                    </ScrollView>
+                </StackLayout>
+            </DataTemplate>
+            <DataTemp:PaginaSeleccionadaDataTemplate x:Key="TiposPaginas"
+                                                     PaginaNoSeleccionada="{StaticResource PaginaNormal}"
+                                                     PaginaSeleccionada="{StaticResource PaginaSeleccionada}"/>
+            
+            
+            <!--/////-->
+
+            <DataTemplate x:Key="FiltroCategoria" x:DataType="md:FiltroPorNombreId">
+                <StackLayout Margin="9,0" >
+                    <PCK:PancakeView    Shadow="{PCK:ShadowMarkup Color=Black, Offset='1,2'}"
+                                        Border="{PCK:BorderMarkup Color=Black, Thickness=1}"
+                                        CornerRadius="10"  BackgroundColor="White"
+                                        VerticalOptions="CenterAndExpand" HeightRequest="65" HorizontalOptions="Center">
+
+                        <Grid ColumnDefinitions="30,*" ColumnSpacing="1" Padding="5,5,5,5" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Button Grid.Column="0" BackgroundColor="Transparent" Text="&#xf057;" Padding="-5" FontSize="20" FontFamily="FonSolid" TextColor="Black" Command="{Binding Source={x:Reference ApartadoFiltroCurso}, Path=BindingContext.EliminandoFiltroCommand}" CommandParameter="{Binding .}"/>
+
+                            <Label Grid.Column="1"  VerticalOptions="Center" Text="{Binding NombreFiltro}" MaxLines="4" TextColor="Black">
+                            </Label>
+                        </Grid>
+                    </PCK:PancakeView>
+                </StackLayout>
+            </DataTemplate>
+
+
+            <DataTemplate x:Key="FiltroAutores" x:DataType="md:FiltroPorNombreId">
+                <StackLayout Margin="9,0" >
+                    <PCK:PancakeView    Shadow="{PCK:ShadowMarkup Color=Black, Offset='1,2'}"
+                                        Border="{PCK:BorderMarkup Color=Black, Thickness=1}"
+                                        CornerRadius="10"  BackgroundColor="Black"
+                                        VerticalOptions="CenterAndExpand" HeightRequest="65" HorizontalOptions="Center">
+
+                        <Grid ColumnDefinitions="30,*" ColumnSpacing="1" Padding="5,5,5,5" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Button Grid.Column="0" BackgroundColor="Transparent" Text="&#xf057;" Padding="-5" FontSize="20" FontFamily="FonSolid" TextColor="White" Command="{Binding Source={x:Reference ApartadoFiltroCurso}, Path=BindingContext.EliminandoFiltroCommand}" CommandParameter="{Binding .}"/>
+
+                            <Label Grid.Column="1"  VerticalOptions="Center" Text="{Binding NombreFiltro}" MaxLines="4" TextColor="White">
+                            </Label>
+                        </Grid>
+                    </PCK:PancakeView>
+                </StackLayout>
+            </DataTemplate>
+            <DataTemp:FiltrosColorDataTemplateSelector x:Key="TiposCategorias"
+                                                       FiltrosDeAutores="{StaticResource FiltroAutores}"
+                                                       FiltrosDeCategorias="{StaticResource FiltroCategoria}"/>
+
+
+
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Priority="2"
+                     Text="wdw"
+                     x:Name="tCarrito"
+                     Order="Secondary">
+            <ToolbarItem.IconImageSource >
+                <FontImageSource FontFamily="FonSolid"
+                                 Size="Large"
+                                 Color="Green"
+                                 Glyph="&#xf84c;"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>-->
+
+        <ToolbarItem x:Name="tBuscador"
+                     Priority="1"
+                     Command="{Binding MostrandoFiltrosCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FonSolid"
+                                 Size="Large"
+                                 Color="Green"
+                                 Glyph="&#xf0b0;"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        
+
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <ScrollView>
             <Grid>
                 <!--Contenedor Principal-->
-                <Grid RowDefinitions="80,*,130" ColumnSpacing="1">
+                <Grid HeightRequest="1200" RowDefinitions="Auto,75,Auto,120" ColumnSpacing="1">
+
+                    <StackLayout Grid.Row="0" IsVisible="{Binding EsVisibleFiltros}">
+                        <!--Filtros-->
+                        <StackLayout Orientation="Horizontal" Margin="15,10,15,0" >
+                            <Button HeightRequest="55"
+                                    WidthRequest="120"
+                                    BackgroundColor="White"
+                                    Command="{Binding VistaFiltroCategoriaCommand}"
+                                    TextColor="Green"
+                                    BorderColor="Black"
+                                    BorderWidth="2"
+                                    CornerRadius="15"
+                                    Text="Categoria"
+                                    HorizontalOptions="StartAndExpand"/>
+
+                            <Button HorizontalOptions="Center" 
+                                    Text="&#xe17b;" 
+                                    HeightRequest="40"
+                                    Padding="-5"
+                                    Command="{Binding EliminandoFiltrosCommand}"
+                                    VerticalOptions="Center"
+                                    FontSize="23"
+                                    FontFamily="FonSolid"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    BackgroundColor="Green"
+                                    BorderColor="Black"/>
+
+                            <Button HeightRequest="55"
+                                    Command="{Binding VistaFiltroAutorCommand}"
+                                    Text="Nombre de Autor"
+                                    WidthRequest="120"
+                                    CornerRadius="15"
+                                    BackgroundColor="Black"
+                                    TextColor="Green"
+                                    BorderColor="Black"
+                                    BorderWidth="2"
+                                    HorizontalOptions="EndAndExpand"/>
+
+                        </StackLayout>
+
+                        <!--Filtros Aplicados FiltrosListados-->
+                        <StackLayout Orientation="Horizontal" Margin="0,5,0,0"  >
+                            <CollectionView HorizontalScrollBarVisibility="Never"
+                                            VerticalOptions="Center"
+                                            ItemsLayout="HorizontalList"
+                                            HeightRequest="85"
+                                            ItemTemplate="{StaticResource TiposCategorias}"
+                                            ItemsSource="{Binding FiltrosListados}">
+                                <!--<CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="md:FiltroPorNombreId">
+                                        <StackLayout Margin="9,0" >
+                                            <PCK:PancakeView  Shadow="{PCK:ShadowMarkup Color=Black, Offset='1,2'}"
+                                                          CornerRadius="10"  BackgroundColor="Green"
+                                                          VerticalOptions="CenterAndExpand" HeightRequest="65" HorizontalOptions="Center">
+
+                                                <Grid ColumnDefinitions="30,*" ColumnSpacing="1" Padding="5,5,5,5" HorizontalOptions="Center" VerticalOptions="Center">
+                                                    <Button Grid.Column="0" BackgroundColor="Transparent" Text="&#xf057;" Padding="-5" FontSize="20" FontFamily="FonSolid" TextColor="White" Command="{Binding Source={x:Reference ApartadoFiltroCurso}, Path=BindingContext.EliminandoFiltroCommand}" CommandParameter="{Binding .}"/>
+
+                                                    <Label Grid.Column="1"  VerticalOptions="Center" Text="{Binding NombreFiltro}" MaxLines="4" TextColor="White">
+                                                    </Label>
+                                                </Grid>
+
+                                                --><!--<Grid HorizontalOptions="Center" RowSpacing="0" ColumnSpacing="0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <StackLayout Grid.Row="1" Padding="10,5" HorizontalOptions="Center">
+                                                        <Label     FontAttributes="Bold" TextColor="White" MaxLines="2" FontSize="14" HorizontalTextAlignment="Center"/>
+                                                        <Label Margin="0,5,0,0" HorizontalTextAlignment="Center" Text="15" FontAttributes="Bold" TextColor="White">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="Cantidad cursos:"/>
+                                                                    <Span Text="15"/>
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+
+                                                    </StackLayout>
+                                                </Grid>--><!--
+                                            </PCK:PancakeView>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>-->
+                            </CollectionView>
+
+                        </StackLayout>
+
+                    </StackLayout>
 
                     <!--Barra de busqueda-->
                     <StackLayout HeightRequest="60"
-                                 Grid.Row="0"
-                                 Margin="15,10,15,0"
+                                 Grid.Row="1"
+                                 Margin="15,5,15,0"
                                  VerticalOptions="Start" >
                         <PCK:PancakeView CornerRadius="15"
                                          Border="{PCK:BorderMarkup Color=Green, Thickness='2'}"
                                          VerticalOptions="CenterAndExpand">
                             <SearchBar x:Name="BarraNavegacion"
                                        TextColor="Gray" 
+                                       HeightRequest="55"
                                        Placeholder="Nombre del curso"
                                        Text="{Binding ElementoBusqueda,Mode=TwoWay}"/>
                         </PCK:PancakeView>
                     </StackLayout>
 
-                <StackLayout Grid.Row="1" >
+                <StackLayout Grid.Row="2" >
 
-                        <!--Filtros-->
-
-                            <StackLayout Orientation="Horizontal" Margin="16,0">
-                                    <Button HeightRequest="55"
-                                            WidthRequest="120"
-                                            BackgroundColor="White"
-                                            Command="{Binding VistaFiltroCategoriaCommand}"
-                                            TextColor="Green"
-                                            BorderColor="Black"
-                                            BorderWidth="2"
-                                            CornerRadius="15"
-                                            Text="Categoria"
-                                            HorizontalOptions="StartAndExpand"/>
-
-                                    <Button HeightRequest="55"
-                                            Command="{Binding VistaFiltroAutorCommand}"
-                                            Text="Nombre de Autor"
-                                            WidthRequest="120"
-                                            CornerRadius="15"
-                                            BackgroundColor="Black"
-                                            TextColor="White"
-                                            BorderColor="Black"
-                                            BorderWidth="2"
-                                            HorizontalOptions="EndAndExpand"/>
-
-                                </StackLayout>
-
-
-                        <StackLayout Margin="15,10">
+                        <StackLayout Margin="15,5">
                             <Label Text="Cursos"
                                Style="{StaticResource TituloSecciones}"/>
                         </StackLayout>
@@ -159,109 +338,76 @@
                             <BindableLayout.EmptyView>
                                 <StackLayout tlkit:StateLayout.CurrentState="{Binding EstadoCursos}"
                                              tlkit:StateLayout.AnimateStateChanges="False">
-                                    <tlkit:StateView StateKey="Loading">
-                                        <FlexLayout Margin="0,0,0,0" 
-                                                    Wrap="Wrap"
-                                                    Direction="Row"
-                                                    JustifyContent="Center"
-                                                    AlignItems="Center"
-                                                    AlignContent="Start">
-                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170"  BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                            <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                        </FlexLayout>
-                                    </tlkit:StateView>
+                                    <tlkit:StateLayout.StateViews>
+                                        
+                                        <tlkit:StateView StateKey="Loading">
+                                            <FlexLayout Margin="0,0,0,0" 
+                                                        Wrap="Wrap"
+                                                        Direction="Row"
+                                                        JustifyContent="Center"
+                                                        AlignItems="Center"
+                                                        AlignContent="Start">
+                                                <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170"  BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                            </FlexLayout>
+                                        </tlkit:StateView>
 
-                                    <tlkit:StateView StateKey="Success">
-                                        <Label Text="No existen catalogos" 
-                                           HorizontalOptions="Center" 
-                                           VerticalOptions="CenterAndExpand"
-                                           VerticalTextAlignment="Center"/>
-                                    </tlkit:StateView>
+                                        <tlkit:StateView StateKey="Success">
+                                            <Label Text="No existen catalogos" 
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="CenterAndExpand"
+                                               VerticalTextAlignment="Center"/>
+                                        </tlkit:StateView>
+                                    </tlkit:StateLayout.StateViews>
+                                    
                                 </StackLayout>
                             </BindableLayout.EmptyView>
                         </FlexLayout>
                             
                 </StackLayout>
-                <Grid           Grid.Row="2"
-                                ColumnDefinitions="*,2*,*"
-                                Margin="20,30"
-                                VerticalOptions="EndAndExpand"
-                                HeightRequest="90">
-                        <Button Text="Anterior"
-                                Command="{Binding PaginaAnteriorCommand}"
-                                Grid.Column="0"
-                                FontSize="12"    
-                                BackgroundColor="Green"
-                                TextColor="White"
-                                VerticalOptions="Center"
-                                WidthRequest="100"
-                                BorderWidth="2"
-                                HeightRequest="50"
-                                CornerRadius="15"/>
 
-                        <CollectionView ItemsSource="{Binding PaginasListadas}" Grid.Column="1">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Horizontal"
+                    <StackLayout Grid.Row="3">
+                        <PCK:PancakeView CornerRadius="10" Margin="15,0" HeightRequest="50" VerticalOptions="Start" Border="{PCK:BorderMarkup Color=Green, Thickness='0'}" Padding="2,2">
+                            <Grid   ColumnDefinitions="Auto,2*,Auto"
+                                    Margin="0,0" >
+                                <Button Text="&#xf104;"
+                                        FontFamily="FonSolid"
+                                        Command="{Binding PaginaAnteriorCommand}"
+                                        CommandParameter="{Binding ParametroPaginaAnterior}"
+                                        Grid.Column="0"
+                                        FontSize="20" 
+                                        BackgroundColor="{Binding BackButtonColor}"
+                                        TextColor="White"
+                                        BorderWidth="2"
+                                        WidthRequest="50"
+                                        CornerRadius="5"/>
+
+                                <CollectionView  Grid.Column="1" ItemsSource="{Binding PaginasListadas}" ItemTemplate="{StaticResource TiposPaginas}" HorizontalOptions="CenterAndExpand"   Margin="-5,0">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal"
                                                    SnapPointsAlignment="Center"
-                                                   SnapPointsType="MandatorySingle"
-                                                   />
-                            </CollectionView.ItemsLayout>
-                            
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="md:PaginaRedireccion">
-                                    <StackLayout >
-                                        <Button Text="{Binding NumeroPagina}"
-                                            CommandParameter="{Binding LinkPagina}"
-                                            Command="{Binding Source={x:Reference ApartadoFiltroCurso}, Path=BindingContext.RedireccionPaginaCommand}"
-                                            WidthRequest="40"
-                                            Padding="-5"
-                                            VerticalOptions="CenterAndExpand"
-                                            HeightRequest="45"
-                                            BackgroundColor="White"
-                                            BorderColor="Green"
-                                            BorderWidth="3"/>
-                                    </StackLayout>
+                                                   SnapPointsType="MandatorySingle"/>
+                                    </CollectionView.ItemsLayout>
+                                </CollectionView>
 
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    
-                        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Column="1" VerticalOptions="Center">
-                            <Label Text="1"
-                                       FontSize="20"
-                                       Margin="10,0"
-                                       TextColor="Black"
-                                       FontAttributes="Bold"/>
-                            <Label Text="2"
-                                       FontSize="20"
-                                       Margin="10,0"
-                                       TextColor="Gray"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center"/>
-                            <Label Text="3"
-                                       FontSize="20"
-                                       Margin="10,0"
-                                       TextColor="Gray"
-                                       FontAttributes="Bold"
-                                       VerticalOptions="Center"/>
-                        </StackLayout>-->
+                                <Button Grid.Column="2"
+                                        Text="&#xf105;"
+                                        FontFamily="FonSolid"
+                                        Command="{Binding PaginaSiguienteCommand}"
+                                        CommandParameter="{Binding ParametroPaginaSiguiente}"
+                                        FontSize="20"    
+                                        BackgroundColor="{Binding NextButtonColor}"
+                                        TextColor="White"
+                                        BorderWidth="2"
+                                        WidthRequest="50"
+                                        CornerRadius="5"/>
+                            </Grid>
+                        </PCK:PancakeView>
 
-
-                        <Button Grid.Column="2"
-                                Text="Siguiente"
-                                Command="{Binding PaginaSiguienteCommand}"
-                                FontSize="12"                            
-                                BackgroundColor="Green"
-                                TextColor="White"
-                                VerticalOptions="Center"
-                                WidthRequest="100"
-                                BorderWidth="2"
-                                HeightRequest="50"
-                                CornerRadius="15"/>
-                    </Grid>
+                    </StackLayout>
 
                 </Grid>
 

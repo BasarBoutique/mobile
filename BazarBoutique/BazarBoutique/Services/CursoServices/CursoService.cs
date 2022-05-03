@@ -20,7 +20,7 @@ namespace BazarBoutique.Services.CursoServices
 
         }
 
-        public async Task<DataCursos> GetPaginationCurso(SearchCourseFilters filtro, Uri direccion)
+        public async Task<DataCursos> GetPaginationCurso(Uri direccion, SearchCourseFilters filtro)
         {
             var httpClientHandler = new HttpClientHandler();
 
@@ -89,7 +89,7 @@ namespace BazarBoutique.Services.CursoServices
                     var resultado = JsonConvert.DeserializeObject<CursoResponseModelo>(contenido);
                     //var resultado = JsonConvert.DeserializeObject<PaginationResponse>(contenido);
 
-                    ElementosCursos.AddRange(resultado.data.coleccion);
+                    ElementosCursos.AddRange(resultado.data.courses);
 
                     return ElementosCursos;
                 }
