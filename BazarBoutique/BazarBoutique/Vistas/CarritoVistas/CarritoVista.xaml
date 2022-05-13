@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.CarritoViewModels"
+             x:Class="BazarBoutique.Vistas.CarritoVistas.CarritoVista"
+             xmlns:md="clr-namespace:BazarBoutique.Modelos" 
+             xmlns:PCK="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:DataType="vm:CarritoViewModel"
+             x:Name="ApartadoCarrito"
+             Title="Carrito">
+    <ContentPage.Content>
+        <Grid>
+            <RelativeLayout>
+                <ScrollView RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,Property=Width,Factor=1}"
+                            RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,Property=Height,Factor=1}"
+                            RelativeLayout.XConstraint="{ConstraintExpression
+                            Type=RelativeToParent,Property=Width,Factor=0,Constant=0}"
+                            RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToParent,Property=Height,Factor=0,Constant=0}"
+                            VerticalOptions="Start"
+                            VerticalScrollBarVisibility="Default"
+                            AbsoluteLayout.LayoutFlags="SizeProportional">
+                    <StackLayout >
+
+                        <StackLayout  VerticalOptions="Start">
+                            <CollectionView VerticalScrollBarVisibility="Never"
+                                            HorizontalOptions="Start"
+                                            ItemsSource="{Binding CarritoElementos}"
+                                            Margin="10,0,10,0"
+                                            SelectionMode="None"
+                                            EmptyView="No existen Elementos en el carro">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout  Orientation="Vertical"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="md:CarritoModelo">
+                                        <StackLayout>
+                                            <PCK:PancakeView CornerRadius="5"
+                                    Margin="8,10" Border="{PCK:BorderMarkup Color=Green, Thickness=4}" Padding="4">
+                                                <Grid ColumnDefinitions="80,3*,*" RowDefinitions="2*,*" ColumnSpacing="8" HeightRequest="100">
+                                                    <Image Grid.Column="0" 
+                                                           Grid.RowSpan="2"
+                                                           Source="{Binding imagenCurso}"
+                                                           BackgroundColor="Transparent" 
+                                                           Aspect="AspectFill"/>
+
+                                                        <Label  VerticalOptions="Start" 
+                                                                Grid.Column="1"
+                                                                HeightRequest="70"
+                                                                FontSize="15" 
+                                                                Text="{Binding TituloCurso}"
+                                                                TextColor="Black" />
+
+                                                    <Label  TextColor="Green" Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" FontAttributes="Bold" FontSize="17"  VerticalOptions="End">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="S/" FontSize="16" />
+                                                                    <Span Text="{Binding PrecioCurso,StringFormat='{0:N}'}"/>
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+
+                                                    <Button Grid.Column="2" Grid.RowSpan="2" HorizontalOptions="EndAndExpand" VerticalOptions="Center" FontFamily="FonSolid"  Text="&#x58;" TextColor="White" BackgroundColor="Green" CornerRadius="20" FontSize="19" HeightRequest="40" Margin="13,0"   Command="{Binding Source={x:Reference ApartadoCarrito}, Path=BindingContext.EliminandoCurso}" CommandParameter="{Binding .}"/>
+
+                                                    <!--<Button  Grid.Column="2" Command="{Binding Source={x:Reference ApartadoCarrito}, Path=BindingContext.RedireccionNotasCommand}" CommandParameter="{Binding .}" FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf328;" Padding="-10" FontSize="25" BackgroundColor="#7366FF" TextColor="White"/>-->
+
+                                                    <!--<Grid RowDefinitions="44,*"  RowSpacing="0" Grid.Column="3" >
+                                                        <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
+                                                            --><!--<Button WidthRequest="30"
+                                                                Text="+" 
+                                                                BackgroundColor="#7366FF" TextColor="White"
+                                                                x:Name="AgregandoProducto"
+                                                                
+                                                                CommandParameter="{Binding .}"
+                                                                Command="{Binding Source={x:Reference ApartadoCarrito}, Path=BindingContext.AgregandoCantidadProductoCommand}"
+                                                                HorizontalOptions="Start"/>
+                                                            <Label  WidthRequest="30"
+                                                                Margin="-7,0"
+                                                                x:Name="CantidadProductos"
+                                                                Text="{Binding Cantidad}"  
+                                                                TextColor="Black"
+                                                                FontAttributes="Bold"
+                                                                HorizontalOptions="Center"
+                                                                VerticalOptions="CenterAndExpand"
+                                                                HorizontalTextAlignment="Center"/>
+                                                            <Button WidthRequest="30"
+                                                                Text="-"
+                                                                BackgroundColor="#7366FF" TextColor="White"
+                                                                x:Name="RetirarProducto"
+                                                                CommandParameter="{Binding .}"
+                                                                Command="{Binding Source={x:Reference ApartadoCarrito}, Path=BindingContext.DisminuirCantidadProductoCommand}"    
+                                                                
+                                                                HorizontalOptions="End"/>--><!--
+                                                        </StackLayout>
+
+                                                        <Grid Grid.Row="1" 
+                                                          ColumnDefinitions="*,*"  
+                                                          ColumnSpacing="1">
+                                                            --><!--<Button FontFamily="{StaticResource FontAwesomeSolid}"
+                                                                Text="&#xf1f8;"
+                                                                Padding="-10"
+                                                                Grid.Column="0"
+                                                                VerticalOptions="Start"
+                                                                WidthRequest="20"
+                                                                HeightRequest="35"
+                                                                FontSize="20"
+                                                                FontAttributes="Bold"
+                                                                TextColor="White"
+                                                                Command="{Binding Source={x:Reference ApartadoCarrito}, Path=BindingContext.BotonEliminarCommand}"
+                                                                
+                                                                BackgroundColor="Red"/>
+                                                            <Button Grid.Column="1" Command="{Binding Source={x:Reference ApartadoCarrito}, Path=BindingContext.RedireccionNotasCommand}" CommandParameter="{Binding .}" FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf328;" Padding="-10" FontSize="20" BackgroundColor="#7366FF" TextColor="White"/>--><!--
+                                                        </Grid>
+                                                    </Grid>-->
+
+                                                </Grid>
+                                            </PCK:PancakeView>
+                                        </StackLayout>
+
+
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+
+                                <CollectionView.Footer>
+                                    <StackLayout HeightRequest="180">
+
+                                    </StackLayout>
+                                </CollectionView.Footer>
+                            </CollectionView>
+                        </StackLayout>
+
+
+
+                    </StackLayout>
+                </ScrollView>
+
+                <!--Botones de Carrito-->
+                <StackLayout RelativeLayout.XConstraint="{ConstraintExpression
+                        Type=RelativeToParent,Property=Width,Factor=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression
+                        Type=RelativeToParent,Property=Height,Factor=1,Constant=-165}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression
+                        Type=RelativeToParent,Property=Width,Factor=0,Constant=170}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,Property=Width,Factor=1}" BackgroundColor="Transparent">
+                    <PCK:PancakeView CornerRadius="15" Margin="15,5"  >
+                        <StackLayout Margin="0,0,0,0" BackgroundColor="Green">
+
+
+                                <StackLayout   Margin="15,5" HorizontalOptions="CenterAndExpand"  >
+                                    <!--<Label  Grid.Row="0" Grid.Column="0" TextColor="White" Text="Pago: " Margin="0,5,0,0"/>
+                <Label Grid.Row="1" Grid.Column="0" TextColor="White" Text="Descento:" />-->
+                                    <Label TextColor="White" Text="Total del pedido:" FontSize="15" HorizontalOptions="CenterAndExpand"  VerticalOptions="EndAndExpand" />
+                                    <Label  TextColor="White"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="Center" FontAttributes="Bold" FontSize="23">
+                                        <Label.FormattedText >
+                                            <FormattedString>
+                                                <Span Text="S/" />
+                                                <Span  Text="{Binding PrecioTotal}"/>
+                                                <!--x:Name="PrecioFinal"-->
+                                            </FormattedString>
+                                        </Label.FormattedText >
+                                    </Label>
+                                </StackLayout>
+
+                            <Button x:Name="ProcesarPedido" 
+                                    Text="Procesar Pedido" 
+                                    Command="{Binding RedireccionAMedioPago}"
+                                    Margin="10,3,10,10"
+                                    ImageSource="volver.png" 
+                                    HorizontalOptions="Fill"
+                                    WidthRequest="35"
+                                    HeightRequest="55"
+                                    TextColor="Green"
+                                    BackgroundColor="White"
+                                    CornerRadius="20"/>
+
+                        </StackLayout>
+                    </PCK:PancakeView>
+                </StackLayout>
+
+            </RelativeLayout>
+
+            <!--Indicador de Carga-->
+            <Grid x:DataType="vm:CarritoViewModel" x:Name="FondoCargando" Opacity="0.8" BackgroundColor="Black" IsVisible="False" >
+                <ActivityIndicator  x:Name="IndicadorCargando"
+                                    IsRunning="{Binding IsBusy}"
+                                    HorizontalOptions="Center"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

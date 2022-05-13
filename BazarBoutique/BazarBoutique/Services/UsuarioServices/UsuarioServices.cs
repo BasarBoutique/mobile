@@ -55,7 +55,7 @@ namespace BazarBoutique.Services.UsuarioServices
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible traer los datos de cursos", "OK");
+                    await Application.Current.MainPage.DisplayAlert("BazarBoutique", "No ha sido posible traer los datos de los profesores", "OK");
                     return PaginacionUsuario;
                 }
 

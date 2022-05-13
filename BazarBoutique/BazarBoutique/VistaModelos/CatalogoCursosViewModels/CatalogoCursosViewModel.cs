@@ -1,7 +1,10 @@
 ﻿using BazarBoutique.Modelos;
+using BazarBoutique.Services;
 using BazarBoutique.Services.CategoriaServices;
 using BazarBoutique.Services.CursoServices;
 using BazarBoutique.Services.UsuarioServices;
+using BazarBoutique.Vistas.CarritoVistas;
+using BazarBoutique.Vistas.DetallesVistas;
 using BazarBoutique.Vistas.FiltrosVistas;
 using System;
 using System.Collections.Generic;
@@ -72,11 +75,22 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             set => SetProperty(ref _estadocursos, value);
         }
 
+        private LayoutState _estadoAutores;
+
+        public LayoutState EstadoAutores
+        {
+            get => _estadoAutores;
+            set => SetProperty(ref _estadoAutores, value);
+        }
+
 
         public Command RedireccionApartadoCategorias { get; set; }
+        public Command<CursosModelo> SeleccionandoCursoCommand { get; set; }
         public Command RedireccionApartadoAutores { get; set; }
-        
+        public Command RedireccionCarritoCommand { get;}
+        public Command<UsuarioModelo> RedireccionCursosFiltradosUsuario { get; set; }
         public Command<CategoriaSlideModelo> RedireccionApartadoCursos { get; set; }
+        public Command<CategoriaSlideModelo> RedireccionCursosFiltradosCategoria { get; set; }
 
         public CatalogoCursosViewModel(INavigation navigation, ContentPage page)
         {
@@ -86,11 +100,93 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             RedireccionApartadoCategorias = new Command(RedireccionACategoriasPagina);
             RedireccionApartadoAutores = new Command(RedireccionAAutoresPagina);
             RedireccionApartadoCursos = new Command<CategoriaSlideModelo>(RedireccionACursosPagina);
+            RedireccionCarritoCommand = new Command(RedireccionACarritoPagina);
+            RedireccionCursosFiltradosUsuario = new Command<UsuarioModelo>(CursosFiltradosPorUsuario);
+            SeleccionandoCursoCommand = new Command<CursosModelo>(RedireccionACursoEspecifico);
+            RedireccionCursosFiltradosCategoria = new Command<CategoriaSlideModelo>(CursosFiltradosPorCategoria);
 
             IsInitialized = true;
 
             EstadoActual = LayoutState.Loading;
             EstadoCursos = LayoutState.Loading;
+            EstadoAutores = LayoutState.Loading;
+        }
+
+        private void CursosFiltradosPorUsuario(UsuarioModelo obj)
+        {
+            FiltrosAlmacenados.AlmacenamientoFiltros.Clear();
+            var ElementoSeleccionado = new FiltroPorNombreId
+            {
+                CodigoFiltro = obj.id,
+                NombreFiltro = obj.detail.fullname,
+                TipoFiltro = "authors"
+            };
+
+            bool Existe = FiltrosAlmacenados.AlmacenamientoFiltros.Any(x => x.CodigoFiltro == ElementoSeleccionado.CodigoFiltro);
+
+            //Confirmar que el articulo no exista
+            if (!Existe)
+            {
+                //Aqui se activa
+                FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
+                //Comprobar si esta habilitado o no
+            }
+            SearchCourseFilters FiltrosRealizados = new SearchCourseFilters();
+            navigation.PushAsync(new FiltroCursoVista(FiltrosRealizados));
+        }
+
+        private void CursosFiltradosPorCategoria(CategoriaSlideModelo obj)
+        {
+            FiltrosAlmacenados.AlmacenamientoFiltros.Clear();
+            var ElementoSeleccionado = new FiltroPorNombreId
+            {
+                CodigoFiltro = obj.id,
+                NombreFiltro = obj.category,
+                TipoFiltro = "categories"
+            };
+
+            bool Existe = FiltrosAlmacenados.AlmacenamientoFiltros.Any(x => x.CodigoFiltro == ElementoSeleccionado.CodigoFiltro);
+
+            //Confirmar que el articulo no exista
+            if (!Existe)
+            {
+                //Aqui se activa
+                FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
+                //Comprobar si esta habilitado o no
+            }
+            SearchCourseFilters FiltrosRealizados = new SearchCourseFilters();
+            navigation.PushAsync(new FiltroCursoVista(FiltrosRealizados));
+        }
+
+        public async void OnAppearing()
+        {
+            IsBusy = true;
+            if (IsInitialized == true)
+            {
+                Categorias = new ObservableCollection<CategoriaSlideModelo>(await DefiniendoCateogriasRandom(6));
+
+                Cursos = new ObservableCollection<CursosModelo>(await DefiniendoCursosRandom(4));
+
+                Autores = new ObservableCollection<UsuarioModelo>(await DefiniendoUsuariosRandom());
+
+                IsInitialized = false;
+            }
+
+            if (SesionServicios.apiResponse.success == true)
+                    EstaLogueado = true;
+                    ContandoProductoEnCarrito();
+
+            IsBusy = false;
+        }
+
+        public void RedireccionACarritoPagina()
+        {
+            navigation.PushAsync(new CarritoVista());
+        }
+
+        private void RedireccionACursoEspecifico(CursosModelo obj)
+        {
+            navigation.PushAsync(new DetallesCursoVista(obj));
         }
 
         private void RedireccionAAutoresPagina()
@@ -116,12 +212,12 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             return SoloAlgunasCategorias;
         }
 
-        private async Task<List<UsuarioModelo>> DefiniendoUsuariosRandos()
+        private async Task<List<UsuarioModelo>> DefiniendoUsuariosRandom()
         {
             //La api con la que se necesita anidar ya desordena la lista y trae datos random
             var UsuariosRandom = await ServicioUsuarios.GetUsuarioSlide();
 
-            EstadoActual = LayoutState.Success;
+            EstadoAutores = LayoutState.Success;
             return UsuariosRandom;
         }
 
@@ -152,22 +248,7 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
             navigation.PushAsync(new FiltroCategoriasVista());
         }
 
-        public async void OnAppearing()
-        {
-            IsBusy = true;
-            if (IsInitialized == true)
-            {
-                Categorias = new ObservableCollection<CategoriaSlideModelo>(await DefiniendoCateogriasRandom(6));
 
-                Cursos = new ObservableCollection<CursosModelo>(await DefiniendoCursosRandom(4));
-
-                Autores = new ObservableCollection<UsuarioModelo>(await DefiniendoUsuariosRandos());
-                
-                IsInitialized = false;
-            }
-            
-            IsBusy = false;
-        }
 
     }
 }

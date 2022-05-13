@@ -28,10 +28,10 @@ namespace BazarBoutique.Modelos
         public PaginationModel paginate { get; set; }
     }
 
-
     public class UsuarioModelo
     {
         public int id { get; set; }
+        public bool EstaSeleccionado { get; set; }
         public string name { get; set; }
         public string email { get; set; }
         public DetallesUsuario detail { get; set; }

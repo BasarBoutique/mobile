@@ -1,9 +1,13 @@
 ﻿using BazarBoutique.Modelos;
+using BazarBoutique.Services;
 using BazarBoutique.Services.UsuarioServices;
+using BazarBoutique.Vistas.FiltrosVistas;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -27,10 +31,12 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             }
             set {
                 SetProperty(ref _elementoBusquedaAutores, value);
+                BuscandoElementoAsync(value);
             }
         }
         public Command<Uri> PaginaAnteriorCommand { get; set; }
         public Command<Uri> PaginaSiguienteCommand { get; set; }
+        public Command GestoRefrescamientoCommand { get; }
         public Command<PaginaRedireccion> RedireccionPaginaCommand { get; set; }
 
         DataUsuario PaginaDatos = new DataUsuario();
@@ -112,14 +118,15 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             get => _estadoAutores;
             set => SetProperty(ref _estadoAutores, value);
         }
-        public FiltrosModelo Filtros = new FiltrosModelo() { };
+        //public FiltrosModelo Filtros = new FiltrosModelo() { };
 
+        public Command<UsuarioModelo> RedirigirApartadoCursoAutorCommand { get; set; }
 
         SearchCourseFilters FiltrosRealizados = new SearchCourseFilters()
         {
             filters = new FiltrosModelo() { }
         };
-
+        private Uri LinkPagina;
         #endregion
         public FiltroAutoresViewModel(INavigation navigation, ContentPage page)
         {
@@ -127,47 +134,92 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             this.navigation = navigation;
             this.page = page;
 
+            GestoRefrescamientoCommand = new Command(RecargarAutores);
             RedireccionPaginaCommand = new Command<PaginaRedireccion>(SeleccionandoPagina);
             PaginaAnteriorCommand = new Command<Uri>(PaginaPorBoton);
             PaginaSiguienteCommand = new Command<Uri>(PaginaPorBoton);
 
             PaginasListadas = new ObservableCollection<PaginaRedireccion>();
             UsuarioLista = new ObservableCollection<UsuarioModelo>();
+            LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/users/search");
 
+            RedirigirApartadoCursoAutorCommand = new Command<UsuarioModelo>(RedireciconApartadoCursos);
 
+            EstadoAutores = LayoutState.Loading;
             //FiltrosRealizados.filters.categories = new List<int>();
             //FiltrosRealizados.filters.authors = new List<int>();
 
         }
 
-        public void OnAppearing()
+        private void RedireciconApartadoCursos(UsuarioModelo obj)
         {
-            Uri direccion = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/users/search");
-            
+            FiltrosAlmacenados.AlmacenamientoFiltros.Clear();
+            var ElementoSeleccionado = new FiltroPorNombreId
+            {
+                CodigoFiltro = obj.id,
+                NombreFiltro = obj.detail.fullname,
+                TipoFiltro = "authors"
+            };
+
+            bool Existe = FiltrosAlmacenados.AlmacenamientoFiltros.Any(x => x.CodigoFiltro == ElementoSeleccionado.CodigoFiltro);
+
+            //Confirmar que el articulo no exista
+            if (!Existe)
+            {
+                //Aqui se activa
+                FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
+                //Comprobar si esta habilitado o no
+            }
+            SearchCourseFilters FiltrosRealizados = new SearchCourseFilters();
+            navigation.PushAsync(new FiltroCursoVista(FiltrosRealizados));
+        }
+
+        public async void OnAppearing()
+        {
+            //Uri direccion = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/users/search");
+            FiltrosRealizados.paginate = 4;
             //Filtros.title = "";
-            //Filtros.WhitDisabled = false;
+            FiltrosRealizados.filters.withDisabled = false;
             //Filtros.roles.Add(3);
-            EstableciendoValoresDePagina(direccion, FiltrosRealizados);
+
+            await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
+
             //IsBusy = true;
             ////CatalogosCategorias = new ObservableCollection<CategoriaModelo>(await ServicioCategoria.GetCategorias());
             //IsBusy = false;
         }
 
-        private void SeleccionandoPagina(PaginaRedireccion obj)
+        private void BuscandoElementoAsync(string value)
+        {
+            //FiltrosRealizados.filters.name = value;
+            //IsLoading = true;
+            //IsLoading = false;
+        }
+        private async void RecargarAutores()
+        {
+            IsLoading = true;
+
+            await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
+
+            IsLoading = false;
+        }
+
+        private async void SeleccionandoPagina(PaginaRedireccion obj)
         {
             if (PaginaDatos.paginate.current_page != obj.LinkPagina)
-                EstableciendoValoresDePagina(obj.LinkPagina, FiltrosRealizados);
+                await EstableciendoValoresDePagina(obj.LinkPagina, FiltrosRealizados);
         }
 
         
-        private void PaginaPorBoton(Uri uri)
+        private async void PaginaPorBoton(Uri uri)
         {
-            EstableciendoValoresDePagina(uri, FiltrosRealizados);
+            await EstableciendoValoresDePagina(uri, FiltrosRealizados);
         }
 
-        private async void EstableciendoValoresDePagina(Uri link, SearchCourseFilters fillter)
+        private async Task EstableciendoValoresDePagina(Uri link, SearchCourseFilters fillter)
         {
-            IsBusy = true;
+            EstadoAutores = LayoutState.Loading;
+            //IsBusy = true;
 
             if (link != null)
             {
@@ -176,14 +228,17 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                 //PaginaDatos.users.Add(new UsuarioModelo{id=1 });
 
                 fillter.filters.withDisabled = false;
-                fillter.filters.roles = new List<int>();
-                fillter.filters.roles.Add(3);
-                fillter.filters.title = "";
-
-                PaginaDatos = await ServicioUsuarios.GetPaginacionUsuario(link,fillter);
+                fillter.filters.roles = new List<int>
+                {
+                    3
+                };
+                //fillter.filters.title = "";
                 UsuarioLista.Clear();
+                PaginaDatos = await ServicioUsuarios.GetPaginacionUsuario(link,fillter);
+                
                 if (PaginaDatos.users != null)
                 {
+                    UsuarioLista.Clear();
                     foreach (var arg in PaginaDatos.users)
                     {
                         UsuarioLista.Add(arg);
@@ -196,7 +251,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                     PaginaDatos.users = new List<UsuarioModelo>();
                 }
             }
-            IsBusy = false;
+            //IsBusy = false;
             EstadoAutores = LayoutState.Success;
         }
 

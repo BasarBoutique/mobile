@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BazarBoutique.Vistas.CursosPorUsuarioVistas.CursosPorUsuarioVista"
+             xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.CursosPorUsuarioViewModels"
+             xmlns:md="clr-namespace:BazarBoutique.Modelos" 
+             xmlns:PCK="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:DataType="vm:CursosPorUsuarioViewModel"
+             Title="Tus Cursos"
+             x:Name="ApartadoCursoPorUsuario">
+    <ContentPage.Content>
+        <Grid>
+            <RefreshView Command="{Binding GestoRefrescamientoCommand}" IsRefreshing="{Binding IsLoading, Mode=TwoWay}">
+                <ScrollView>
+                    <StackLayout>
+                        <BoxView BackgroundColor="Transparent" HeightRequest="5"/>
+
+                        <CollectionView EmptyView="No existen cursos" 
+                                        ItemsSource="{Binding Cursos}">
+                            <!--<CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>111111</x:String>
+                                    <x:String>111111</x:String>
+                                    <x:String>111111</x:String>
+                                    <x:String>111111</x:String>
+
+                                </x:Array>
+                            </CollectionView.ItemsSource>-->
+
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="md:DataCursosPorUsuario">
+                                    <StackLayout HeightRequest="130">
+
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer />
+                                        </StackLayout.GestureRecognizers>
+
+                                        <PCK:PancakeView    CornerRadius="15" 
+                                                        HeightRequest="130"
+                                                        Margin="15,2,14,13"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        Shadow="{PCK:ShadowMarkup Color=Black,BlurRadius='7',Opacity='0.4'}"
+                                                        BackgroundColor="White">
+                                            <Grid Padding="4" ColumnDefinitions="*,3*" >
+
+                                                <PCK:PancakeView    VerticalOptions="Center"
+                                                                    HorizontalOptions="Start"
+                                                                    Grid.Column="0" 
+                                                                    HeightRequest="80" 
+                                                                    
+                                                                    BackgroundColor="Transparent"
+                                                                    CornerRadius="15"
+                                                                    Margin="1,0">
+                                                    <Image Aspect="AspectFill" Source="{Binding course.image}"
+                                                            BackgroundColor="Transparent"/>
+                                                </PCK:PancakeView>
+
+                                                <Grid Grid.Column="1"  RowDefinitions="*,*" ColumnDefinitions="*,*" Margin="2">
+                                                    <Label Grid.Row="0"
+                                                           FontSize="13"
+                                                           TextColor="Black"
+                                                           VerticalOptions="Start"
+                                                           Text="{Binding course.title}"
+                                                           FontAttributes="Bold"/>
+
+                                                    <Label Grid.Row="1"
+                                                           TextColor="Gray"
+                                                            FontSize="13"
+                                                            VerticalOptions="End"
+                                                            Text="{Binding author.name}"/>
+
+                                                    <Button Grid.Row="0"
+                                                            Grid.Column="1"
+                                                            CornerRadius="10"
+                                                            Margin="10,0"
+                                                            CommandParameter="{Binding .}"
+                                                            Command="{Binding Source={x:Reference ApartadoCursoPorUsuario}, Path=BindingContext.RedireccionLexionesCommand}"
+                                                            Padding="-1"
+                                                            BackgroundColor="Green"
+                                                            TextColor="White"
+                                                            FontSize="11"
+                                                            VerticalOptions="End"
+                                                            Text="Visualizar Lexiones"/>
+
+                                                    <Label Grid.Row="1"
+                                                           Grid.Column="1"
+                                                           HorizontalOptions="End"
+                                                           TextColor="Gray"
+                                                           FontSize="13"
+                                                           HorizontalTextAlignment="Center"
+                                                           VerticalOptions="End">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="Adquirido el:" FontAttributes="Bold" FontSize="12" TextColor="Black"/>
+                                                                <Span  FontAttributes="Bold" Text="{Binding purcharsed_at, StringFormat='{0:MM/dd/yy}'}" FontSize="12"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+
+                                                </Grid>
+
+
+
+                                            </Grid>
+                                        </PCK:PancakeView>
+                                    </StackLayout>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+
+
+                        </CollectionView>
+                    </StackLayout>
+                </ScrollView>
+            </RefreshView>
+
+
+            <Grid IsVisible="{Binding IsBusy}" 
+                    Opacity=".8" 
+                    BackgroundColor="Black">
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                               HorizontalOptions="Center"/>
+            </Grid>
+          
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

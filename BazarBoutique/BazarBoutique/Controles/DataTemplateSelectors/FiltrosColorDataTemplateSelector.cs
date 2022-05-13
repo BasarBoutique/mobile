@@ -23,19 +23,6 @@ namespace BazarBoutique.Controles.DataTemplateSelectors
                 default:
                     return FiltroNoAsignado;
             }
-
-
-            //if (((FiltroPorNombreId)item).TipoFiltro == "categories")
-            //{
-
-            //}else if ()
-            //{
-
-            //}
-            //else
-            //{
-
-            //}
         }
 
     }

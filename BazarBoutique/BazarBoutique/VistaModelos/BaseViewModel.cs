@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazarBoutique.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,6 +9,30 @@ namespace BazarBoutique.VistaModelos
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+
+        private bool _estaLogueado;
+        public bool EstaLogueado
+        {
+            get => _estaLogueado;
+            set => SetProperty(ref _estaLogueado, value);
+        }
+
+        private int contadoCarrito;
+        public int ContadoCarrito
+        {
+            get => contadoCarrito;
+            set => SetProperty(ref contadoCarrito, value);
+        }
+
+        public void ContandoProductoEnCarrito()
+        {
+            int cantidad = 0;
+            foreach (var elementos in CarroServices.Carritos)
+            {
+                cantidad ++;
+            }
+            ContadoCarrito = cantidad;
+        }
 
         //Metodo DesordenaListas
         public static void Shuffle<T>(IList<T> values)
@@ -26,16 +51,28 @@ namespace BazarBoutique.VistaModelos
         public event PropertyChangedEventHandler PropertyChanged;
 
         #region Atributos
-        public bool isBusy = false;
+        bool isBusy, isLoading = false;
         #endregion
 
         #region Propiedades
+
+        //Propiedades para 
         public bool IsBusy
         {
             get => isBusy;
             set
             {
                 isBusy = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsLoading
+        {
+            get => isLoading;
+            set
+            {
+                isLoading = value;
                 OnPropertyChanged();
             }
         }
@@ -74,6 +111,7 @@ namespace BazarBoutique.VistaModelos
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
 
         #endregion
     }

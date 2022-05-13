@@ -10,7 +10,8 @@
              xmlns:tlkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              xmlns:DataTemp="clr-namespace:BazarBoutique.Controles.DataTemplateSelectors"
              x:Name="ApartadoSoloFiltroCategoria"
-             x:DataType="vm:SoloFiltroCategoriaViewModel">
+             x:DataType="vm:SoloFiltroCategoriaViewModel"
+             Title="Filtrar Categorias">
     <ContentPage.Resources>
         <ResourceDictionary>
 
@@ -54,67 +55,67 @@
     <ContentPage.Content>
         <ScrollView>
             <Grid>
-                <!--Contenedor Principal-->
-                <Grid RowDefinitions="70,Auto,100">
 
-                    <!--Barra de busqueda-->
-                    <StackLayout Grid.Row="0"
-                                 HeightRequest="60"
-                                 
-                                 Margin="15,0,15,0"
-                                 VerticalOptions="Start" >
-                        <PCK:PancakeView CornerRadius="15"
+                <RefreshView Command="{Binding GestoRefrescamientoCommand}" IsRefreshing="{Binding IsLoading, Mode=TwoWay}">
+                    <ScrollView>
+                        <!--Contenedor Principal-->
+                        <StackLayout>
+
+                            <!--Barra de busqueda-->
+                            <StackLayout HeightRequest="60"                                 
+                                         Margin="15,0,15,0"
+                                         VerticalOptions="Start" >
+                                <PCK:PancakeView CornerRadius="15"
                                          Border="{PCK:BorderMarkup Color=Green, Thickness='2'}"
                                          VerticalOptions="CenterAndExpand">
-                            <SearchBar x:Name="BarraNavegacion"
+                                    <SearchBar x:Name="BarraNavegacion"
                                        TextColor="Gray" 
                                        Placeholder="Nombre del curso"
                                        Text="{Binding ElementoBusqueda,Mode=TwoWay}"/>
-                        </PCK:PancakeView>
-                    </StackLayout>
+                                </PCK:PancakeView>
+                            </StackLayout>
 
-                    <StackLayout Grid.Row="1">
 
-                        <CollectionView ItemsSource="{Binding CatalogosCategorias}"
-                                        HeightRequest="540">
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout Orientation="Vertical" 
+                            <CollectionView ItemsSource="{Binding CatalogosCategorias}"
+                                        HeightRequest="500">
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" 
                                                 Span="1"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="md:CategoriaModelo">
-                                    <StackLayout HeightRequest="80" >
-                                        <PCK:PancakeView    CornerRadius="10" 
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="md:CategoriaModelo">
+                                            <StackLayout HeightRequest="80" >
+                                                <PCK:PancakeView    CornerRadius="10" 
                                                             HeightRequest="70"
                                                             Margin="15,0"
                                                             VerticalOptions="CenterAndExpand"
                                                             Shadow="{PCK:ShadowMarkup Color=Black,BlurRadius='5',Opacity='0.3'}"
                                                             BackgroundColor="White">
-                                            <Grid Padding="8" ColumnDefinitions="35,2*,15">
+                                                    <Grid Padding="8" ColumnDefinitions="35,2*,15">
 
-                                                <CheckBox Grid.Column="0" 
+                                                        <CheckBox Grid.Column="0" 
                                                           IsChecked="{Binding EstaSeleccionado}"
                                                           Color="Green"
                                                           VerticalOptions="Center"
                                                           HorizontalOptions="Center"
                                                           HeightRequest="60" 
                                                           WidthRequest="70">
-                                                    <CheckBox.Behaviors>
-                                                        <TKBH:EventToCommandBehavior
+                                                            <CheckBox.Behaviors>
+                                                                <TKBH:EventToCommandBehavior
                                                             EventName="CheckedChanged"
                                                             Command="{Binding Source={x:Reference ApartadoSoloFiltroCategoria}, Path=BindingContext.CambiandoEstadoFiltroCommand}" 
                                                             CommandParameter="{Binding .}" />
-                                                    </CheckBox.Behaviors>
-                                                </CheckBox>
+                                                            </CheckBox.Behaviors>
+                                                        </CheckBox>
 
-                                                <Label Grid.Column="1" 
+                                                        <Label Grid.Column="1" 
                                                        FontSize="14"
                                                        TextColor="Black"
                                                        VerticalOptions="Center"
                                                        MaxLines="3"
                                                        Text="{Binding title}"
                                                        FontAttributes="Bold"/>
-                                                <!--<StackLayout Grid.Column="2"
+                                                        <!--<StackLayout Grid.Column="2"
                                                          VerticalOptions="Center">
                                                     <Label FontSize="12"
                                                        Text="Cantidad de Cursos"
@@ -125,53 +126,52 @@
                                                        Text="100"
                                                        HorizontalTextAlignment="Center"/>
                                                 </StackLayout>-->
-                                            </Grid>
-                                        </PCK:PancakeView>
-                                    </StackLayout>
+                                                    </Grid>
+                                                </PCK:PancakeView>
+                                            </StackLayout>
 
 
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                            <CollectionView.EmptyView x:DataType="vm:SoloFiltroCategoriaViewModel">
-                                <Grid  tlkit:StateLayout.CurrentState="{Binding EstadoCategoria}">
-                                    <tlkit:StateLayout.StateViews>
-                                        <tlkit:StateView StateKey="Loading">
-                                            <tlkit:StateView.Template>
-                                                <DataTemplate>
-                                                    <StackLayout Margin="15,0">
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray"  />
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray"  />
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray" />
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray"  />
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray"  />
-                                                    </StackLayout>
-                                                </DataTemplate>
-                                            </tlkit:StateView.Template>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                    <CollectionView.EmptyView x:DataType="vm:SoloFiltroCategoriaViewModel">
+                                        <Grid  tlkit:StateLayout.CurrentState="{Binding EstadoCategoria}">
+                                            <tlkit:StateLayout.StateViews>
+                                                <tlkit:StateView StateKey="Loading">
+                                                    <tlkit:StateView.Template>
+                                                        <DataTemplate>
+                                                            <StackLayout Margin="15,0">
+                                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray"  />
+                                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray"  />
+                                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray" />
+                                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray"  />
+                                                                <BoxControl:SkeletonViewBox CornerRadius="15" HeightRequest="90" Margin="0,2" BackgroundColor="Gray"  />
+                                                            </StackLayout>
+                                                        </DataTemplate>
+                                                    </tlkit:StateView.Template>
 
-                                        </tlkit:StateView>
+                                                </tlkit:StateView>
 
-                                        <tlkit:StateView StateKey="Success">
-                                            <tlkit:StateView.Template>
-                                                <DataTemplate>
-                                                    <Label Text="No existen catalogos" 
+                                                <tlkit:StateView StateKey="Success">
+                                                    <tlkit:StateView.Template>
+                                                        <DataTemplate>
+                                                            <Label Text="No existen catalogos" 
                                                     VerticalTextAlignment="Center"
                                                    HorizontalTextAlignment="Center"/>
-                                                </DataTemplate>
-                                            </tlkit:StateView.Template>
-                                        </tlkit:StateView>
-                                    </tlkit:StateLayout.StateViews>
+                                                        </DataTemplate>
+                                                    </tlkit:StateView.Template>
+                                                </tlkit:StateView>
+                                            </tlkit:StateLayout.StateViews>
 
-                                </Grid>
-                            </CollectionView.EmptyView>
-                        </CollectionView>
+                                        </Grid>
+                                    </CollectionView.EmptyView>
+                                </CollectionView>
 
-                    </StackLayout>
 
-                    <StackLayout Grid.Row="2">
-                        <PCK:PancakeView CornerRadius="10" Margin="15,0" HeightRequest="50" VerticalOptions="Start" Border="{PCK:BorderMarkup Color=Green, Thickness='0'}" Padding="2,2">
-                            <Grid   ColumnDefinitions="Auto,2*,Auto"
+                            <StackLayout HeightRequest="70">
+                                <PCK:PancakeView CornerRadius="10" Margin="15,0" HeightRequest="50" VerticalOptions="Center" Border="{PCK:BorderMarkup Color=Green, Thickness='0'}" Padding="2,2">
+                                    <Grid   ColumnDefinitions="Auto,2*,Auto"
                                     Margin="0,0" >
-                                <Button Text="&#xf104;"
+                                        <Button Text="&#xf104;"
                                         FontFamily="FonSolid"
                                         Command="{Binding PaginaAnteriorCommand}"
                                         CommandParameter="{Binding ParametroPaginaAnterior}"
@@ -183,15 +183,15 @@
                                         WidthRequest="50"
                                         CornerRadius="5"/>
 
-                                <CollectionView  Grid.Column="1" ItemsSource="{Binding PaginasListadas}" ItemTemplate="{StaticResource TiposPaginas}" HorizontalOptions="CenterAndExpand"   Margin="-5,0">
-                                    <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout Orientation="Horizontal"
+                                        <CollectionView  Grid.Column="1" ItemsSource="{Binding PaginasListadas}" ItemTemplate="{StaticResource TiposPaginas}" HorizontalOptions="CenterAndExpand"   Margin="-5,0">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Horizontal"
                                                    SnapPointsAlignment="Center"
                                                    SnapPointsType="MandatorySingle"/>
-                                    </CollectionView.ItemsLayout>
-                                </CollectionView>
+                                            </CollectionView.ItemsLayout>
+                                        </CollectionView>
 
-                                <Button Grid.Column="2"
+                                        <Button Grid.Column="2"
                                         Text="&#xf105;"
                                         FontFamily="FonSolid"
                                         Command="{Binding PaginaSiguienteCommand}"
@@ -202,13 +202,14 @@
                                         BorderWidth="2"
                                         WidthRequest="50"
                                         CornerRadius="5"/>
-                            </Grid>
-                        </PCK:PancakeView>
+                                    </Grid>
+                                </PCK:PancakeView>
 
-                    </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
 
-
-                </Grid>
+                </RefreshView>
 
                 <!--<Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 

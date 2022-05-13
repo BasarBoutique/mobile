@@ -1,11 +1,15 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services;
 using BazarBoutique.Services.CursoServices;
+using BazarBoutique.Vistas.CarritoVistas;
+using BazarBoutique.Vistas.DetallesVistas;
 using BazarBoutique.Vistas.FiltrosVistas;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -30,7 +34,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             set
             {
                 SetProperty(ref _elementoBusqueda, value);
-                //BuscandoElementoAsync(value);
+                BuscandoElementoAsync(value);
             }
         }
 
@@ -41,19 +45,21 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             get => _estadocursos;
             set => SetProperty(ref _estadocursos, value);
         }
-
+        public Command RedireccionCarritoCommand { get; set; }
         public Command VistaFiltroAutorCommand { get; set; }
         public Command VistaFiltroCategoriaCommand { get; set; }
         public Command<Uri> PaginaAnteriorCommand { get; set; }
         public Command<Uri> PaginaSiguienteCommand { get; set; }
         public Command MostrandoFiltrosCommand { get; }
-
+        public Command GestoRefrescamientoCommand { get; }
         public Command EliminandoFiltrosCommand { get; }
         public Command<FiltroPorNombreId> EliminandoFiltroCommand { get; }
 
-        SearchCourseFilters FiltrosRealizados = new SearchCourseFilters() {
-            filters = new FiltrosModelo(){}
+        SearchCourseFilters FiltrosRealizados = new SearchCourseFilters()
+        {
+            filters = new FiltrosModelo() { }
         };
+
         public Command<PaginaRedireccion> RedireccionPaginaCommand { get; set; }
 
         DataCursos PaginaDatos = new DataCursos();
@@ -143,8 +149,9 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             get => _esVisibleFiltros;
             set => SetProperty(ref _esVisibleFiltros, value);
         }
+        public Command<CursosModelo> SeleccionandoCursoCommand { get; set; }
 
-
+        private Uri LinkPagina;
         #endregion
 
         public FiltroCursosViewModel(INavigation navigation, ContentPage page, SearchCourseFilters FiltrosRealizados)
@@ -152,102 +159,154 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             //Instanciando propiedades de navegacion
             this.navigation = navigation;
             this.page = page;
+            SeleccionandoCursoCommand = new Command<CursosModelo>(RedireccionACursoEspecifico);
 
+            GestoRefrescamientoCommand = new Command(RecargarCursos);
             FiltrosListados = new ObservableCollection<FiltroPorNombreId>();
 
             VistaFiltroAutorCommand = new Command(RedireccionFiltroAutores);
             VistaFiltroCategoriaCommand = new Command(RedireccionFiltroCategorias);
+            RedireccionCarritoCommand = new Command(RedireccionACarritoPagina);
 
             RedireccionPaginaCommand = new Command<PaginaRedireccion>(SeleccionandoPagina);
             PaginaAnteriorCommand = new Command<Uri>(PaginaPorBoton);
             PaginaSiguienteCommand = new Command<Uri>(PaginaPorBoton);
 
-
             MostrandoFiltrosCommand = new Command(MostrandoFiltros);
 
-            EliminandoFiltrosCommand = new Command(EliminandoUnFiltro);
-            EliminandoFiltroCommand = new Command<FiltroPorNombreId>(EliminandoTodosLosFiltros);
+            EliminandoFiltrosCommand = new Command(EliminandoTodosLosFiltros);
+            EliminandoFiltroCommand = new Command<FiltroPorNombreId>(EliminandoUnFiltro);
 
             PaginasListadas = new ObservableCollection<PaginaRedireccion>();
             Cursos = new ObservableCollection<CursosModelo>();
+            
+
+            LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/courses/search");
+
             EstadoCursos = LayoutState.Loading;
         }
 
         public async void OnAppearing()
         {
             IsBusy = true;
-
-            //bool MuestrenDatos = false; 
-            ////Cursos = new ObservableCollection<CursosModelo>(await ServiciosCursos.GetCurso(true));
-            //FiltrosRealizados.filters.title = "";
-            //FiltrosRealizados.filters.categories = new List<int>();
-            //FiltrosRealizados.filters.authors = new List<int>();
-
-            Uri link = new Uri("https://monolith-stage.herokuapp.com/api/v1/courses/search");
-
-            //PaginaDatos = await ServiciosCursos.GetPaginationCurso(FiltrosRealizados, link);
-
-            //Cursos = new ObservableCollection<CursosModelo>(PaginaDatos.courses);
-            //PaginasListadas = new ObservableCollection<PaginaRedireccion>();
-
-            //for (int i = 0; i < PaginaDatos.pagination.total; )
-            //{
-            //    i++;
-            //    PaginasListadas.Add(new PaginaRedireccion
-            //    {
-            //        //HttpResponseMessage response = await clie.GetAsync("?" + parametro + "=" + Convert.ToString(withDisabled).ToLower());
-            //        LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/courses/search?page=" + i) ,
-            //        NumeroPagina = i
-            //    });
-            //}
-
-            EstableciendoValoresDePagina(link, FiltrosRealizados);
-
-            EstadoCursos = LayoutState.Success;
-            IsBusy = false;
+            FiltrosRealizados.filters.withDisabled = false;
+            FiltrosRealizados.filters.categories = new List<int>();
+            FiltrosRealizados.filters.authors = new List<int>();
+            FiltrosRealizados.paginate = 5;
 
             FiltrosListados.Clear();
             foreach (var arg in FiltrosAlmacenados.AlmacenamientoFiltros)
             {
                 FiltrosListados.Add(arg);
             }
+            ActualizandoFiltros();
 
+            if (SesionServicios.apiResponse.success == true)
+                EstaLogueado = true;
+                ContandoProductoEnCarrito();
+
+            await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
+
+            IsBusy = false;
         }
 
-        private void EliminandoTodosLosFiltros(FiltroPorNombreId obj)
+        public void RedireccionACarritoPagina()
         {
-            Application.Current.MainPage.DisplayAlert("Work in progres", "Has Eliminado el "+obj.NombreFiltro , "Ok");
+            navigation.PushAsync(new CarritoVista());
         }
 
-        private void EliminandoUnFiltro()
+        private void RedireccionACursoEspecifico(CursosModelo obj)
         {
-            Application.Current.MainPage.DisplayAlert("Work in progres", "Has Eliminado todos los productos", "Ok");
+            navigation.PushAsync(new DetallesCursoVista(obj));
+        }
+
+        //Metodo para la busqueda de datos en Cursos
+        private void BuscandoElementoAsync(string value)
+        {
+            FiltrosRealizados.filters.title = value;
+            IsLoading = true;
+            IsLoading = false;
+        }
+
+
+        private async void RecargarCursos()
+        {
+            IsLoading = true;
+
+            await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
+
+            IsLoading = false;
+        }
+
+
+
+        private void EliminandoUnFiltro(FiltroPorNombreId obj)
+        {
+            FiltrosListados.Remove(obj);
+            FiltrosAlmacenados.AlmacenamientoFiltros.Remove(obj);
+
+            switch (obj.TipoFiltro)
+            {
+                case "categories":
+                    FiltrosRealizados.filters.categories.Remove(obj.CodigoFiltro);
+                    break;
+                case "authors":
+                    FiltrosRealizados.filters.authors.Remove(obj.CodigoFiltro);
+                    break;
+                default:
+                    break;
+            }
+            ActualizandoFiltros();
+
+
+            IsLoading = true;
+
+            IsLoading = false;
+        }
+
+        private void EliminandoTodosLosFiltros()
+        {
+            FiltrosListados.Clear();
+            FiltrosAlmacenados.AlmacenamientoFiltros.Clear();
+            FiltrosRealizados.filters.categories.Clear();
+            FiltrosRealizados.filters.authors.Clear();
+            IsLoading = true;
+
+            IsLoading = false;
+        }
+
+        private void ActualizandoFiltros()
+        {
+            FiltrosRealizados.filters.categories.Clear();
+            FiltrosRealizados.filters.authors.Clear();
+            foreach (var filtros in FiltrosListados)
+            {
+                switch (filtros.TipoFiltro)
+                {
+                    case "categories":
+                        FiltrosRealizados.filters.categories.Add(filtros.CodigoFiltro);
+                        break;
+
+                    case "authors":
+                        FiltrosRealizados.filters.authors.Add(filtros.CodigoFiltro);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            //FiltrosListados
         }
 
         private void MostrandoFiltros()
         {
-            EsVisibleFiltros = (EsVisibleFiltros == false) ?  true : false;
-            
+            EsVisibleFiltros = (EsVisibleFiltros == false);
         }
 
-        private void SeleccionandoPagina(PaginaRedireccion obj)
+        private async void SeleccionandoPagina(PaginaRedireccion obj)
         {
             if (PaginaDatos.pagination.current_page != obj.LinkPagina)
-                EstableciendoValoresDePagina(obj.LinkPagina, FiltrosRealizados);
+                await EstableciendoValoresDePagina(obj.LinkPagina, FiltrosRealizados);
         }
-
-        //private async void RecargandoElementosPagina(PaginaRedireccion obj)
-        //{
-        //    IsBusy = true;
-        //    PaginaDatos = await ServiciosCursos.GetPaginationCurso(FiltrosRealizados, obj.LinkPagina);
-        //    Cursos.Clear();
-
-        //    foreach (var arg in PaginaDatos.courses)
-        //    {
-        //        Cursos.Add(arg);
-        //    }
-        //    IsBusy = false;
-        //}
 
         private void RedireccionFiltroCategorias()
         {
@@ -266,7 +325,6 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
             FiltrosRealizados.filters.categories.Clear();
             navigation.PushAsync(new SoloFiltroCategoriaVista());
-            //FiltrosRealizados.filters.categories.Add();
         }
 
         private void RedireccionFiltroAutores()
@@ -287,32 +345,34 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             //}
 
             FiltrosRealizados.filters.categories.Clear();
-            navigation.PushModalAsync(new FiltroAutorVista());
+            navigation.PushAsync(new SoloFiltroAutorVista());
             //FiltrosRealizados.filters.authors.Add();
         }
 
-        private void PaginaPorBoton(Uri uri)
+        private async void PaginaPorBoton(Uri uri)
         {
-            EstableciendoValoresDePagina(uri, FiltrosRealizados);
+            await EstableciendoValoresDePagina(uri, FiltrosRealizados);
         }
 
-        private async void EstableciendoValoresDePagina(Uri link, SearchCourseFilters fillter)
+        private async Task EstableciendoValoresDePagina(Uri link, SearchCourseFilters fillter)
         {
-            IsBusy = true;
-
+            //IsBusy = true;
+            //await Task.Delay(1000);
+            
+            EstadoCursos = LayoutState.Loading;
             if (link != null)
             {
+                //Definiendo Filtros
+                //fillter.filters.withDisabled = false;
+                //fillter.filters.categories = new List<int>();
+                //fillter.filters.authors = new List<int>();
 
-                fillter.filters.withDisabled = false;
-                fillter.filters.title = "";
-
-                fillter.filters.categories = new List<int>();
-                fillter.filters.authors = new List<int>();
-
-                PaginaDatos = await ServiciosCursos.GetPaginationCurso(link, fillter);
                 Cursos.Clear();
+                PaginaDatos = await ServiciosCursos.GetPaginationCurso(link, fillter);
+               
                 if (PaginaDatos.courses != null)
                 {
+                    Cursos.Clear();
                     foreach (var arg in PaginaDatos.courses)
                     {
                         Cursos.Add(arg);
@@ -325,7 +385,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                     PaginaDatos.courses = new List<CursosModelo>();
                 }
             }
-            IsBusy = false;
+            //IsBusy = false;
             EstadoCursos = LayoutState.Success;
         }
 
@@ -359,6 +419,8 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                 PaginasListadas.Add(Elemento);
             }
         }
+
+
 
 
     }

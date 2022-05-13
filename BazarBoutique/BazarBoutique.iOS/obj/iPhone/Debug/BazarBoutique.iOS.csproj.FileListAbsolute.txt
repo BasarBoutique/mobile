@@ -63,7 +63,14 @@ D:\DesarrolloAppsSenati\tesis\1\App\BazarBoutique\BazarBoutique\BazarBoutique.iO
 D:\DesarrolloAppsSenati\tesis\1\App\BazarBoutique\BazarBoutique\BazarBoutique.iOS\obj\iPhone\Debug\BazarBoutique.iOS.pdb
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\BazarBoutique.iOS.exe
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\BazarBoutique.iOS.pdb
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\Newtonsoft.Json.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\Stripe.net.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\Stripe.net.pdb
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\System.Configuration.ConfigurationManager.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\System.Security.AccessControl.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\System.Security.Permissions.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\System.Security.Principal.Windows.dll
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\Xamarin.CommunityToolkit.dll
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\Xamarin.Essentials.dll
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.iOS\bin\iPhone\Debug\Xamarin.Essentials.pdb

@@ -714,6 +714,7 @@ D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\o
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\bienvenida.png
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\explorar.png
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\cursoonline.png
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\res\drawable\empyuser.png
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\uploadflags.txt
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\resolvedassemblies.hash
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\BazarBoutique.Android.dll
@@ -1339,3 +1340,14 @@ D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\o
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\stamp\_GenerateJavaStubs.stamp
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\stamp\_GeneratePackageManagerJava.stamp
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\stamp\_ResolveLibraryProjectImports.stamp
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\Microsoft.Bcl.AsyncInterfaces.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\Stripe.net.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\Stripe.net.pdb
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\System.Configuration.ConfigurationManager.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\System.Security.AccessControl.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\System.Security.Cryptography.ProtectedData.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\System.Security.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\System.Security.pdb
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\System.Security.Permissions.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\System.Security.Principal.Windows.dll
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique.Android\obj\Debug\110\android\assets\System.Threading.Tasks.Extensions.dll

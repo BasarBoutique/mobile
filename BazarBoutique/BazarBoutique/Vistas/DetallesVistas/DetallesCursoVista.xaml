@@ -1,12 +1,158 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BazarBoutique.Vistas.DetallesVistas.DetallesCursoVista">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:PCK="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="BazarBoutique.Vistas.DetallesVistas.DetallesCursoVista"
+             xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.DetallesViewModels" 
+             xmlns:md="clr-namespace:BazarBoutique.Modelos" 
+             x:DataType="vm:DetallesCursoViewModel">
+
+    <NavigationPage.TitleView>
+
+        <StackLayout Orientation="Horizontal" BackgroundColor="White" VerticalOptions="Center" Margin="0,0,10,0">
+            <Label Text="Bazar Boutique" 
+                           HorizontalOptions="StartAndExpand"
+                           TextColor="Green"
+                           FontAttributes="Bold"
+                           FontSize="20"/>
+
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource    FontFamily="FonSolid"
+                                            Size="Title"
+                                            Color="Green"
+                                            Glyph="&#xf002;"/>
+                    </Image.Source>
+                </Image>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="tBuscador_Clicked"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>-->
+
+            <StackLayout IsVisible="{Binding EstaLogueado}" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0,0,0">
+                <Image >
+                    <Image.Source>
+                        <FontImageSource FontFamily="FonSolid" 
+                                         Size="Title"
+                                         Color="Green"
+                                         Glyph="&#xf07a;"/>
+                    </Image.Source>
+                </Image>
+                <Label TextColor="Green"
+                       Text="{Binding ContadoCarrito}"
+                        FontAttributes="Bold"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RedireccionCarritoCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+
         </StackLayout>
+
+
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+
+            <ScrollView >
+                <Grid BackgroundColor="Transparent" ColumnDefinitions="*">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                    <!-- 1. Profile picture-->
+
+                    <Image Grid.Row="0" Source="{Binding ImagenProducto}"  VerticalOptions="FillAndExpand" Aspect="AspectFill" BackgroundColor="White"/>
+
+                    <!-- 2. Contact informaqtion frame-->
+                    <Grid Grid.Row="1"  >
+                        <!-- 3. Phone & message buttons-->
+                        <PCK:PancakeView  CornerRadius="40" BackgroundColor="White" TranslationY="{OnPlatform iOS='-150', Android='-65'}">
+
+                            <Grid Padding="30,25,30,0" RowSpacing="0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding NombreProducto}" FontAttributes="Bold" FontSize="30"/>
+
+                                <!--Nombre del autor-->
+                            <Label Grid.Row="1" FontAttributes="Bold" VerticalTextAlignment="Center" VerticalOptions="Center" Grid.Column="0" Text="{Binding NombreAutor}" HorizontalOptions="Start" HorizontalTextAlignment="Start" TextColor="#a5a2a2" FontSize="16"/>
+                                <Frame Grid.Row="1" Grid.Column="2"
+                                            BorderColor="Black"
+                                            CornerRadius="50"
+                                            HeightRequest="20"
+                                            WidthRequest="20"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="CenterAndExpand"
+                                            Margin="0,10,0,-10" >
+                                    <Image Source="{Binding FotoAutor}"
+                                                Aspect="AspectFill"
+                                                Margin="-20"/>
+                                </Frame>
+
+                            <!--Precio-->
+                            <Label Grid.Row="2" FontAttributes="Bold" Margin="0,30,0,10"  Grid.Column="0" Text="Precio:" HorizontalOptions="Start" HorizontalTextAlignment="End"  TextColor="Black" FontSize="16"/>
+
+                            <Label Grid.Row="2" Grid.Column="2" Margin="0,30,0,10" HorizontalOptions="End" TextColor="#a5a2a2" FontAttributes="Bold"  HorizontalTextAlignment="End"  FontSize="18">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="S/"/>
+                                        <Span Text="{Binding PrecioCurso,StringFormat='{0:N}'}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+
+                            <!--Categoria-->
+                            <Label Grid.Row="3" FontAttributes="Bold" Margin="0,15"  Grid.Column="0" Text="Categoria:" HorizontalOptions="Start" HorizontalTextAlignment="End"  TextColor="Black" FontSize="16"/>
+
+                            <Label Text="{Binding CategoriaPerteneciente}" Grid.Row="3" Grid.Column="2" Margin="0,15" HorizontalOptions="End"  FontAttributes="Bold"  HorizontalTextAlignment="End" TextColor="#a5a2a2" FontSize="16" />
+
+
+                            <Label Grid.Row="4" Grid.Column="0" TextColor="Black" Text="Fecha de Actualizacion" FontAttributes="Bold" HeightRequest="65" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Style="{StaticResource stlBoardTitle}" />
+                            <Label Grid.Row="5" Grid.Column="0"  Text="{Binding FechaActualizacion, StringFormat='{0:MM/dd/yy}'}" TextColor="#a5a2a2" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Style="{StaticResource stlBoardDesc}"/>
+
+                            <Label Grid.Row="4" Grid.Column="1" Text="Cantidad de Lexiones" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"  Style="{StaticResource stlBoardTitle}"/>
+                            <Label Grid.Row="5" Grid.Column="1" Text="{Binding CantidadSuscriptores}" TextColor="#a5a2a2" Style="{StaticResource stlBoardDesc}"/>
+
+                            <Label Grid.Row="4" Grid.Column="2" Text="Suscriptores" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Center"  VerticalOptions="Center" VerticalTextAlignment="Center" Style="{StaticResource stlBoardTitle}"/>
+                            <Label Grid.Row="5" Grid.Column="2" Text="{Binding Sesiones}" TextColor="#a5a2a2" Style="{StaticResource stlBoardDesc}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+
+                                <!--Descripcion-->
+                            <Label Grid.Row="6" Margin="0,20,0,5" Grid.ColumnSpan="3" Grid.Column="0" Text="Descripcion:" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Black" FontAttributes="Bold" FontSize="16"/>
+
+                            <Label Grid.Row="7" Margin="0,10" Grid.Column="0" Text="{Binding Descripcion}" HorizontalOptions="Start" HorizontalTextAlignment="Center" TextColor="#a5a2a2" FontSize="16" Grid.ColumnSpan="3" />
+
+                                <!--Boton de comprar--><!--
+                                <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="15" TextColor="White" BackgroundColor="Green" Text="Comprar" Margin="0,20,0,40" FontAttributes="Bold" FontSize="17" HeightRequest="45"/>-->
+                            </Grid>
+                        </PCK:PancakeView>
+                    </Grid>
+
+                    <StackLayout Grid.Row="1" VerticalOptions="Start" Margin="10,0" TranslationY="{OnPlatform iOS='-150', Android='-108'}" HorizontalOptions="EndAndExpand"  Orientation="Horizontal">
+                    <Button  Style="{StaticResource stlContactBtn}" Text="&#xf06e;" Command="{Binding RedireccionLexionesCommand}" FontSize="30" FontFamily="FonSolid" TextColor="White" IsVisible="{Binding BotonLexiones}"/>
+                        <Button  Style="{StaticResource stlContactBtn}" Text="&#xf07a;" Command="{Binding AgregandoCarritoCommand}" FontSize="30" FontFamily="FonSolid" TextColor="White" IsVisible="{Binding BotonCarrito}"/>
+                    </StackLayout>
+
+            </Grid>
+            </ScrollView>
+     
+        
     </ContentPage.Content>
 </ContentPage>

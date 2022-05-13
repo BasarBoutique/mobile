@@ -11,6 +11,81 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
              x:DataType="vm:CatalogoCursosViewModel"
              x:Name="ApartadoHome"
              Title="Bazar Boutique">
+
+    <NavigationPage.TitleView>
+
+        <StackLayout Orientation="Horizontal" BackgroundColor="White" VerticalOptions="Center" Margin="0,0,10,0">
+            <Label Text="Bazar Boutique" 
+                           HorizontalOptions="StartAndExpand"
+                           TextColor="Green"
+                           FontAttributes="Bold"
+                           FontSize="20"/>
+
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource    FontFamily="FonSolid"
+                                            Size="Title"
+                                            Color="Green"
+                                            Glyph="&#xf002;"/>
+                    </Image.Source>
+                </Image>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="tBuscador_Clicked"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>-->
+
+            <StackLayout IsVisible="{Binding EstaLogueado}" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0,0,0">
+                <Image >
+                    <Image.Source>
+                        <FontImageSource FontFamily="FonSolid" 
+                                         Size="Title"
+                                         Color="Green"
+                                         Glyph="&#xf07a;"/>
+                    </Image.Source>
+                </Image>
+                <Label TextColor="Green"
+                       Text="{Binding ContadoCarrito}"
+                        FontAttributes="Bold"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RedireccionCarritoCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0,0,0">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource FontFamily="FonSolid" 
+                                         Size="Title"
+                                         Color="Green"
+                                         Glyph="&#xf07a;"/>
+                    </Image.Source>
+                </Image>
+                <Label Text="{Binding ContadoCarrito}" 
+                               TextColor="Green"
+                               FontAttributes="Bold"/>
+                <StackLayout.GestureRecognizers>
+                    --><!--<TapGestureRecognizer Tapped="tCarrito_Clicked"/>--><!--
+                </StackLayout.GestureRecognizers>
+            </StackLayout>-->
+
+
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0">
+                --><!--<ImageButton Source="user.png" HeightRequest="25">
+                </ImageButton>--><!--
+
+                <PanCake:PancakeView CornerRadius="15" HeightRequest="30">
+                    <ImageButton x:Name="ImagenCompañia">
+                    </ImageButton>
+                </PanCake:PancakeView>
+            </StackLayout>-->
+
+        </StackLayout>
+
+
+    </NavigationPage.TitleView>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="CategoriaNormal" x:DataType="md:CategoriaSlideModelo">
@@ -133,7 +208,7 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
                             </StackLayout>
                             <PanCake:PancakeView.GestureRecognizers>
                                 <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={x:Reference ApartadoHome}, Path=BindingContext.RedireccionApartadoCursos}"/>
+                                                  Command="{Binding Source={x:Reference ApartadoHome}, Path=BindingContext.RedireccionCursosFiltradosCategoria}"/>
                             </PanCake:PancakeView.GestureRecognizers>
                         </PanCake:PancakeView>
                     </Frame>
@@ -188,7 +263,7 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
                             <Label  x:DataType="vm:CatalogoCursosViewModel"
                                     Text="Autores" 
                                     Style="{StaticResource TituloSecciones}"/>
-                            <Label Text="Instructores vairiados" 
+                            <Label Text="Visualiza nuestros autores" 
                            TextColor="Black" Margin="0,-3,0,0"/>
                         </StackLayout>
                         <StackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
@@ -215,52 +290,78 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
                                     HeightRequest="255"
                                     ItemsSource="{Binding Autores}"
                                     Margin="0,0,0,15">
-                        <!--<CollectionView.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>mono</x:String>
-                                <x:String>monodroid</x:String>
-                                <x:String>monotouch</x:String>
-                                <x:String>monorail</x:String>
-                                <x:String>monodevelop</x:String>
-                                <x:String>monotone</x:String>
-                                <x:String>monopoly</x:String>
-                                <x:String>monomodal</x:String>
-                                <x:String>mononucleosis</x:String>
-                            </x:Array>
-                        </CollectionView.ItemsSource>-->
+
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="md:UsuarioModelo">
                                 <StackLayout Margin="20,15" >
                                     <PanCake:PancakeView  Shadow="{PanCake:ShadowMarkup Color=Black, Offset='2,54'}"
-                                                          CornerRadius="15"  BackgroundColor="Green" WidthRequest="180"
+                                                          CornerRadius="10"  BackgroundColor="White" WidthRequest="180"
                                                          HeightRequest="230" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
                                         <Grid HorizontalOptions="Center" RowSpacing="0" ColumnSpacing="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <PanCake:PancakeView Grid.Row="0" CornerRadius="10"  >
-                                                <Image  HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Aspect="AspectFill" WidthRequest="200" HeightRequest="160" 
+                                            <PanCake:PancakeView Grid.Row="0" >
+                                                <Frame CornerRadius="80" HeightRequest="100" WidthRequest="100" Margin="10" IsClippedToBounds="True">
+                                                    <Image Margin="-20"  Aspect="AspectFill" WidthRequest="00" HeightRequest="160" 
                                                            Source="{Binding detail.PhotoUser}"/>
+                                                </Frame>
                                             </PanCake:PancakeView>
 
                                             <StackLayout Grid.Row="1" Padding="10,5" HorizontalOptions="Center">
-                                                <Label    Text="{Binding name}" FontAttributes="Bold" TextColor="White" MaxLines="2" FontSize="14" HorizontalTextAlignment="Center"/>
-                                                <Label Margin="0,5,0,0" HorizontalTextAlignment="Center" Text="15" FontAttributes="Bold" TextColor="White">
+                                                <Label    Text="{Binding name}" FontAttributes="Bold" TextColor="Black" MaxLines="2" FontSize="14" HorizontalTextAlignment="Center"/>
+                                                <!--<Label Margin="0,5,0,0" HorizontalTextAlignment="Center" Text="15" FontAttributes="Bold" TextColor="Black">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="Cantidad cursos:"/>
                                                             <Span Text="15"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>
-                                                </Label>
+                                                </Label>-->
 
                                             </StackLayout>
                                         </Grid>
+                                        <PanCake:PancakeView.GestureRecognizers>
+
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference ApartadoHome}, Path=BindingContext.RedireccionCursosFiltradosUsuario}" CommandParameter="{Binding .}"/>
+                                        </PanCake:PancakeView.GestureRecognizers>
+
+
                                     </PanCake:PancakeView>
+
+                                    
                                 </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <StackLayout tlkit:StateLayout.CurrentState="{Binding EstadoAutores}"   >
+                                <tlkit:StateLayout.StateViews>
+
+                                    <tlkit:StateView StateKey="Loading">
+                                        <StackLayout Orientation="Horizontal">
+                                            <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="230" WidthRequest="180" Margin="20,15"  BackgroundColor="Gray"  />
+                                            <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="230" WidthRequest="180" Margin="20,15"  BackgroundColor="Gray"  />
+                                            <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="230" WidthRequest="180" Margin="20,15"  BackgroundColor="Gray"  />
+                                        </StackLayout>
+
+                                    </tlkit:StateView>
+
+                                    <tlkit:StateView StateKey="Success">
+                                        <tlkit:StateView.Template>
+                                            <DataTemplate>
+                                                <StackLayout VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                                                    <Label Text="No existen autores por mostrar" HeightRequest="300" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </tlkit:StateView.Template>
+
+                                    </tlkit:StateView>
+
+                                </tlkit:StateLayout.StateViews>
+
+                            </StackLayout>
+                        </CollectionView.EmptyView>
                     </CollectionView>
        
 
@@ -307,15 +408,21 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
                                   IsBounceEnabled="True">
 
                         <CarouselView.EmptyView>
-                            <StackLayout tlkit:StateLayout.CurrentState="{Binding EstadoActual}"   >
+                            <StackLayout tlkit:StateLayout.CurrentState="{Binding EstadoAutores}"   >
                                 <tlkit:StateLayout.StateViews>
                                     
                                     <tlkit:StateView StateKey="Loading">
-                                        <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="125" WidthRequest="105" Margin="10,0,25,0"  BackgroundColor="Gray"  />
+                                        <BoxControl:SkeletonViewBox CornerRadius="8" HeightRequest="135" WidthRequest="105" Margin="10,0,25,0"  BackgroundColor="Gray"  />
                                     </tlkit:StateView>
 
                                     <tlkit:StateView StateKey="Success">
-                                       
+                                        <StackLayout>
+                                            <Label HeightRequest="140" 
+                                                   Text="No se encontraron Autores"
+                                                   VerticalOptions="Center">
+                                                
+                                            </Label>
+                                        </StackLayout>
                                     </tlkit:StateView>
                                     
                                 </tlkit:StateLayout.StateViews>
@@ -377,10 +484,10 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
                                                 <PanCake:DropShadow Color="Black" Offset="15,20" Opacity="10" />
                                             </PanCake:PancakeView.Shadow>
                                             <Grid RowDefinitions="140,90" >
-                                                <PanCake:PancakeView Grid.Row="0" CornerRadius="20">
+                                                <!--<PanCake:PancakeView Grid.Row="0" CornerRadius="20">
                                                     <Image  Source="not_image.png" 
                                                             Aspect="AspectFill"/>
-                                                </PanCake:PancakeView>
+                                                </PanCake:PancakeView>-->
                                                 <PanCake:PancakeView Grid.Row="0" CornerRadius="20">
                                                     <Image  Source="{Binding photo}" 
                                                             Aspect="AspectFill"/>
@@ -390,6 +497,11 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
                                                     <!--<Label Text="{Binding created_at,StringFormat='{0:MM - dd - yyyy}'}" HorizontalOptions="End" HeightRequest="20" VerticalOptions="EndAndExpand"/>-->
                                                 </StackLayout>
                                             </Grid>
+
+                                            <PanCake:PancakeView.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference ApartadoHome}, Path=BindingContext.SeleccionandoCursoCommand}" CommandParameter="{Binding .}"/>
+                                            </PanCake:PancakeView.GestureRecognizers>
+                                            
                                         </PanCake:PancakeView>
                                     </PanCake:PancakeView>
 

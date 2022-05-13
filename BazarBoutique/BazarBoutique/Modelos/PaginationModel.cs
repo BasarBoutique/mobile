@@ -27,6 +27,14 @@ namespace BazarBoutique.Modelos
     public class SearchCourseFilters
     {
         public FiltrosModelo filters { get; set; }
+        public Order order { get; set; }
+        public int paginate { get; set; }
+    }
+
+    public class Order
+    {
+        public string sort_by { get; set; }
+        public string order_by { get; set; } 
     }
 
     public class PaginationModel
@@ -49,10 +57,9 @@ namespace BazarBoutique.Modelos
     public class FiltrosModelo
     {
         public string title { get; set; }
+        //public string name { get; set; }
         public List<int> categories { get; set; }
         public List<int> authors { get; set; }
-
-
         ////
         public bool withDisabled { get; set; }
         public List<int> roles { get; set; }

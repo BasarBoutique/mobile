@@ -1,8 +1,12 @@
 ﻿using BazarBoutique.Modelos;
+using BazarBoutique.Services;
 using BazarBoutique.Services.CategoriaServices;
+using BazarBoutique.Vistas.FiltrosVistas;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -33,6 +37,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             }
         }
         public Command<Uri> PaginaAnteriorCommand { get; set; }
+        public Command GestoRefrescamientoCommand { get; }
         public Command<Uri> PaginaSiguienteCommand { get; set; }
         public Command<PaginaRedireccion> RedireccionPaginaCommand { get; set; }
         DataCategorias PaginaDatos = new DataCategorias();
@@ -114,6 +119,16 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             set => SetProperty(ref _estadoCategoria, value);
         }
 
+        SearchCourseFilters FiltrosRealizados = new SearchCourseFilters()
+        {
+            filters = new FiltrosModelo() { }
+        };
+        private Uri LinkPagina;
+
+
+
+        public Command<CategoriaModelo> RedirigirApartadoCursoCategoriaCommand { get; set; }
+        
         #endregion
         public FiltroCategoriasViewModel(INavigation navigation, ContentPage page)
         {
@@ -121,32 +136,94 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             this.navigation = navigation;
             this.page = page;
 
-
+            GestoRefrescamientoCommand = new Command(RecargarCategorias);
             RedireccionPaginaCommand = new Command<PaginaRedireccion>(SeleccionandoPagina);
-            PaginaAnteriorCommand = new Command<Uri>(PaginaAnteriorCommsand);
-            PaginaSiguienteCommand = new Command<Uri>(PaginaAnteriorCommsand);
+            PaginaAnteriorCommand = new Command<Uri>(PaginaPorBoton);
+            PaginaSiguienteCommand = new Command<Uri>(PaginaPorBoton);
 
             PaginasListadas = new ObservableCollection<PaginaRedireccion>();
             CatalogosCategorias = new ObservableCollection<CategoriaModelo>();
+            RedirigirApartadoCursoCategoriaCommand = new Command<CategoriaModelo>(RedireciconApartadoCursos);
+
+            LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/search");
 
             EstadoCategoria = LayoutState.Loading;
         }
 
-        private void PaginaAnteriorCommsand(Uri uri)
+        private void RedireciconApartadoCursos(CategoriaModelo obj)
         {
-            EstableciendoValoresDePagina(uri);            
+            FiltrosAlmacenados.AlmacenamientoFiltros.Clear();
+            var ElementoSeleccionado = new FiltroPorNombreId
+            {
+                CodigoFiltro = obj.id,
+                NombreFiltro = obj.title,
+                TipoFiltro = "categories"
+            };
+
+            bool Existe = FiltrosAlmacenados.AlmacenamientoFiltros.Any(x => x.CodigoFiltro == ElementoSeleccionado.CodigoFiltro);
+
+            //Confirmar que el articulo no exista
+            if (!Existe)
+            {
+                //Aqui se activa
+                FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
+                //Comprobar si esta habilitado o no
+            }
+            SearchCourseFilters FiltrosRealizados = new SearchCourseFilters();
+            navigation.PushAsync(new FiltroCursoVista(FiltrosRealizados));
         }
 
-        private async void EstableciendoValoresDePagina(Uri link)
+        public async void OnAppearing()
         {
-            IsBusy = true;
+            //Uri direccion = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/search");
+
+            //Aplicando Filtros
+            FiltrosRealizados.paginate = 5;
+            FiltrosRealizados.filters.withDisabled = false;
+
+            await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
+        }
+        private async void BuscandoElementoAsync(string value)
+        {
+            FiltrosRealizados.filters.title = value;
+            IsLoading = true;
+            IsLoading = false;
+        }
+
+        private async void RecargarCategorias()
+        {
+            IsLoading = true;
+
+            await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
+
+            IsLoading = false;
+        }
+
+        private async void SeleccionandoPagina(PaginaRedireccion obj)
+        {
+            if (PaginaDatos.pagination.current_page != obj.LinkPagina)
+                await EstableciendoValoresDePagina(obj.LinkPagina, FiltrosRealizados);
+        }
+
+        private async void PaginaPorBoton(Uri uri)
+        {
+            await EstableciendoValoresDePagina(uri, FiltrosRealizados);            
+        }
+
+        private async Task EstableciendoValoresDePagina(Uri link, SearchCourseFilters fillter)
+        {
+            EstadoCategoria = LayoutState.Loading;
+
+            //IsBusy = true;
 
             if (link != null)
             {
-                PaginaDatos = await ServicioCategoria.GetPaginacionCategoria(link);
                 CatalogosCategorias.Clear();
+                PaginaDatos = await ServicioCategoria.GetPaginacionCategoria(link,fillter);
+                
                 if(PaginaDatos.categories != null)
                 {
+                    CatalogosCategorias.Clear();
                     foreach (var arg in PaginaDatos.categories)
                     {
                         CatalogosCategorias.Add(arg);
@@ -159,16 +236,9 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                     PaginaDatos.categories = new List<CategoriaModelo>();
                 }
             }
-            IsBusy = false;
+            //IsBusy = true;
             EstadoCategoria = LayoutState.Success;
 
-        }
-
-
-        private void SeleccionandoPagina(PaginaRedireccion obj)
-        {
-            if (PaginaDatos.pagination.current_page != obj.LinkPagina)
-                EstableciendoValoresDePagina(obj.LinkPagina);   
         }
 
         private void RefrescarPaginaSeleccionada()
@@ -178,7 +248,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             {
                 i++;
                 var Elemento = new PaginaRedireccion();
-                Elemento.LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/all?page=" + i);
+                Elemento.LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/search?page=" + i);
                 Elemento.NumeroPagina = i;
                     
                 if (PaginaDatos.pagination.current_page == Elemento.LinkPagina)
@@ -190,7 +260,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                     }
                     else
                     {
-                        ParametroPaginaAnterior = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/all?page=" + (i - 1));
+                        ParametroPaginaAnterior = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/search?page=" + (i - 1));
                     }
                 }
                 else
@@ -198,23 +268,9 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                     Elemento.PaginaSeleccionada = false;
                 }
                 PaginasListadas.Add(Elemento);
-            }
-
-            
-        }
-
-        private async void BuscandoElementoAsync(string obj)
-        {
-
+            } 
         }
 
 
-        public async void OnAppearing()
-        {
-            Uri direccion = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/all");
-            EstableciendoValoresDePagina(direccion);
-
-            
-        }
     }
 }

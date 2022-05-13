@@ -4,21 +4,59 @@
              x:Class="BazarBoutique.App">
     <Application.Resources>
      <!--Colores personalizados en Xamarin-->
-        <Style TargetType="NavigationPage">
+        <!--<Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor" Value="White"/>
             <Setter Property="BarTextColor" Value="#008D36"/>
-        </Style>
+        </Style>-->
 
-        <!--Estilo para los titulo de secciones-->
-        <Style TargetType="Label" 
+        <ResourceDictionary>
+            <Style x:Key="stlContactBtn" TargetType="Button">
+                <Setter Property="BackgroundColor"  Value="Green"/>
+                <Setter Property="WidthRequest"     Value="65"/>
+                <Setter Property="HeightRequest"    Value="65"/>
+                <Setter Property="CornerRadius"     Value="35"/>
+                <Setter Property="Margin"     Value="3,0"/>
+            </Style>
+
+            <Style x:Key="stlBoardTitle" TargetType="Label">
+                <Setter Property="TextColor"         Value="#a5a2a2"/>
+                <Setter Property="FontSize"          Value="16"/>
+            </Style>
+
+            <Style x:Key="stlBoardDesc" TargetType="Label">
+                <Setter Property="FontAttributes"    Value="Bold"/> 
+                <Setter Property="FontSize"          Value="16" />
+                <Setter Property="HorizontalOptions" Value="Center"/> 
+            </Style>
+
+            <Style x:Key="stlMainFrame" TargetType="Frame">
+                <Setter Property="TranslationY"    Value="{OnPlatform iOS='-150', Android='-33'}"/> 
+                <Setter Property="HeightRequest"   Value="{OnPlatform iOS='120', Android='328'}"/>
+                <Setter Property="HasShadow"       Value="False" />
+            </Style>
+
+
+            <Color x:Key="primary-back-title-color">White</Color>
+            <Color x:Key="primary-title-color">Green</Color>
+            <!-- Pallete-end -->
+            <Style ApplyToDerivedTypes="true" TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource Key=primary-back-title-color}"/>
+                <Setter Property="BarTextColor" Value="{StaticResource Key=primary-title-color}"/>
+            </Style>
+
+
+            <!--Estilo para los titulo de secciones-->
+            <Style TargetType="Label" 
                x:Key="TituloSecciones">
-            <Setter Property="TextColor"
+                <Setter Property="TextColor"
                     Value="#008D35"/>
-            <Setter Property="FontAttributes"
+                <Setter Property="FontAttributes"
                     Value="Bold"/>
-            <Setter Property="FontSize"
+                <Setter Property="FontSize"
                     Value="23"/>
-        </Style>
+            </Style>
+        </ResourceDictionary>
+
 
 
         <!--<ResourceDictionary>

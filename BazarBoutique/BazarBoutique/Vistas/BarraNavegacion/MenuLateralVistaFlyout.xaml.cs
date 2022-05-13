@@ -1,5 +1,6 @@
 ﻿using BazarBoutique.Services;
 using BazarBoutique.Vistas.CatalogoCursosVistas;
+using BazarBoutique.Vistas.CursosPorUsuarioVistas;
 using BazarBoutique.Vistas.InicioSesíonVistas;
 using BazarBoutique.Vistas.PerfilVistas;
 using System;
@@ -49,8 +50,9 @@ namespace BazarBoutique.Vistas.BarraNavegacion
                     MenuItems = new ObservableCollection<MenuLateralVistaFlyoutMenuItem>(new[]
                     {
                         new MenuLateralVistaFlyoutMenuItem { Id = 0, Title = "Listado de Cursos",TargetType= typeof(CatalogoCursosVista)},
-                        new MenuLateralVistaFlyoutMenuItem { Id = 3, Title = "Perfil",TargetType= typeof(UsuarioVista)},
-                        new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Cerrar Sesion",TargetType= typeof(FlyoutPage)},
+                        new MenuLateralVistaFlyoutMenuItem { Id = 1, Title = "Perfil",TargetType= typeof(UsuarioVista)},
+                        new MenuLateralVistaFlyoutMenuItem { Id = 2, Title = "Mis Cursos", TargetType= typeof(CursosPorUsuarioVista)},
+                        new MenuLateralVistaFlyoutMenuItem { Id = 3, Title = "Cerrar Sesion",TargetType= typeof(FlyoutPage)}
                     });
                 }
                 else

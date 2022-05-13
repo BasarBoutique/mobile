@@ -69,6 +69,7 @@ namespace BazarBoutique.Modelos
         public class DataCategorias
         {
             public List<CategoriaModelo> categories { get; set; }
+            public FiltrosModelo filters { get; set; }
             public PaginationModel pagination { get; set; }
         }
 

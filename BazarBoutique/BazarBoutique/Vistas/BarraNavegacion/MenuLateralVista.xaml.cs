@@ -41,6 +41,7 @@ namespace BazarBoutique.Vistas.BarraNavegacion
                 {
                     ApiResponseModelo Usuario = new ApiResponseModelo();
                     UsuarioModelo DatosPersonales = new UsuarioModelo();
+                    CarroServices.Carritos.Clear();
 
                     SesionServicios.apiResponse = Usuario;
                     SesionServicios.apiUser = DatosPersonales;

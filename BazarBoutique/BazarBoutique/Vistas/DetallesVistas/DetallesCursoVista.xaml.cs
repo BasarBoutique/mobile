@@ -1,6 +1,8 @@
-﻿using BazarBoutique.VistaModelos.DetallesViewModels;
+﻿using BazarBoutique.Modelos;
+using BazarBoutique.VistaModelos.DetallesViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +12,21 @@ using Xamarin.Forms.Xaml;
 
 namespace BazarBoutique.Vistas.DetallesVistas
 {
+    [DesignTimeVisible(false)]
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetallesCursoVista : ContentPage
     {
         DetallesCursoViewModel vistamodel;
-        public DetallesCursoVista()
+        public DetallesCursoVista(CursosModelo curso)
         {
             InitializeComponent();
-            BindingContext = vistamodel = new DetallesCursoViewModel(Navigation, this);
+            BindingContext = vistamodel = new DetallesCursoViewModel(Navigation, this, curso);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            vistamodel.OnAppearing();
         }
     }
 }
