@@ -56,8 +56,8 @@
         <ScrollView>
             <Grid>
 
-                <RefreshView Command="{Binding GestoRefrescamientoCommand}" IsRefreshing="{Binding IsLoading, Mode=TwoWay}">
-                    <ScrollView>
+                <ScrollView>
+                    <RefreshView Command="{Binding GestoRefrescamientoCommand}" IsRefreshing="{Binding IsLoading, Mode=TwoWay}">
                         <!--Contenedor Principal-->
                         <StackLayout>
 
@@ -94,12 +94,12 @@
                                                     <Grid Padding="8" ColumnDefinitions="35,2*,15">
 
                                                         <CheckBox Grid.Column="0" 
-                                                          IsChecked="{Binding EstaSeleccionado}"
-                                                          Color="Green"
-                                                          VerticalOptions="Center"
-                                                          HorizontalOptions="Center"
-                                                          HeightRequest="60" 
-                                                          WidthRequest="70">
+                                                                  IsChecked="{Binding EstaSeleccionado}"
+                                                                  Color="Green"
+                                                                  VerticalOptions="Center"
+                                                                  HorizontalOptions="Center"
+                                                                  HeightRequest="60" 
+                                                                  WidthRequest="70">
                                                             <CheckBox.Behaviors>
                                                                 <TKBH:EventToCommandBehavior
                                                             EventName="CheckedChanged"
@@ -172,16 +172,16 @@
                                     <Grid   ColumnDefinitions="Auto,2*,Auto"
                                     Margin="0,0" >
                                         <Button Text="&#xf104;"
-                                        FontFamily="FonSolid"
-                                        Command="{Binding PaginaAnteriorCommand}"
-                                        CommandParameter="{Binding ParametroPaginaAnterior}"
-                                        Grid.Column="0"
-                                        FontSize="20" 
-                                        BackgroundColor="{Binding BackButtonColor}"
-                                        TextColor="White"
-                                        BorderWidth="2"
-                                        WidthRequest="50"
-                                        CornerRadius="5"/>
+                                                FontFamily="FonSolid"
+                                                Command="{Binding PaginaAnteriorCommand}"
+                                                CommandParameter="{Binding ParametroPaginaAnterior}"
+                                                Grid.Column="0"
+                                                FontSize="20" 
+                                                BackgroundColor="{Binding BackButtonColor}"
+                                                TextColor="White"
+                                                BorderWidth="2"
+                                                WidthRequest="50"
+                                                CornerRadius="5"/>
 
                                         <CollectionView  Grid.Column="1" ItemsSource="{Binding PaginasListadas}" ItemTemplate="{StaticResource TiposPaginas}" HorizontalOptions="CenterAndExpand"   Margin="-5,0">
                                             <CollectionView.ItemsLayout>
@@ -192,24 +192,23 @@
                                         </CollectionView>
 
                                         <Button Grid.Column="2"
-                                        Text="&#xf105;"
-                                        FontFamily="FonSolid"
-                                        Command="{Binding PaginaSiguienteCommand}"
-                                        CommandParameter="{Binding ParametroPaginaSiguiente}"
-                                        FontSize="20"    
-                                        BackgroundColor="{Binding NextButtonColor}"
-                                        TextColor="White"
-                                        BorderWidth="2"
-                                        WidthRequest="50"
-                                        CornerRadius="5"/>
+                                                Text="&#xf105;"
+                                                FontFamily="FonSolid"
+                                                Command="{Binding PaginaSiguienteCommand}"
+                                                CommandParameter="{Binding ParametroPaginaSiguiente}"
+                                                FontSize="20"    
+                                                BackgroundColor="{Binding NextButtonColor}"
+                                                TextColor="White"
+                                                BorderWidth="2"
+                                                WidthRequest="50"
+                                                CornerRadius="5"/>
                                     </Grid>
                                 </PCK:PancakeView>
 
                             </StackLayout>
                         </StackLayout>
-                    </ScrollView>
-
-                </RefreshView>
+                    </RefreshView>
+                </ScrollView>
 
                 <!--<Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 

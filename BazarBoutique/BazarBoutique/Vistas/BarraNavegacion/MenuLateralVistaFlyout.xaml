@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:PCK="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="BazarBoutique.Vistas.BarraNavegacion.MenuLateralVistaFlyout"
              Title="Flyout">
     <StackLayout>
@@ -16,11 +16,30 @@
                         <ColumnDefinition Width="10"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+
+
+                    <PCK:PancakeView Grid.Column="1" 
+                                  Grid.Row="1"  
+                                  HorizontalOptions="Start" 
+                                  WidthRequest="80"
+                                  VerticalOptions="Start" 
+                                  HeightRequest="80"          
+                                  Margin="0,0,0,0" 
+                                  CornerRadius="50">
+                        <Image HeightRequest="95" 
+                               Source="EmpyUser.png"
+                               VerticalOptions="CenterAndExpand" 
+                               Aspect="AspectFill"
+                               x:Name="FotoPerfil"/>
+                    </PCK:PancakeView>
+                    
+
+
                     <Label
                             Grid.Column="1"
                             Grid.Row="2"

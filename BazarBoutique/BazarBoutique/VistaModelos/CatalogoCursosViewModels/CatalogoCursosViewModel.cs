@@ -172,9 +172,7 @@ namespace BazarBoutique.VistaModelos.CatalogoCursosViewModels
                 IsInitialized = false;
             }
 
-            if (SesionServicios.apiResponse.success == true)
-                    EstaLogueado = true;
-                    ContandoProductoEnCarrito();
+            VerificandoUsuario();
 
             IsBusy = false;
         }

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:converters="clr-namespace:BazarBoutique.Converter"
              x:Class="BazarBoutique.App">
     <Application.Resources>
      <!--Colores personalizados en Xamarin-->
@@ -10,6 +11,43 @@
         </Style>-->
 
         <ResourceDictionary>
+            <converters:CardNumberToImageConverter x:Key="CardConverter"
+                                                    Amex="ic_amex"
+                                                    Dinners="ic_dinersclub"
+                                                    Discover="ic_discover" 
+                                                    JCB="ic_jcb"
+                                                    MasterCard="ic_mastercard" 
+                                                    Visa="ic_visa"
+                                                    NotRecognized="nocards"/>
+
+            <converters:CardNumberToImageConverter x:Key="CardLightConverter"
+                                                    Amex="americanexpresslogo"
+                                                    Dinners="ic_dinersclub_white.png"
+                                                    Discover="ic_discover_light" 
+                                                    JCB="ic_jcb"
+                                                    MasterCard="ic_mastercard_white" 
+                                                    Visa="ic_visa_white"
+                                                    NotRecognized="ic_chip"/>
+
+            <converters:CardNumberToColorConverter x:Key="CardColorConverter"
+                                                    Amex="#3177CB"
+                                                    Dinners="#1B4F8F"
+                                                    Discover="#E9752F" 
+                                                    JCB="#9E2921"
+                                                    MasterCard="#394854" 
+                                                    Visa="#2867BA"
+                                                    NotRecognized="#75849D"/>
+
+            <Color x:Key="Primary">#FFFFFF</Color>
+            <Color x:Key="PrimaryDark">#75849D</Color>
+            <Color x:Key="Secondary">#B5BBC2</Color>
+            <Color x:Key="Accent">LightGray</Color>
+            <Color x:Key="LightColor">LightGray</Color>
+
+
+
+
+
             <Style x:Key="stlContactBtn" TargetType="Button">
                 <Setter Property="BackgroundColor"  Value="Green"/>
                 <Setter Property="WidthRequest"     Value="65"/>

@@ -89,7 +89,6 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         }
 
         private Uri _ParametroPaginaAnterior;
-
         public Uri ParametroPaginaAnterior
         {
             get => _ParametroPaginaAnterior;
@@ -130,7 +129,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         private Uri LinkPagina;
         #endregion
 
-
+        private List<FiltroPorNombreId> elementos;
         public SoloFiltroAutoresViewModel(INavigation navigation, ContentPage page)
         {
             this.navigation = navigation;
@@ -144,6 +143,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
             PaginasListadas = new ObservableCollection<PaginaRedireccion>();
             CatalogosUsuario = new ObservableCollection<UsuarioModelo>();
+            elementos = new List<FiltroPorNombreId>();
 
             LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/auth/users/search");
 
@@ -174,7 +174,6 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
         private void CambiandoEstadoFiltro(UsuarioModelo obj)
         {
-
             var ElementoSeleccionado = new FiltroPorNombreId
             {
                 CodigoFiltro = obj.id,
@@ -182,24 +181,66 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                 TipoFiltro = "authors"
             };
 
+            //bool ElFiltroExiste = FiltrosAlmacenados.AlmacenamientoFiltros.Any(x => x == ElementoSeleccionado);
+
             bool Existe = FiltrosAlmacenados.AlmacenamientoFiltros.Any(x => x.CodigoFiltro == ElementoSeleccionado.CodigoFiltro);
 
-            //Confirmar que el articulo no exista
-            if (!Existe)
-            {
 
-                //Comprobar si esta habilitado o no
-                if (obj.EstaSeleccionado)
-                {
-                    //Aqui se activa
-                    FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
-                }
-                else
-                {
-                    //Aqui se elimina
-                    FiltrosAlmacenados.AlmacenamientoFiltros.Remove(ElementoSeleccionado);
-                }
+            if (!Existe && obj.EstaSeleccionado)
+            {
+                //Aqui se activa
+                FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
             }
+            else if (Existe && !obj.EstaSeleccionado)
+            {
+                var args = new FiltroPorNombreId();
+                FiltrosAlmacenados.AlmacenamientoFiltros.Remove(ElementoSeleccionado);
+                foreach (var elemento in FiltrosAlmacenados.AlmacenamientoFiltros)
+                {
+                    if (elemento.CodigoFiltro == ElementoSeleccionado.CodigoFiltro)
+                    {
+                        args = elemento;
+                    }
+
+                }
+                FiltrosAlmacenados.AlmacenamientoFiltros.Remove(args);
+            }
+
+        }
+
+        private void AplicandoFiltros()
+        {
+            //List<FiltroPorNombreId> elementos = new List<FiltroPorNombreId>();
+            //foreach (var elemento in FiltrosAlmacenados.AlmacenamientoFiltros)
+            //{
+            //    if (elemento.TipoFiltro == "categories")
+            //    {
+            //        elementos.Add(elemento);
+            //    }
+            //}
+
+            //FiltrosAlmacenados.AlmacenamientoFiltros.Clear();
+
+            ////foreach (var elemento in CatalogosUsuario)
+            ////{
+            ////    var ElementoSeleccionado = new FiltroPorNombreId
+            ////    {
+            ////        CodigoFiltro = elemento.id,
+            ////        NombreFiltro = elemento.detail.fullname,
+            ////        TipoFiltro = "authors"
+            ////    };
+            ////    if (elemento.EstaSeleccionado)
+            ////    {
+
+            ////        elementos.Add(ElementoSeleccionado);
+            ////    }
+            ////}
+            //FiltrosAlmacenados.AlmacenamientoFiltros.AddRange(elementos);
+        }
+
+        public void OnDissapering()
+        {
+            //AplicandoFiltros();
         }
 
         private async void SeleccionandoPagina(PaginaRedireccion obj)
@@ -240,7 +281,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                         }
                         CatalogosUsuario.Add(arg);
                     }
-                    RefrescarPaginaSeleccionada(link);
+                    RefrescarPaginaSeleccionada();
                     ParametroPaginaSiguiente = PaginaDatos.paginate.next_page;
                 }
                 else
@@ -253,14 +294,14 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
         }
 
-        private void RefrescarPaginaSeleccionada(Uri link)
+        private void RefrescarPaginaSeleccionada()
         {
             PaginasListadas.Clear();
             for (int i = 0; i < PaginaDatos.paginate.total;)
             {
                 i++;
                 var Elemento = new PaginaRedireccion();
-                Elemento.LinkPagina = new Uri( link+ "?page=" + i);
+                Elemento.LinkPagina = new Uri(LinkPagina + "?page=" + i);
                 Elemento.NumeroPagina = i;
 
                 if (PaginaDatos.paginate.current_page == Elemento.LinkPagina)
@@ -272,7 +313,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
                     }
                     else
                     {
-                        ParametroPaginaAnterior = new Uri(link + "?page=" + (i - 1));
+                        ParametroPaginaAnterior = new Uri(LinkPagina + "?page=" + (i - 1));
                     }
                 }
                 else

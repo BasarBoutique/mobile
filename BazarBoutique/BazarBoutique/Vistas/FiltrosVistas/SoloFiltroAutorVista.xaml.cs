@@ -24,5 +24,10 @@ namespace BazarBoutique.Vistas.FiltrosVistas
             base.OnAppearing();
             vistamodel.OnAppearing();
         }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            vistamodel.OnDissapering();
+        }
     }
 }

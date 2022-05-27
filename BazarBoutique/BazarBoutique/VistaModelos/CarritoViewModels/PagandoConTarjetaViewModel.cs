@@ -18,6 +18,7 @@ namespace BazarBoutique.VistaModelos.CarritoViewModels
         readonly INavigation navigation;
         readonly ContentPage page;
         private decimal PrecioTotal;
+        private string _preciototalcom;
 
 
         private string _precioEnDolares;
@@ -27,6 +28,14 @@ namespace BazarBoutique.VistaModelos.CarritoViewModels
             set => SetProperty(ref _precioEnDolares,value);
         }
         
+        public string PrecioConComision
+        {
+            get => _preciototalcom; 
+            set => SetProperty(ref _preciototalcom, value); 
+                
+        }
+
+
         private string _numerotarjeta;
         public string NumeroTarjeta
         {
@@ -43,9 +52,9 @@ namespace BazarBoutique.VistaModelos.CarritoViewModels
 
         }
 
-        private int _cvc;
+        private string _cvc;
 
-        public int CVC
+        public string CVC
         {
             get => _cvc;
             set => SetProperty(ref _cvc, value);
@@ -62,16 +71,59 @@ namespace BazarBoutique.VistaModelos.CarritoViewModels
             this.page = page;
             PrecioEnSolesCuenta = PrecioTotal;
 
-            ProcesarCompraCommand = new Command(ProcesandoCompra);
+            ProcesarCompraCommand = new Command(ProcesandoCompra, ValidandoCampos);
+            this.PropertyChanged +=
+                        (_, __) => ProcesarCompraCommand.ChangeCanExecute();
         }
 
         public void OnAppearing()
         {
             PrecioEnDolaresCuenta = PrecioEnSolesCuenta * 0.26m;
             PrecioEnDolares = String.Format("{0:N}", PrecioEnDolaresCuenta);
+            PrecioConComision = String.Format("{0:N}", (PrecioEnDolaresCuenta + 2.26m));
         }
+
+        private bool ValidandoCampos()
+        {
+            string ComparandoValores= NumeroTarjeta;
+
+            //ComparandoValores.Replace(" ", String.Empty);
+            bool ValidandoNumeroTarjeta = false;
+            bool ValidandoFechaV= false;
+            bool ValidandoCVC = false;
+
+            if (!string.IsNullOrEmpty(ComparandoValores))
+            {
+                ComparandoValores = NumeroTarjeta.Replace(" ", String.Empty);
+                if(ComparandoValores.Length >= 15)
+                {
+                    ValidandoNumeroTarjeta = true;
+                }  
+            }
+
+            if (!string.IsNullOrEmpty(CVC))
+            {
+                if (CVC.Length >= 3)
+                {
+                    ValidandoFechaV = true;
+                }
+            }
+
+            if (FechaVencimiento > DateTime.Now)
+            {
+                ValidandoCVC = true;
+            }
+
+
+            return (ValidandoNumeroTarjeta && ValidandoFechaV && ValidandoCVC);
+        }
+
+
+
         private async void ProcesandoCompra()
         {
+            string DigitosTarjeta = NumeroTarjeta.Replace(" ", String.Empty);
+            //DigitosTarjeta;
             try
             {
 
@@ -89,10 +141,10 @@ namespace BazarBoutique.VistaModelos.CarritoViewModels
                 {
                     Card = new TokenCardOptions
                     {
-                        Number = NumeroTarjeta,
+                        Number = DigitosTarjeta,
                         ExpYear = FechaVencimiento.Year,
                         ExpMonth = FechaVencimiento.Month,
-                        Cvc = CVC.ToString()
+                        Cvc = CVC
                     },
                 };
 
@@ -123,6 +175,7 @@ namespace BazarBoutique.VistaModelos.CarritoViewModels
                 {
                     Type = SourceType.Card,
                     Currency = "usd",
+                   
                     Token = newToken.Id
                 };
 
@@ -187,7 +240,6 @@ namespace BazarBoutique.VistaModelos.CarritoViewModels
                 await RegistrandoCursos();
                 CarroServices.Carritos.Clear();
                 Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
-
             }
             catch (Exception ex)
             {
@@ -203,7 +255,7 @@ namespace BazarBoutique.VistaModelos.CarritoViewModels
             {
                 await ServiciosCursos.RegistrandoCursos(curso.CursoId, SesionServicios.apiUser.id);
             }
-            await Application.Current.MainPage.DisplayAlert("BazarBoutique", "El curso se registro correctamente", "OK");
+            await Application.Current.MainPage.DisplayAlert("Muchas gracias por comprar", "El curso se registro correctamente", "OK");
 
         }
 

@@ -6,9 +6,20 @@ public class MonoPackageManager_Resources {
 		"BazarBoutique.dll",
 		"FormsViewGroup.dll",
 		"Microsoft.Bcl.AsyncInterfaces.dll",
+		"Microsoft.IdentityModel.Abstractions.dll",
+		"Microsoft.IdentityModel.JsonWebTokens.dll",
+		"Microsoft.IdentityModel.Logging.dll",
+		"Microsoft.IdentityModel.Tokens.dll",
 		"Newtonsoft.Json.dll",
+		"SQLite-net.dll",
+		"SQLiteNetExtensions.dll",
+		"SQLitePCLRaw.batteries_v2.dll",
+		"SQLitePCLRaw.core.dll",
+		"SQLitePCLRaw.lib.e_sqlite3.android.dll",
+		"SQLitePCLRaw.provider.e_sqlite3.dll",
 		"Stripe.net.dll",
 		"System.Configuration.ConfigurationManager.dll",
+		"System.IdentityModel.Tokens.Jwt.dll",
 		"System.Security.AccessControl.dll",
 		"System.Security.Permissions.dll",
 		"System.Security.Principal.Windows.dll",
@@ -79,6 +90,7 @@ public class MonoPackageManager_Resources {
 		"Xamarin.GooglePlayServices.Base.dll",
 		"Xamarin.GooglePlayServices.Basement.dll",
 		"Xamarin.GooglePlayServices.Tasks.dll",
+		"XamarinFastEntry.Behaviors.dll",
 	};
 	public static String[] Dependencies = new String[]{
 	};

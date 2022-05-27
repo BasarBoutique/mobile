@@ -165,7 +165,7 @@ namespace BazarBoutique.VistaModelos.DetallesViewModels
                         PrecioCurso = CursoDetalles.detail.about.price,
                         TituloCurso = CursoDetalles.title
                     });
-                    ContandoProductoEnCarrito();
+                    ContandoProductosEnCarrito();
                 }
 
                 else
@@ -207,9 +207,7 @@ namespace BazarBoutique.VistaModelos.DetallesViewModels
             Descripcion = CursoDetalles.detail.about.description;
             await VerificandoLaExistenciaDelCurso();
             
-            if (SesionServicios.apiResponse.success == true)
-                EstaLogueado = true;
-                ContandoProductoEnCarrito();
+            VerificandoUsuario();
         }
 
         private async Task TraendoDatosCurso()

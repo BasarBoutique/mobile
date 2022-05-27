@@ -24,12 +24,21 @@ namespace BazarBoutique.VistaModelos
             set => SetProperty(ref contadoCarrito, value);
         }
 
-        public void ContandoProductoEnCarrito()
+        public void VerificandoUsuario()
+        {
+            if (SesionServicios.apiResponse.success == true)
+            {
+                EstaLogueado = true;
+                ContandoProductosEnCarrito();
+            }
+
+        }
+        public void ContandoProductosEnCarrito()
         {
             int cantidad = 0;
             foreach (var elementos in CarroServices.Carritos)
             {
-                cantidad ++;
+                cantidad++;
             }
             ContadoCarrito = cantidad;
         }

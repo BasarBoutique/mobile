@@ -18,13 +18,18 @@ namespace BazarBoutique.Vistas.FiltrosVistas
         {
             InitializeComponent();
             BindingContext = vistamodel = new SoloFiltroCategoriaViewModel(Navigation, this);
-
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             vistamodel.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            vistamodel.OnDissapering();
         }
     }
 }

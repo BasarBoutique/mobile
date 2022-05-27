@@ -1,4 +1,5 @@
 ﻿using BazarBoutique.Modelos;
+using BazarBoutique.Modelos.ModeloSQL;
 using BazarBoutique.Services.UsuarioServices;
 using Newtonsoft.Json;
 using System;
@@ -56,6 +57,32 @@ namespace BazarBoutique.Services.UsuarioServices
                         var responsePerfilInformation = JsonConvert.DeserializeObject<UsuarioResponseModelo>(await responsePerfil.Content.ReadAsStringAsync());
 
                         SesionServicios.apiUser = responsePerfilInformation.data;
+
+
+                        //RegistrandoSQLite
+
+                        await App.SQLiteDB.GuardandoUsuarioAsync(new UsuarioSql
+                        {
+                            id = responsePerfilInformation.data.id,
+                            Nombre = responsePerfilInformation.data.name,
+                            Correo = responsePerfilInformation.data.email,
+                            fullname = responsePerfilInformation.data.detail.fullname,
+                            photo = responsePerfilInformation.data.detail.photo,
+                            address = responsePerfilInformation.data.detail.address,
+                            phone = responsePerfilInformation.data.detail.phone,
+                            uuid = responsePerfilInformation.data.detail.uuid,
+
+
+                            roles = responsePerfilInformation.data.roles,
+
+                            succes = ResponsePerfilAuth.success,
+                            message = ResponsePerfilAuth.message,
+                            acces_token = ResponsePerfilAuth.data.access_token,
+                            token_type = ResponsePerfilAuth.data.token_type,
+                            FechaExpiracion = ResponsePerfilAuth.data.expire_at
+                            //ResponseUsuario = responsePerfilInformation.data
+
+                        });
 
                         return true;
                         //Application.Current.MainPage = new NavigationPage(new MenuLateralVista());

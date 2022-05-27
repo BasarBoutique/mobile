@@ -29,6 +29,8 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
         public Command btnAutenticacionGoogle { get; }
 
         ILoginService ServiciosLogin = DependencyService.Get<ILoginService>();
+        IRedesSocialesInicioService ServiciosLoginRedes = DependencyService.Get<IRedesSocialesInicioService>();
+        
         #endregion
 
         public LoginViewModel(INavigation navigation, ContentPage page)
@@ -46,16 +48,26 @@ namespace BazarBoutique.VistaModelos.InicioSesionViewModels
             AdministradorGoogle.Login(OnLoginComplete);
         }
 
-        private void OnLoginComplete(GoogleUser googleUser, string message)
+        private async void OnLoginComplete(GoogleUser googleUser, string message)
         {
+            IsBusy = true;
             //Aqui va la comprobacion 
             if (googleUser != null)
             {
+
                 Usuario = googleUser;
-                SesionServicios.UsuarioGoogle = Usuario;
+                bool IsLogued = await ServiciosLoginRedes.AutenticacionGoogle(googleUser.IdToken);
+
+                if (IsLogued)
+                {
+                    Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
+                }
+                //SesionServicios.UsuarioGoogle = Usuario;
                 //Usuario.IdToken 
-                Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
+                //Application.Current.MainPage = new NavigationPage(new MenuLateralVista());
             }
+
+            IsBusy = false;
         }
 
         private async void RedireccionApartadoRegister(object obj)

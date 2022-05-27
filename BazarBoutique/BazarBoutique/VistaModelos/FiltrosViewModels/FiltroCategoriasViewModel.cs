@@ -1,6 +1,7 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services;
 using BazarBoutique.Services.CategoriaServices;
+using BazarBoutique.Vistas.CarritoVistas;
 using BazarBoutique.Vistas.FiltrosVistas;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         }
         public Command<Uri> PaginaAnteriorCommand { get; set; }
         public Command GestoRefrescamientoCommand { get; }
+        public Command RedireccionCarritoCommand { get; }
         public Command<Uri> PaginaSiguienteCommand { get; set; }
         public Command<PaginaRedireccion> RedireccionPaginaCommand { get; set; }
         DataCategorias PaginaDatos = new DataCategorias();
@@ -140,6 +142,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             RedireccionPaginaCommand = new Command<PaginaRedireccion>(SeleccionandoPagina);
             PaginaAnteriorCommand = new Command<Uri>(PaginaPorBoton);
             PaginaSiguienteCommand = new Command<Uri>(PaginaPorBoton);
+            RedireccionCarritoCommand = new Command(RedireccionACarritoPagina);
 
             PaginasListadas = new ObservableCollection<PaginaRedireccion>();
             CatalogosCategorias = new ObservableCollection<CategoriaModelo>();
@@ -148,6 +151,10 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/search");
 
             EstadoCategoria = LayoutState.Loading;
+        }
+        public void RedireccionACarritoPagina()
+        {
+            navigation.PushAsync(new CarritoVista());
         }
 
         private void RedireciconApartadoCursos(CategoriaModelo obj)
@@ -182,6 +189,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             FiltrosRealizados.filters.withDisabled = false;
 
             await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
+            VerificandoUsuario();
         }
         private async void BuscandoElementoAsync(string value)
         {

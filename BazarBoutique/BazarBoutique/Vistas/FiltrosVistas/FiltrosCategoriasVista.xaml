@@ -12,6 +12,35 @@
              Title="Categoria"
              x:Name="ApartadoFiltroCategoria"
              NavigationPage.HasNavigationBar="True">
+    <NavigationPage.TitleView>
+
+        <StackLayout Orientation="Horizontal" BackgroundColor="White" VerticalOptions="Center" Margin="0,0,10,0">
+            <Label Text="Profesores" 
+                           HorizontalOptions="StartAndExpand"
+                           TextColor="Green"
+                           FontAttributes="Bold"
+                           FontSize="20"/>
+
+            <StackLayout IsVisible="{Binding EstaLogueado}" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0,0,0">
+                <Image >
+                    <Image.Source>
+                        <FontImageSource FontFamily="FonSolid" 
+                                         Size="Title"
+                                         Color="Green"
+                                         Glyph="&#xf07a;"/>
+                    </Image.Source>
+                </Image>
+                <Label TextColor="Green"
+                       Text="{Binding ContadoCarrito}"
+                        FontAttributes="Bold"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RedireccionCarritoCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <ContentPage.Resources>
         <ResourceDictionary>
 

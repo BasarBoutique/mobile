@@ -1,10 +1,12 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services.LessonServices;
+using BazarBoutique.Vistas.CarritoVistas;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -30,16 +32,30 @@ namespace BazarBoutique.VistaModelos.DetallesViewModels
         }
         public Command GestoRefrescamientoCommand { get; set; }
         public Command<Uri> RedirigirAlVideoCommand { get; set; }
+        public Command RedireccionCarritoCommand { get; set; }
+
+        private LayoutState _estadoListaLexiones;
+        public LayoutState EstadoLexionesLista
+        {
+            get => _estadoListaLexiones;
+            set => SetProperty(ref _estadoListaLexiones, value);
+        }
 
         public LexionesViewModel(INavigation navigation, ContentPage page, int CursoSeleccionado)
         {
-
             this.IdCursoElegido = CursoSeleccionado;
             this.navigation = navigation;
             this.page = page;
             LexionesCollecion = new ObservableCollection<LessonsModelo>();
             GestoRefrescamientoCommand = new Command(RecargarLexiones);
             RedirigirAlVideoCommand = new Command<Uri>(AbrirVideoLexion);
+            RedireccionCarritoCommand = new Command(RedireccionACarritoPagina);
+
+            EstadoLexionesLista = LayoutState.Loading;
+        }
+        public void RedireccionACarritoPagina()
+        {
+            navigation.PushAsync(new CarritoVista());
         }
 
         private async void AbrirVideoLexion(Uri obj)
@@ -60,18 +76,20 @@ namespace BazarBoutique.VistaModelos.DetallesViewModels
             IsBusy = true;
 
             await TraendoLexiones();
-
+            VerificandoUsuario();
             IsBusy = false;
         }
 
         private async Task TraendoLexiones()
         {
+            EstadoLexionesLista = LayoutState.Loading;
             LexionesCollecion.Clear();
             var LexionesFrescas = await ServiciosLexiones.GetLessonsForUser(IdCursoElegido);
             foreach (var lexion in LexionesFrescas)
             {
                 LexionesCollecion.Add(lexion);
             }
+            EstadoLexionesLista = LayoutState.Success;
         }
     }
 }

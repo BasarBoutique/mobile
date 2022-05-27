@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace BazarBoutique.Services
 {
-    public class SesionServicios
+    public static class SesionServicios
     {
         public static ApiResponseModelo apiResponse = new ApiResponseModelo();
 

@@ -5,6 +5,6 @@ namespace BazarBoutique.Services.UsuarioServices
 {
     public interface IRedesSocialesInicioService
     {
-        Task<bool> AutenticacionGoogle(GoogleUser user);
+        Task<bool> AutenticacionGoogle(string IdToken);
     }
 }

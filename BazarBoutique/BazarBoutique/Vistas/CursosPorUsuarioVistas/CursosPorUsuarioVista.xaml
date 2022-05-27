@@ -6,8 +6,38 @@
              xmlns:md="clr-namespace:BazarBoutique.Modelos" 
              xmlns:PCK="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:DataType="vm:CursosPorUsuarioViewModel"
+             xmlns:BoxControl="clr-namespace:BazarBoutique.Controles.ContenedoresRecursos"
+             xmlns:tlkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              Title="Tus Cursos"
              x:Name="ApartadoCursoPorUsuario">
+    <NavigationPage.TitleView>
+
+        <StackLayout Orientation="Horizontal" BackgroundColor="White" VerticalOptions="Center" Margin="0,0,10,0">
+            <Label Text="Mis Cursos" 
+                           HorizontalOptions="StartAndExpand"
+                           TextColor="Green"
+                           FontAttributes="Bold"
+                           FontSize="20"/>
+
+            <StackLayout IsVisible="{Binding EstaLogueado}" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0,0,0">
+                <Image >
+                    <Image.Source>
+                        <FontImageSource FontFamily="FonSolid" 
+                                         Size="Title"
+                                         Color="Green"
+                                         Glyph="&#xf07a;"/>
+                    </Image.Source>
+                </Image>
+                <Label TextColor="Green"
+                       Text="{Binding ContadoCarrito}"
+                        FontAttributes="Bold"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RedireccionCarritoCommand}"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+        </StackLayout>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid>
             <RefreshView Command="{Binding GestoRefrescamientoCommand}" IsRefreshing="{Binding IsLoading, Mode=TwoWay}">
@@ -15,8 +45,7 @@
                     <StackLayout>
                         <BoxView BackgroundColor="Transparent" HeightRequest="5"/>
 
-                        <CollectionView EmptyView="No existen cursos" 
-                                        ItemsSource="{Binding Cursos}">
+                        <CollectionView  ItemsSource="{Binding Cursos}">
                             <!--<CollectionView.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
                                     <x:String>111111</x:String>
@@ -37,11 +66,11 @@
                                         </StackLayout.GestureRecognizers>
 
                                         <PCK:PancakeView    CornerRadius="15" 
-                                                        HeightRequest="130"
-                                                        Margin="15,2,14,13"
-                                                        VerticalOptions="CenterAndExpand"
-                                                        Shadow="{PCK:ShadowMarkup Color=Black,BlurRadius='7',Opacity='0.4'}"
-                                                        BackgroundColor="White">
+                                                            HeightRequest="130"
+                                                            Margin="15,2,14,13"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            Shadow="{PCK:ShadowMarkup Color=Black,BlurRadius='7',Opacity='0.4'}"
+                                                            BackgroundColor="White">
                                             <Grid Padding="4" ColumnDefinitions="*,3*" >
 
                                                 <PCK:PancakeView    VerticalOptions="Center"
@@ -92,7 +121,7 @@
                                                            VerticalOptions="End">
                                                         <Label.FormattedText>
                                                             <FormattedString>
-                                                                <Span Text="Adquirido el:" FontAttributes="Bold" FontSize="12" TextColor="Black"/>
+                                                                <Span Text="Adquirido el: " FontAttributes="Bold" FontSize="12" TextColor="Black"/>
                                                                 <Span  FontAttributes="Bold" Text="{Binding purcharsed_at, StringFormat='{0:MM/dd/yy}'}" FontSize="12"/>
                                                             </FormattedString>
                                                         </Label.FormattedText>
@@ -108,6 +137,44 @@
 
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
+
+                            <CollectionView.EmptyView >
+                                <Grid  tlkit:StateLayout.CurrentState="{Binding EstadoCursosLista}">
+                                    <tlkit:StateLayout.StateViews>
+                                        <tlkit:StateView StateKey="Loading">
+                                            <tlkit:StateView.Template>
+                                                <DataTemplate>
+                                                    <StackLayout Margin="15,0">
+                                                        <BoxControl:SkeletonViewBox CornerRadius="5" HeightRequest="110" Margin="0,4" BackgroundColor="Gray"  />
+                                                        <BoxControl:SkeletonViewBox CornerRadius="5" HeightRequest="110" Margin="0,4" BackgroundColor="Gray"  />
+                                                        <BoxControl:SkeletonViewBox CornerRadius="5" HeightRequest="110" Margin="0,4" BackgroundColor="Gray" />
+                                                        <BoxControl:SkeletonViewBox CornerRadius="5" HeightRequest="110" Margin="0,4" BackgroundColor="Gray"  />
+                                                        <BoxControl:SkeletonViewBox CornerRadius="5" HeightRequest="110" Margin="0,4" BackgroundColor="Gray"  />
+                                                    </StackLayout>
+                                                </DataTemplate>
+                                            </tlkit:StateView.Template>
+
+                                        </tlkit:StateView>
+
+                                        <tlkit:StateView StateKey="Success">
+                                            <tlkit:StateView.Template>
+                                                <DataTemplate>
+                                                    <Label Text="No existen cursos" 
+                                                    VerticalTextAlignment="Center"
+                                                    HorizontalTextAlignment="Center"/>
+                                                </DataTemplate>
+                                            </tlkit:StateView.Template>
+                                        </tlkit:StateView>
+                                    </tlkit:StateLayout.StateViews>
+
+                                </Grid>
+                            </CollectionView.EmptyView>
+
+
+
+
+
+
 
 
                         </CollectionView>

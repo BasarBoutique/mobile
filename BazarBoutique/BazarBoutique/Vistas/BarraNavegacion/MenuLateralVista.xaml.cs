@@ -43,8 +43,11 @@ namespace BazarBoutique.Vistas.BarraNavegacion
                     UsuarioModelo DatosPersonales = new UsuarioModelo();
                     CarroServices.Carritos.Clear();
 
+                    await App.SQLiteDB.DeleteAllAsync();
+
                     SesionServicios.apiResponse = Usuario;
                     SesionServicios.apiUser = DatosPersonales;
+
                 }
 
                 Navigation.InsertPageBefore(new MenuLateralVista(), this);

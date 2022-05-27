@@ -53,3 +53,6 @@ D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\ref\BazarBoutique.dll
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\Vistas\CarritoVistas\CarritoVista.xaml.g.cs
 D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\Vistas\CarritoVistas\PagandoConTarjetaVista.xaml.g.cs
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\Vistas\AutoresVistas\PaginaAutorVista.xaml.g.cs
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\Vistas\CategoriasVistas\PaginaCategoriaVista.xaml.g.cs
+D:\DesarrolloAppsSenati\tesis\1\App\mobile\BazarBoutique\BazarBoutique\obj\Debug\netstandard2.0\Vistas\PlantillasVistas\CreditCardDisplayView.xaml.g.cs

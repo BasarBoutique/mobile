@@ -35,6 +35,8 @@ namespace BazarBoutique.Vistas.BarraNavegacion
             if (SesionServicios.apiResponse.success == true)
             {
                 NombreUsuario.Text = SesionServicios.apiUser.name;
+                Correolbl.Text = SesionServicios.apiUser.email;
+                FotoPerfil.Source = SesionServicios.apiUser.detail.PhotoUser;
             }
 
         }

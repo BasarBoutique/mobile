@@ -90,7 +90,7 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
         <ResourceDictionary>
             <DataTemplate x:Key="CategoriaNormal" x:DataType="md:CategoriaSlideModelo">
                 <Frame BackgroundColor="Transparent" Padding="10,0" >
-                        <PanCake:PancakeView    CornerRadius="15" 
+                    <PanCake:PancakeView    CornerRadius="10,40,10,40"
                                                 BackgroundColor="#008D35"
                                                 BackgroundGradientEndPoint="1.3,0.3"
                                                 BackgroundGradientStartPoint="0.1,0.5">
@@ -217,7 +217,7 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
 
             <DataTemplate x:Key="ElementoVerMas" x:DataType="md:CategoriaSlideModelo">
                 <Frame BackgroundColor="Transparent" Padding="10,0">
-                    <PanCake:PancakeView    CornerRadius="15"  
+                    <PanCake:PancakeView    CornerRadius="20,50,20,50" 
                                             BackgroundColor="#008D35"
                                             BackgroundGradientEndPoint="1.3,0.3"
                                             BackgroundGradientStartPoint="0.1,0.5">
@@ -255,21 +255,22 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
         <ScrollView>
             <Grid>
 
-                <StackLayout Margin="0,15,0,0" >
+                <StackLayout Margin="0,0,0,0" >
 
                     <!--Apartado de Autores-->
-                    <Grid ColumnDefinitions="3*,*" Margin="20,0,20,0" >
-                        <StackLayout   >
+                    <Grid ColumnDefinitions="3*,*"  BackgroundColor="Green" Padding="20,0,20,0" >
+                        <StackLayout Margin="0,5">
                             <Label  x:DataType="vm:CatalogoCursosViewModel"
                                     Text="Autores" 
-                                    Style="{StaticResource TituloSecciones}"/>
+                                    Style="{StaticResource TituloSecciones}"
+                                    TextColor="White"/>
                             <Label Text="Visualiza nuestros autores" 
-                           TextColor="Black" Margin="0,-3,0,0"/>
+                                   TextColor="Black" />
                         </StackLayout>
                         <StackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
                             <Button 
-                                TextColor="White"
-                                BackgroundColor="Green"
+                                TextColor="Green"
+                                BackgroundColor="White"
                                 HeightRequest="35"
                                 WidthRequest="40"
                                 Padding="-10,0"
@@ -287,15 +288,17 @@ x:Class="BazarBoutique.Vistas.CatalogoCursosVistas.CatalogoCursosVista"
                     <CollectionView HorizontalScrollBarVisibility="Never"
                                     HorizontalOptions="Center"
                                     ItemsLayout="HorizontalList" 
-                                    HeightRequest="255"
+                                    HeightRequest="265"
+                                    BackgroundColor="Green"
                                     ItemsSource="{Binding Autores}"
-                                    Margin="0,0,0,15">
+                                    Margin="0,-7,0,15">
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="md:UsuarioModelo">
                                 <StackLayout Margin="20,15" >
-                                    <PanCake:PancakeView  Shadow="{PanCake:ShadowMarkup Color=Black, Offset='2,54'}"
-                                                          CornerRadius="10"  BackgroundColor="White" WidthRequest="180"
+                                    <PanCake:PancakeView Shadow="{PanCake:ShadowMarkup Color=Black, Offset='2,54'}"
+                                                         CornerRadius="80,80,10,10"
+                                                         BackgroundColor="White" WidthRequest="180"
                                                          HeightRequest="230" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
                                         <Grid HorizontalOptions="Center" RowSpacing="0" ColumnSpacing="0">
                                             <Grid.RowDefinitions>

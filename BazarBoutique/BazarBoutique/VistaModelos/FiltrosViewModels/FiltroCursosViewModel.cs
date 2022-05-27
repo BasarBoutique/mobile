@@ -201,9 +201,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             }
             ActualizandoFiltros();
 
-            if (SesionServicios.apiResponse.success == true)
-                EstaLogueado = true;
-                ContandoProductoEnCarrito();
+            VerificandoUsuario();
 
             await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
 

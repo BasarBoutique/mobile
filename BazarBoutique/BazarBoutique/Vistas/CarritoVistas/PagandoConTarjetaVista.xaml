@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:vm="clr-namespace:BazarBoutique.VistaModelos.CarritoViewModels"
              x:DataType="vm:PagandoConTarjetaViewModel"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:BazarBoutique.Vistas.PlantillasVistas"
+             xmlns:FsEntry="clr-namespace:XamarinFastEntrySample.FastEntry;assembly=XamarinFastEntry.Behaviors"
              x:Class="BazarBoutique.Vistas.CarritoVistas.PagandoConTarjetaVista">
     <ContentPage.Content>
         <ScrollView>
@@ -11,9 +13,9 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="80"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="20"/>
                         <RowDefinition Height="Auto"/>
 
                     </Grid.RowDefinitions>
@@ -23,36 +25,102 @@
                     </Grid.ColumnDefinitions>
 
                     <!--Inicio de Sesion Titulo-->
-                    <StackLayout Grid.Row="0"  HorizontalOptions="Center" Orientation="Vertical" Margin="0,0,0,10" >
-                        <Label
-                                FontAttributes="Bold"
-                                HorizontalOptions="CenterAndExpand"
-                                FontSize="55"
-                                Margin="0,0,0,10"
-                                TextColor="{OnPlatform Android=Black}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span TextColor="Black" Text="Stri"/>
-                                    <Span Text="pe" TextColor="Green"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
+                    <StackLayout Grid.Row="0"  HorizontalOptions="Center" Orientation="Vertical">
+
+                        <local:CreditCardDisplayView Grid.Row="0"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="3"/>
                     </StackLayout>
 
-                    <Grid ColumnDefinitions="*,*" Grid.Row="1" HeightRequest="90" Margin="20,0" >
 
+                    <!--Primer campo-->
+
+                    <StackLayout Grid.Row="1" HorizontalOptions="Center" Margin="20,0" Orientation="Vertical">
+                        <Label Text="Numero de tarjeta:" TextColor="Gray"/>
+                        <Frame HasShadow="{OnPlatform Android=true,iOS=false}"
+                               Padding="{OnPlatform Android=8,iOS=0}"
+                               CornerRadius="{OnPlatform Android=5}">
+                            <Grid ColumnDefinitions="40,*" ColumnSpacing="0">
+                                <Image   Margin="5,0" Source="{Binding NumeroTarjeta, Converter={StaticResource CardConverter}}" />
+                                <Entry  Grid.Column="1" 
+                                        Text="{Binding NumeroTarjeta}"
+                                        Placeholder="222 333 333"
+                                        Keyboard="Numeric"
+                                        FontSize="{OnPlatform Android=15,iOS=16}">
+                                    <Entry.Behaviors>
+                                        <FsEntry:XamarinFastEntryBehaviour Mask="#### #### #### ####"
+                                                                           MaxLength="19"/>
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </Grid>
+
+                        </Frame>
+                    </StackLayout>
+
+                    <Grid Grid.Row="2"  Margin="20,0" ColumnDefinitions="*,*"  >
+                        <StackLayout Grid.Column="0">
+                            <Label Grid.Column="0" Text="Fecha de vencimiento:" TextColor="Gray"/>
+
+                            <Frame HasShadow="{OnPlatform Android=true,iOS=false}"
+                                   Padding="{OnPlatform Android=8,iOS=0}"
+                                   CornerRadius="{OnPlatform Android=5}">
+                                <Grid ColumnDefinitions="30,*" ColumnSpacing="0">
+                                    <Image  VerticalOptions="Center" HeightRequest="25" Margin="6,0" >
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="FonSolid" Color="Black" Glyph="&#xf783;"/>
+                                        </Image.Source>
+                                    </Image>
+                                    <DatePicker  Grid.Column="1" 
+                                                 x:Name="FechaVencimiento"
+                                                 Date="{Binding FechaVencimiento}"
+                                                 FontSize="{OnPlatform Android=15,iOS=16}"/>
+
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="1">
+                            <Label Grid.Column="0" Text="CVC:" TextColor="Gray"/>
+
+                            <Frame HasShadow="{OnPlatform Android=true,iOS=false}"
+                                   Padding="{OnPlatform Android=8,iOS=0}"
+                                   CornerRadius="{OnPlatform Android=5}">
+                                <Grid ColumnDefinitions="30,*" ColumnSpacing="0">
+                                    <Image Margin="3,0" >
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="FonSolid" Color="Black" Glyph="&#xf09d;"/>
+                                        </Image.Source>
+                                    </Image>
+                                    <Entry  Grid.Column="1" 
+                                            Text="{Binding CVC}"
+                                            Placeholder="123"
+                                            Keyboard="Numeric"
+                                            FontSize="{OnPlatform Android=15,iOS=16}">
+                                        <Entry.Behaviors>
+                                            <FsEntry:XamarinFastEntryBehaviour Mask="####"
+                                                                           MaxLength="4"/>
+                                        </Entry.Behaviors>
+                                    </Entry>
+
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+
+
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*" Grid.Row="3" HeightRequest="80" RowDefinitions="25,25,70" Margin="20,10,20,5" >
+
+                        <!--Precio de cursos-->
                         <Label Grid.Column="0"
-                               FontSize="16"
                                VerticalOptions="Center"
-                               Text="Precio total en dolares: "
-                               TextColor="Black"/>
+                               Text="Precio de curso: "
+                               TextColor="Gray"/>
 
                         <Label Grid.Column="1"
                                VerticalOptions="Center"
                                FontAttributes="Bold"
                                HorizontalOptions="End"
-                               Text="Precio Total: "
-                               FontSize="18"
+                               FontSize="16"
                                TextColor="Black">
                             <Label.FormattedText>
                                 <FormattedString>
@@ -62,76 +130,54 @@
                             </Label.FormattedText>
                         </Label>
 
-                    </Grid>
+                        <!--Precio de comision-->
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               VerticalOptions="Center"
+                               Text="Comision: "
+                               TextColor="Gray"/>
 
+                        <Label Grid.Row="1"
+                               Grid.Column="1"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"
+                               FontSize="16"
+                               TextColor="Black">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="$"/>
+                                    <Span Text="2.26"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        
+                        <!--Precio de Total-->
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               VerticalOptions="Center"
+                               Text="Precio total: "
+                               TextColor="Gray"/>
 
-                    <!--Primer campo-->
-
-                    <StackLayout Grid.Row="2" HorizontalOptions="Center" Margin="20,0" Orientation="Vertical">
-                        <Frame
-                            HasShadow="{OnPlatform Android=true,iOS=false}"
-                            Padding="{OnPlatform Android=8,iOS=0}"
-                            CornerRadius="{OnPlatform Android=5}">
-                            <Grid ColumnDefinitions="40,*" ColumnSpacing="0">
-                                <Image   Margin="5,0" >
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="FonSolid" Color="Black" Glyph="&#xf2bb;"/>
-                                    </Image.Source>
-                                </Image>
-                                <Entry  Grid.Column="1" 
-                                        Text="{Binding NumeroTarjeta}"
-                                        Placeholder="111111222222333333"
-                                        Keyboard="Numeric"
-                                        FontSize="{OnPlatform Android=15,iOS=16}"/>
-                            </Grid>
-
-                        </Frame>
-                    </StackLayout>
-
-
-
-                    <Grid Grid.Row="3"  Margin="20,0" ColumnDefinitions="*,*"  >
-                        <Frame Grid.Column="0"
-                            HasShadow="{OnPlatform Android=true,iOS=false}"
-                            Padding="{OnPlatform Android=8,iOS=0}"
-                            CornerRadius="{OnPlatform Android=5}">
-                            <Grid ColumnDefinitions="30,*" ColumnSpacing="0">
-                                <Image  VerticalOptions="Center" HeightRequest="25" Margin="3,0" >
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="FonSolid" Color="Black" Glyph="&#xf783;"/>
-                                    </Image.Source>
-                                </Image>
-                                <DatePicker  Grid.Column="1" 
-                                             MinimumDate="1-1-2022"
-                                             Date="{Binding FechaVencimiento}"
-                                             FontSize="{OnPlatform Android=15,iOS=16}"/>
-
-                            </Grid>
-                        </Frame>
-
-                        <Frame Grid.Column="1"
-                            HasShadow="{OnPlatform Android=true,iOS=false}"
-                            Padding="{OnPlatform Android=8,iOS=0}"
-                            CornerRadius="{OnPlatform Android=5}">
-                            <Grid ColumnDefinitions="30,*" ColumnSpacing="0">
-                                <Image Margin="3,0" >
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="FonSolid" Color="Black" Glyph="&#xf09d;"/>
-                                    </Image.Source>
-                                </Image>
-                                <Entry  Grid.Column="1" 
-                                        Text="{Binding CVC}"
-                                        Placeholder="123"
-                                        Keyboard="Numeric"
-                                        FontSize="{OnPlatform Android=15,iOS=16}"/>
-
-                            </Grid>
-                        </Frame>
+                        <Label Grid.Column="1"
+                               Grid.Row="2"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"
+                               FontSize="16"
+                               TextColor="Black">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="$"/>
+                                    <Span Text="{Binding PrecioConComision}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
                     </Grid>
 
                     <StackLayout Grid.Row="5" Margin="20,0" >
-                        <Button  Command="{Binding ProcesarCompraCommand}" CornerRadius="{OnPlatform Android=5}" BackgroundColor="Green" TextColor="White" Text="Pagar en dolares"/>
+                        <Button  Command="{Binding ProcesarCompraCommand}" CornerRadius="{OnPlatform Android=5}" BackgroundColor="Green" TextColor="White" Text="Pagar en dolares" />
 
                     </StackLayout>
 

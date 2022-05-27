@@ -1,12 +1,10 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services;
 using BazarBoutique.Services.CategoriaServices;
-using BazarBoutique.Services.UsuarioServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
@@ -16,7 +14,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
     public class SoloFiltroCategoriaViewModel : BaseViewModel
     {
         #region Campos
-        private ObservableCollection<CategoriaModelo> categoriasLista;
+        
         private readonly INavigation navigation;
         private readonly ContentPage page;
         private string _elementoBusqueda;
@@ -41,7 +39,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         public Command<Uri> PaginaSiguienteCommand { get; set; }
         public Command<PaginaRedireccion> RedireccionPaginaCommand { get; set; }
         DataCategorias PaginaDatos = new DataCategorias();
-
+        private ObservableCollection<CategoriaModelo> categoriasLista;
         public ObservableCollection<CategoriaModelo> CatalogosCategorias
         {
             get => categoriasLista;
@@ -120,6 +118,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             get => _estadoCategoria;
             set => SetProperty(ref _estadoCategoria, value);
         }
+        private List<FiltroPorNombreId> elementos;
 
         //Botones Filtros
         public Command<CategoriaModelo> CambiandoEstadoFiltroCommand { get; set; }
@@ -147,6 +146,8 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
             LinkPagina = new Uri("https://monolith-stage.herokuapp.com/api/v1/categories/search");
 
+            elementos = new List<FiltroPorNombreId>();
+
             EstadoCategoria = LayoutState.Loading;
         }
 
@@ -158,7 +159,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
         }
 
-        private async void BuscandoElementoAsync(string value)
+        private void BuscandoElementoAsync(string value)
         {
             FiltrosRealizados.filters.title = value;
             IsLoading = true;
@@ -175,7 +176,6 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
         private void CambiandoEstadoFiltro(CategoriaModelo obj)
         {
-
             var ElementoSeleccionado = new FiltroPorNombreId
             {
                 CodigoFiltro = obj.id,
@@ -188,24 +188,63 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             bool Existe = FiltrosAlmacenados.AlmacenamientoFiltros.Any(x => x.CodigoFiltro == ElementoSeleccionado.CodigoFiltro);
 
 
-            //Confirmar que el articulo no exista
-            if (!Existe) {
-                
-                //Comprobar si esta habilitado o no
-                if (obj.EstaSeleccionado)
+            if (!Existe && obj.EstaSeleccionado)
+            {
+                //Aqui se activa
+                FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
+            }
+            else if (Existe && !obj.EstaSeleccionado)
+            {
+                var args = new FiltroPorNombreId();
+                FiltrosAlmacenados.AlmacenamientoFiltros.Remove(ElementoSeleccionado);
+                foreach (var elemento in FiltrosAlmacenados.AlmacenamientoFiltros)
                 {
-                    //Aqui se activa
-                    FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
-                }
-                else
-                {
-                    //Aqui se elimina
-                    FiltrosAlmacenados.AlmacenamientoFiltros.Remove(ElementoSeleccionado);
-                }
+                    if (elemento.CodigoFiltro == ElementoSeleccionado.CodigoFiltro)
+                    {
+                        args = elemento;
+                    }
 
-            }   
+                }
+                FiltrosAlmacenados.AlmacenamientoFiltros.Remove(args);
+            }
         }
 
+        //private void AplicandoFiltros()
+        //{
+        //    foreach (var item in CatalogosCategorias)
+        //    {
+        //        bool Existe = FiltrosAlmacenados.AlmacenamientoFiltros.Any(x => x.CodigoFiltro == item.id);
+
+        //        if (!Existe && item.EstaSeleccionado)
+        //        {
+        //            var ElementoSeleccionado = new FiltroPorNombreId
+        //            {
+        //                CodigoFiltro = item.id,
+        //                NombreFiltro = item.title,
+        //                TipoFiltro = "categories"
+        //            };
+
+        //            FiltrosAlmacenados.AlmacenamientoFiltros.Add(ElementoSeleccionado);
+        //        }
+        //        else
+        //        {
+        //            foreach (var elemento in elementos)
+        //            {
+        //                if (elemento.CodigoFiltro == item.id)
+        //                {
+        //                    FiltrosAlmacenados.AlmacenamientoFiltros.Remove(elemento);
+        //                }
+
+        //            }
+        //        }
+
+        //    }
+
+
+        public void OnDissapering()
+        {
+            //AplicandoFiltros();
+        }
         private async void SeleccionandoPagina(PaginaRedireccion obj)
         {
             if (PaginaDatos.pagination.current_page != obj.LinkPagina)
@@ -219,20 +258,27 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
         private async Task EstableciendoValoresDePagina(Uri link, SearchCourseFilters fillter)
         {
+            //AplicandoFiltros();
             EstadoCategoria = LayoutState.Loading;
 
             //IsBusy = true;
 
             if (link != null)
             {
-                CatalogosCategorias.Clear();
+                
                 PaginaDatos = await ServicioCategoria.GetPaginacionCategoria(link, fillter);
-
+                CatalogosCategorias.Clear();
                 if (PaginaDatos.categories != null)
                 {
-                    CatalogosCategorias.Clear();
+
                     foreach (var arg in PaginaDatos.categories)
                     {
+                        //Esto detectara los filtros existentes y los activara
+                        foreach (var item in FiltrosAlmacenados.AlmacenamientoFiltros)
+                        {
+                            if (item.TipoFiltro == "categories" && item.CodigoFiltro == arg.id)
+                                arg.EstaSeleccionado = true;
+                        }
                         CatalogosCategorias.Add(arg);
                     }
                     RefrescarPaginaSeleccionada();

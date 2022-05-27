@@ -187,15 +187,15 @@
                             <!--Filtros-->
                             <StackLayout Orientation="Horizontal" Margin="15,10,15,0" >
                                 <Button HeightRequest="55"
-                                            WidthRequest="120"
-                                            BackgroundColor="White"
-                                            Command="{Binding VistaFiltroCategoriaCommand}"
-                                            TextColor="Green"
-                                            BorderColor="Black"
-                                            BorderWidth="2"
-                                            CornerRadius="15"
-                                            Text="Categoria"
-                                            HorizontalOptions="StartAndExpand"/>
+                                        WidthRequest="120"
+                                        BackgroundColor="White"
+                                        Command="{Binding VistaFiltroCategoriaCommand}"
+                                        TextColor="Green"
+                                        BorderColor="Black"
+                                        BorderWidth="2"
+                                        CornerRadius="15"
+                                        Text="Categoria"
+                                        HorizontalOptions="StartAndExpand"/>
 
                                 <Button HorizontalOptions="Center" 
                                             Text="&#xe17b;" 
@@ -259,6 +259,7 @@
 
                             <FlexLayout     x:Name="ListaProductos" 
                                             Margin="10,5" 
+                                            HeightRequest="680"
                                             Wrap="Wrap"
                                             Direction="Row"
                                             JustifyContent="Center"
@@ -268,7 +269,8 @@
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate x:DataType="md:CursosModelo">
                                             <PCK:PancakeView Shadow="{PCK:ShadowMarkup Color=Black, Offset='2,54'}"
-                                                             CornerRadius="15" 
+                                                             CornerRadius="15"
+                                                             HeightRequest="200"
                                                              WidthRequest="170" 
                                                              Margin="10,10">
                                             <Grid RowDefinitions="100,Auto" BackgroundColor="White">
@@ -276,22 +278,24 @@
                                                                         HorizontalOptions="Center"
                                                                         Padding="10,5"
                                                                         WidthRequest="170"   
-                                                                        Margin="0,10">
-                                                    <StackLayout >
-                                                        <Label 
-                                                               TextColor="Black"
+                                                                        Margin="0,5">
+                                                    <StackLayout Orientation="Vertical">
+                                                        <Label TextColor="Black"
+                                                               HeightRequest="100"
                                                                FontSize="14"
-                                                               VerticalOptions="StartAndExpand"
-                                                               MaxLines="2"
-                                                               HorizontalOptions="StartAndExpand"
+                                                               VerticalOptions="Start"
+                                                               MaxLines="3"
+                                                               HorizontalOptions="Start"
                                                                Text="{Binding title}" HorizontalTextAlignment="Start" FontAttributes="Bold"/>
 
-                                                        <Label 
-                                                               TextColor="Black"
+                                                        <Label TextColor="Black"
                                                                FontSize="14"
-                                                               MaxLines="2"
-                                                               HorizontalOptions="EndAndExpand"
-                                                               Text="{Binding title}" HorizontalTextAlignment="Start" FontAttributes="Bold">
+                                                               VerticalTextAlignment="End"
+                                                               VerticalOptions="End"
+                                                               MaxLines="1"
+                                                               HorizontalOptions="EndAndExpand" 
+                                                               HorizontalTextAlignment="Start" 
+                                                               FontAttributes="Bold">
                                                             <Label.FormattedText>
                                                                 <FormattedString>
                                                                     <Span Text="S/" />
@@ -307,18 +311,12 @@
                                                                  HorizontalOptions="Center"
                                                                  BackgroundColor="Transparent"
                                                                  VerticalOptions="Start">
-                                                    <PCK:PancakeView 
-                                                    CornerRadius="15">
-                                                        <Grid VerticalOptions="CenterAndExpand" BackgroundColor="Black">
-                                                            <Image 
-                                                                Aspect="AspectFill"
-                                                                HeightRequest="110"
-                                                                Source="not_image.jpg"/>
-                                                            <Image 
-                                                                Aspect="AspectFill"
-                                                                HeightRequest="110"
-                                                                BackgroundColor="Transparent"
-                                                                Source="{Binding photo}"/>
+                                                    <PCK:PancakeView CornerRadius="15">
+                                                        <Grid VerticalOptions="CenterAndExpand" BackgroundColor="White">
+                                                            <Image Aspect="AspectFill"
+                                                                   HeightRequest="110"
+                                                                   BackgroundColor="Transparent"
+                                                                   Source="{Binding photo}"/>
 
                                                         </Grid>
                                                     </PCK:PancakeView>
@@ -346,11 +344,11 @@
                                                                 JustifyContent="Center"
                                                                 AlignItems="Center"
                                                                 AlignContent="Start">
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170"  BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
-                                                        <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="5" WidthRequest="180" />
+                                                    <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170"  BackgroundColor="Gray" Margin="10,5" WidthRequest="170"  />
+                                                    <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="10,5" WidthRequest="170"   />
+                                                    <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="10,5" WidthRequest="170"  />
+                                                    <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="8" WidthRequest="170"  />
+                                                    <BoxControl:SkeletonViewBox CornerRadius="15"  HeightRequest="170" BackgroundColor="Gray" Margin="8" WidthRequest="170"  />
                                                     </FlexLayout>
                                                 </tlkit:StateView>
 

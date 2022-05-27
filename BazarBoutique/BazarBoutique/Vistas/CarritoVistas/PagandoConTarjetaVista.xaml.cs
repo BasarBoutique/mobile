@@ -22,6 +22,7 @@ namespace BazarBoutique.Vistas.CarritoVistas
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            FechaVencimiento.MinimumDate = DateTime.Now;
             vistamodel.OnAppearing();
         }
     }

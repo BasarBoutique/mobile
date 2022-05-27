@@ -1,6 +1,7 @@
 ﻿using BazarBoutique.Modelos;
 using BazarBoutique.Services;
 using BazarBoutique.Services.UsuarioServices;
+using BazarBoutique.Vistas.CarritoVistas;
 using BazarBoutique.Vistas.FiltrosVistas;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
         public Command<Uri> PaginaAnteriorCommand { get; set; }
         public Command<Uri> PaginaSiguienteCommand { get; set; }
         public Command GestoRefrescamientoCommand { get; }
+        public Command RedireccionCarritoCommand { get; }
         public Command<PaginaRedireccion> RedireccionPaginaCommand { get; set; }
 
         DataUsuario PaginaDatos = new DataUsuario();
@@ -138,6 +140,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             RedireccionPaginaCommand = new Command<PaginaRedireccion>(SeleccionandoPagina);
             PaginaAnteriorCommand = new Command<Uri>(PaginaPorBoton);
             PaginaSiguienteCommand = new Command<Uri>(PaginaPorBoton);
+            RedireccionCarritoCommand = new Command(RedireccionACarritoPagina);
 
             PaginasListadas = new ObservableCollection<PaginaRedireccion>();
             UsuarioLista = new ObservableCollection<UsuarioModelo>();
@@ -149,6 +152,10 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
             //FiltrosRealizados.filters.categories = new List<int>();
             //FiltrosRealizados.filters.authors = new List<int>();
 
+        }
+        public void RedireccionACarritoPagina()
+        {
+            navigation.PushAsync(new CarritoVista());
         }
 
         private void RedireciconApartadoCursos(UsuarioModelo obj)
@@ -184,6 +191,7 @@ namespace BazarBoutique.VistaModelos.FiltrosViewModels
 
             await EstableciendoValoresDePagina(LinkPagina, FiltrosRealizados);
 
+            VerificandoUsuario();
             //IsBusy = true;
             ////CatalogosCategorias = new ObservableCollection<CategoriaModelo>(await ServicioCategoria.GetCategorias());
             //IsBusy = false;
